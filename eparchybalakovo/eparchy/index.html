@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+  <link rel="stylesheet" href="./css/normalize.css" />
+  <link rel="stylesheet" href="./css/icon.css" />
+  <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="./plugins/jquery.mCustomScrollbar.min.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css"
+    integrity="sha512-H9jrZiiopUdsLpg94A333EfumgUBpO9MdbxStdeITo+KEIMaNfHNvwyjjDJb+ERPaRS6DpyRlKbvPUasNItRyw=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css" />
+  <link rel="stylesheet" href="./css/style.css" />
+  <title>Главная</title>
+</head>
+
+<body>
+
+  <header>
+    <div class="header__hidden">
+      <div class="container">
+        <div class="burger">
+          <span></span>
+        </div>
+        <div class="header__hidden-right">
+          <div class="header__search header__search--active">
+            <input type="text" placeholder="Поиск по сайту">
+            <div class="icon-Search"> </div>
+          </div>
+          <div class="header__hidden-close">
+            <div class="icon-close"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="header__top">
+
+      <img class="header__top-img1" src="./img/picture/Frame 48095889.png" alt="">
+      <img class="header__top-img2" src="./img/picture/Rectangle 37.png" alt="">
+
+      <div class="container">
+        <div class="header__top-content">
+          <img src="./img/picture/logo 1.png" alt="" class="header__top-cross">
+          <h2 class="header__top-title">
+            Балаковская епархия
+
+          </h2>
+          <div class="header__top-text">
+            <p>Саратовская митрополия</p>
+            <p>Русская Православная Церковь</p>
+            <p>По благословению</p>
+            <p> епископа Балаковского и Николаевского Варфоломея</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="header__bottom">
+      <div class="container">
+        <div class="header__bottom-content">
+          <ul class="header__nav">
+            <li class="header__nav-item">
+              <a href="#">Епархия</a>
+            </li>
+            <li class="header__nav-item">
+              <a href="#">Архиерей</a>
+            </li>
+            <li class="header__nav-item">
+              <a href="#">Мультимедиа</a>
+            </li>
+            <li class="header__nav-item">
+              <a href="#">Помочь епархии</a>
+            </li>
+            <li class="header__nav-item">
+              <a href="#">Контакты</a>
+            </li>
+            <div class="header__search">
+              <input type="text" placeholder="Поиск по сайту">
+              <div class="icon-Search"> </div>
+            </div>
+          </ul>
+          <div class="header__bottom-bottom">
+            <p>г. Балаково, ул. Советская, 70</p>
+            <a href="tel:88453232364">8(8453) 23-23-64</a>
+            <a href="tel:88453232363">8(8453) 23-23-63</a>
+            <a href="mailto:balakovo-eparhia@mail.ru ">balakovo-eparhia@mail.ru</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+  <main>
+    <section class="news">
+      <div class="container">
+        <h2 class="titleMin">Новости Епархии</h2>
+        <div class="news__content">
+          <div class="news__left">
+            <div class="news__swiper">
+              <div class="swiper-wrapper">
+                <div class="swiper-slide">
+                  <img src="./img/picture/Rectangle 6.png" alt="">
+                  <div class="news__swiper-content">
+                    <p class="news__swiper-date">03 декабря 2023 г.</p>
+                    <p class="news__swiper-text">Состоялись II Региональные образовательные чтения Балаковской епархии
+                    </p>
+                  </div>
+                </div>
+                <div class="swiper-slide">
+                  <img src="./img/picture/Rectangle 6.png" alt="">
+                  <div class="news__swiper-content">
+                    <p class="news__swiper-date">03 декабря 2023 г.</p>
+                    <p class="news__swiper-text">Состоялись II Региональные образовательные чтения Балаковской епархии
+                    </p>
+                  </div>
+                </div>
+                <div class="swiper-slide">
+                  <img src="./img/picture/Rectangle 6.png" alt="">
+                  <div class="news__swiper-content">
+                    <p class="news__swiper-date">03 декабря 2023 г.</p>
+                    <p class="news__swiper-text">Состоялись II Региональные образовательные чтения Балаковской епархии
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div class="news__swiper-prev">
+                <svg xmlns="http://www.w3.org/2000/svg" width="8" height="14" viewBox="0 0 8 14" fill="none">
+                  <path
+                    d="M0.214933 6.48305L6.75451 0.168703C6.89351 0.0537634 7.07231 -0.00629711 7.25519 0.000522614C7.43806 0.00734329 7.61153 0.0805407 7.74094 0.205491C7.87035 0.330441 7.94616 0.49794 7.95322 0.674515C7.96028 0.851089 7.89808 1.02374 7.77904 1.15795L1.75537 6.98118L7.78631 12.7974C7.85406 12.8628 7.9078 12.9405 7.94446 13.0259C7.98113 13.1114 8 13.203 8 13.2955C8 13.4824 7.92313 13.6616 7.78631 13.7937C7.64948 13.9258 7.46391 14 7.27041 14C7.1746 14 7.07972 13.9818 6.9912 13.9464C6.90269 13.911 6.82226 13.8591 6.75451 13.7937L0.214933 7.47932C0.146828 7.41409 0.0927706 7.3365 0.0558815 7.251C0.0189919 7.16551 0 7.0738 0 6.98118C0 6.88857 0.0189919 6.79686 0.0558815 6.71137C0.0927706 6.62587 0.146828 6.54827 0.214933 6.48305Z"
+                    fill="#619DC9" />
+                </svg>
+              </div>
+              <div class="news__swiper-next">
+                <svg xmlns="http://www.w3.org/2000/svg" width="8" height="14" viewBox="0 0 8 14" fill="none">
+                  <path
+                    d="M7.78507 6.48305L1.24549 0.168703C1.10649 0.0537634 0.927685 -0.00629711 0.744813 0.000522614C0.56194 0.00734329 0.388467 0.0805407 0.25906 0.205491C0.129653 0.330441 0.0538438 0.49794 0.0467802 0.674515C0.0397166 0.851089 0.10192 1.02374 0.220959 1.15795L6.24463 6.98118L0.213693 12.7974C0.145944 12.8628 0.0922026 12.9405 0.0555371 13.0259C0.0188717 13.1114 0 13.203 0 13.2955C0 13.4824 0.0768676 13.6616 0.213693 13.7937C0.350518 13.9258 0.536093 14 0.729593 14C0.825404 14 0.920277 13.9818 1.0088 13.9464C1.09731 13.911 1.17774 13.8591 1.24549 13.7937L7.78507 7.47932C7.85317 7.41409 7.90723 7.3365 7.94412 7.251C7.98101 7.16551 8 7.0738 8 6.98118C8 6.88857 7.98101 6.79686 7.94412 6.71137C7.90723 6.62587 7.85317 6.54827 7.78507 6.48305Z"
+                    fill="#619DC9" />
+                </svg>
+              </div>
+            </div>
+          </div>
+          <div class="news__right">
+            <a href="#" class="card">
+              <img src="./img/picture/Rectangle 10.png" alt="">
+              <p class="card__date">
+                30 ноября 2023 г.
+              </p>
+              <p class="card__text">
+                Священник провел беседу в Балаковском центре для лиц без определенного места жительства
+              </p>
+            </a>
+            <a href="#" class="card">
+              <img src="./img/picture/Rectangle 101.png" alt="">
+              <p class="card__date">
+                30 ноября 2023 г.
+              </p>
+              <p class="card__text">
+                Епархиальная паломническая служба приглашает в поездки по святым местам в дни новогодних каникул
+              </p>
+            </a>
+            <a href="#" class="more">
+              Все новости Епархии
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="news">
+      <div class="container">
+
+        <div class="news__content">
+          <div class="news__wrapper">
+            <h2 class="titleMin">Балаковские Епархиальные ведомости</h2>
+            <div class="news__right">
+              <a href="#" class="card">
+                <img src="./img/picture/Rectangle 11.png" alt="">
+                <p class="card__date">
+                  27 ноября 2023 г.
+                </p>
+                <p class="card__text">
+                  Дать новый фундамент жизни
+                </p>
+              </a>
+              <a href="#" class="card">
+                <img src="./img/picture/Rectangle 12.png" alt="">
+                <p class="card__date">
+                  26 ноября 2023 г.
+                </p>
+                <p class="card__text">
+                  Благословенная жена и мать
+                </p>
+              </a>
+              <a href="#" class="more">
+                Все статьи
+              </a>
+            </div>
+          </div>
+          <div class="news__wrapper">
+            <h2 class="titleMin">Новости Митрополии</h2>
+            <div class="news__right">
+              <a href="#" class="card">
+                <img src="./img/picture/Rectangle 13.png" alt="">
+                <p class="card__date">
+                  01 декабря 2023 г.
+                </p>
+                <p class="card__text">
+                  В Саратовском епархиальном управлении прошло заседание коллегии епархиальных отделов, курирующих
+                  взаимоотношения с силовыми структурами
+                </p>
+              </a>
+              <a href="#" class="card">
+                <img src="./img/picture/Rectangle 14.png" alt="">
+                <p class="card__date">
+                  01 декабря 2023 г.
+                </p>
+                <p class="card__text">
+                  В Свято-Троицкий кафедральный собор г. Покровска (Энгельса) прибудут мощи святителя Николая Чудотворца
+                </p>
+              </a>
+              <a href="#" class="more">
+                Все новости Митрополии
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="newsMin">
+      <div class="container">
+        <div class="newsMin__list">
+
+
+          <div class="newsMin__wrapper">
+            <p class="newsMin__title">Слово Патриарха</p>
+            <a href="#" class="newsMin__item">
+              <img src="./img/picture/Rectangle 15.png" alt="">
+              <div class="newsMin__item-content">
+                <p class="newsMin__item-date">03 декабря 2023 г.</p>
+                <p class="newsMin__item-text">Патриаршая проповедь в день памяти святителя Филарета Московского</p>
+              </div>
+            </a>
+          </div>
+          <div class="newsMin__wrapper">
+            <a href="#" class="newsMin__item">
+              <img src="./img/picture/Rectangle 16.png" alt="">
+              <div class="newsMin__item-content">
+                <p class="newsMin__item-date">01 декабря 2023 г.</p>
+                <p class="newsMin__item-text">Выступление Святейшего Патриарха Кирилла на встрече с победителями и
+                  призерами I и II Общероссийских олимпиад по богословию</p>
+              </div>
+            </a>
+          </div>
+          <div class="newsMin__wrapper">
+            <p class="newsMin__title">Новости Православия</p>
+            <a href="#" class="newsMin__item">
+              <img src="./img/picture/Rectangle 17.png" alt="">
+              <div class="newsMin__item-content">
+                <p class="newsMin__item-date">01 декабря 2023 г.</p>
+                <p class="newsMin__item-text">Святейший Патриарх Кирилл встретился с победителями и призерами I и II
+                  Общероссийских олимпиад по богословию</p>
+              </div>
+            </a>
+          </div>
+          <div class="newsMin__wrapper">
+            <a href="#" class="newsMin__item">
+              <img src="./img/picture/Rectangle 18.png" alt="">
+              <div class="newsMin__item-content">
+                <p class="newsMin__item-date">30 ноября 2023 г.</p>
+                <p class="newsMin__item-text">В Сретенском монастыре г. Москвы прошло очередное собрание с участием
+                  епархиальных ответственных за монастыри</p>
+              </div>
+            </a>
+          </div>
+
+
+
+
+          <div class="newsMin__wrapper">
+            <p class="newsMin__title">Мониторинг СМИ</p>
+            <a href="#" class="newsMin__item">
+              <img src="./img/picture/Rectangle 19.png" alt="">
+              <div class="newsMin__item-content">
+                <p class="newsMin__item-date">30 ноября 2023 г.</p>
+                <p class="newsMin__item-text">Не лечить, не спасать, а вести ко Христу</p>
+              </div>
+            </a>
+          </div>
+          <div class="newsMin__wrapper">
+            <a href="#" class="newsMin__item">
+              <img src="./img/picture/Rectangle 20.png" alt="">
+              <div class="newsMin__item-content">
+                <p class="newsMin__item-date">23 ноября 2023 г.</p>
+                <p class="newsMin__item-text">Русский богослов на Западе. К 120-летию В.Н. Лосского </p>
+              </div>
+            </a>
+          </div>
+
+
+        </div>
+      </div>
+      </div>
+      </div>
+      </div>
+    </section>
+    <section class="photo">
+      <div class="container">
+        <div class="photo__content">
+          <div class="photo__top">
+            <h2 class="titleMin">Фоторепортажи</h2>
+            <a href="#" class="photo__more">Смотреть все</a>
+          </div>
+          <div class="photo__slider">
+            <div class="swiper-wrapper">
+              <a href="#" class="swiper-slide">
+                <img src="./img/picture/Rectangle 21.png" alt="">
+                <p>Приглашаются желающие принять участие в благотворительной акции по сбору помощи детям-отказникам</p>
+              </a>
+              <a href="#" class="swiper-slide">
+                <img src="./img/picture/Rectangle 23.png" alt="">
+                <p>Епископ Варфоломей совершил Божественную литургию в храме Казанской иконы Божией Матери г. Балаково
+                </p>
+              </a>
+              <a href="#" class="swiper-slide">
+                <img src="./img/picture/Rectangle 24.png" alt="">
+                <p>Состоялись II Региональные образовательные чтения Балаковской епархии</p>
+              </a>
+              <a href="#" class="swiper-slide">
+                <img src="./img/picture/Rectangle 25.png" alt="">
+                <p>Священник провел беседу в Балаковском центре для лиц без определенного места жительства</p>
+              </a>
+              <a href="#" class="swiper-slide">
+                <img src="./img/picture/Rectangle 21.png" alt="">
+                <p>Приглашаются желающие принять участие в благотворительной акции по сбору помощи детям-отказникам</p>
+              </a>
+            </div>
+
+          </div>
+          <div class="photo__slider-prev">
+            <svg xmlns="http://www.w3.org/2000/svg" width="8" height="14" viewBox="0 0 8 14" fill="none">
+              <path
+                d="M0.214933 6.48305L6.75451 0.168703C6.89351 0.0537634 7.07231 -0.00629711 7.25519 0.000522614C7.43806 0.00734329 7.61153 0.0805407 7.74094 0.205491C7.87035 0.330441 7.94616 0.49794 7.95322 0.674515C7.96028 0.851089 7.89808 1.02374 7.77904 1.15795L1.75537 6.98118L7.78631 12.7974C7.85406 12.8628 7.9078 12.9405 7.94446 13.0259C7.98113 13.1114 8 13.203 8 13.2955C8 13.4824 7.92313 13.6616 7.78631 13.7937C7.64948 13.9258 7.46391 14 7.27041 14C7.1746 14 7.07972 13.9818 6.9912 13.9464C6.90269 13.911 6.82226 13.8591 6.75451 13.7937L0.214933 7.47932C0.146828 7.41409 0.0927706 7.3365 0.0558815 7.251C0.0189919 7.16551 0 7.0738 0 6.98118C0 6.88857 0.0189919 6.79686 0.0558815 6.71137C0.0927706 6.62587 0.146828 6.54827 0.214933 6.48305Z"
+                fill="#619DC9" />
+            </svg>
+          </div>
+          <div class="photo__slider-next">
+            <svg xmlns="http://www.w3.org/2000/svg" width="8" height="14" viewBox="0 0 8 14" fill="none">
+              <path
+                d="M7.78507 6.48305L1.24549 0.168703C1.10649 0.0537634 0.927685 -0.00629711 0.744813 0.000522614C0.56194 0.00734329 0.388467 0.0805407 0.25906 0.205491C0.129653 0.330441 0.0538438 0.49794 0.0467802 0.674515C0.0397166 0.851089 0.10192 1.02374 0.220959 1.15795L6.24463 6.98118L0.213693 12.7974C0.145944 12.8628 0.0922026 12.9405 0.0555371 13.0259C0.0188717 13.1114 0 13.203 0 13.2955C0 13.4824 0.0768676 13.6616 0.213693 13.7937C0.350518 13.9258 0.536093 14 0.729593 14C0.825404 14 0.920277 13.9818 1.0088 13.9464C1.09731 13.911 1.17774 13.8591 1.24549 13.7937L7.78507 7.47932C7.85317 7.41409 7.90723 7.3365 7.94412 7.251C7.98101 7.16551 8 7.0738 8 6.98118C8 6.88857 7.98101 6.79686 7.94412 6.71137C7.90723 6.62587 7.85317 6.54827 7.78507 6.48305Z"
+                fill="#619DC9" />
+            </svg>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__top">
+        <div class="footer__topLeft">
+          <img src="./img/picture/logo 2.png" alt="">
+          <p>Балаковская епархия
+          </p>
+        </div>
+        <div class="footer__topMid">
+          <a href="">
+            <img src="./img/picture/Rectangle 26.png" alt="" class="footer__radio">
+          </a>
+          <a class="footer__play-link" href="#">
+            <img src="./img/picture/Rectangle 27.png " alt="" class="footer__play">
+          </a>
+          <div class="footer__nav">
+            <a href="#" class="footer__nav-link">Епархия</a>
+            <a href="#" class="footer__nav-link">Архиерей</a>
+            <a href="#" class="footer__nav-link">Мультимедиа</a>
+            <a href="#" class="footer__nav-link">Помочь Епархии</a>
+            <a href="#" class="footer__nav-link">Контакты</a>
+          </div>
+        </div>
+        <div class="footer__topRight">
+          <div class="footer__title">Контакты</div>
+          <div class="footer__contacts">
+            <p>г. Балаково, ул. Советская, 70</p>
+            <a href="tel:88453232364">8(8453) 23-23-64</a>
+            <a href="tel:88453232363">8(8453) 23-23-63</a>
+            <a href="mailto:balakovo-eparhia@mail.ru ">balakovo-eparhia@mail.ru</a>
+          </div>
+          <a href="#" class="footer__disabled">
+            <div class="icon-Eye"></div>
+            <p>Версия для слабовидящих </p>
+          </a>
+        </div>
+      </div>
+      <div class="footer__bottom">
+        <div class="footer__bottomLeft">
+          <div class="footer__copyright">2023 © Балаковская епархия</div>
+        </div>
+        <div class="footer__bottomCenter">
+          <div class="footer__links">
+            <a href="#"><img src="./img/picture/Rectangle 28.png" alt=""></a>
+            <a href="#"><img src="./img/picture/Rectangle 29.png" alt=""></a>
+            <a href="#"><img src="./img/picture/Rectangle 30.png" alt=""></a>
+            <a href="#"><img src="./img/picture/Rectangle 31.png" alt=""></a>
+            <a href="#"><img src="./img/picture/Rectangle 32.png" alt=""></a>
+            <a href="#"><img src="./img/picture/Rectangle 33.png" alt=""></a>
+            <a href="#"><img src="./img/picture/Rectangle 34.png" alt=""></a>
+            <a href="#"><img src="./img/picture/Rectangle 35.png" alt=""></a>
+          </div>
+          <div class="footer__copyright">2023 © Балаковская епархия</div>
+          <a href="#" class="footer__policy">
+            Политика конфиденциальности
+          </a>
+        </div>
+        <div class="footer__bottomRight">
+          <a href="#" class="footer__disabled">
+            <div class="icon-Eye"></div>
+            <p>Версия для слабовидящих </p>
+          </a>
+          <a href="#" class="footer__prod">
+            <p>Разработка сайта</p>
+            <img src="./img/picture/Rectangle 36.png" alt="">
+          </a>
+        </div>
+      </div>
+    </div>
+  </footer>
+  <script src="./plugins/jquery-3.6.0.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
+  <script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU"></script>
+  <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+  <script src="./plugins/jquery.mCustomScrollbar.js"></script>
+  <script src="./plugins/jquery.mask.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js"
+    integrity="sha512-uURl+ZXMBrF4AwGaWmEetzrd+J5/8NRkWAvJx5sbPSSuOb0bZLqf+tOzniObO00BjHa/dD7gub9oCGMLPQHtQA=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="./js/ymapCustom.js"></script>
+  <script src="./js/script.js"></script>
+</body>
+
+</html>
