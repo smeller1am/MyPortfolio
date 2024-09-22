@@ -1,0 +1,36 @@
+---
+import Advantages from "@components/Advantages.astro";
+import Breadcrumbs from "@components/Breadcrumbs.astro";
+import Layout from "@components/Layout.astro";
+import ProductGrid from "@components/ProductGrid.astro";
+import ProductHero from "@components/ProductHero.astro";
+import ProductSwiper from "@components/ProductSwiper.astro";
+import ProductTab from "@components/ProductTab.astro";
+
+const items: { sale: boolean; tag: string }[] = [
+  { sale: true, tag: "-10 000" },
+  { sale: false, tag: "" },
+  { sale: true, tag: "" },
+  { sale: true, tag: "" },
+];
+
+const breadcrumbs: string[] = ["Главная", "IPhone15"];
+---
+
+<Layout title="Карточка товара">
+  <Breadcrumbs
+    items={breadcrumbs}
+    last="Apple iPhone 15 Pro 128Gb Natural Titanium"
+  />
+  <ProductHero />
+  <ProductGrid {items} title="С этим товаром часто покупают" />
+  <ProductSwiper title="Похожие товары" />
+  <ProductTab />
+  <Advantages />
+</Layout>
+
+<script>
+  import { setUpMiniBuyButtons } from "src/script/shared";
+
+  setUpMiniBuyButtons();
+</script>

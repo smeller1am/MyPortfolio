@@ -1,0 +1,35 @@
+<div class="drawer-trigger icon-burger"></div>
+
+<style is:global lang="scss">
+  .drawer-trigger {
+    font-size: 32px;
+    cursor: pointer;
+  }
+</style>
+
+<script>
+  import { closeDrawer, openDrawer } from "../script/utils";
+  const trigger = document.querySelector(".drawer-trigger");
+  const container = document.querySelector(".drawer");
+
+  function onclick() {
+    if (trigger && container) {
+      if (trigger.getAttribute("data-open") === "true") {
+        closeDrawer(trigger, container);
+      } else {
+        openDrawer(trigger, container);
+        //@ts-ignore
+        if (typeof CloseWatcher !== "undefined") {
+          //@ts-ignore
+          let watcher = new CloseWatcher();
+          watcher.onclose = () => {
+            closeDrawer(trigger, container);
+            watcher.destroy();
+          };
+        }
+      }
+    }
+  }
+
+  if (trigger) trigger.addEventListener("click", onclick);
+</script>

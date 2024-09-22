@@ -1,0 +1,45 @@
+<label for="sale" class="switch">
+  <input name="sale" type="checkbox" class="switch__element" id="sale" />
+  <span class="switch__slider"></span>
+</label>
+
+<style is:global lang="scss">
+  .switch {
+    width: 45px;
+    height: 25px;
+    display: inline-block;
+    cursor: pointer;
+    position: relative;
+
+    &__slider {
+      position: absolute;
+      inset: 0;
+      background: $color-text-gray-light;
+      border-radius: 25px;
+
+      &::before {
+        content: "";
+        position: absolute;
+        height: 21px;
+        width: 21px;
+        left: 2px;
+        top: 2px;
+        background: white;
+        transition: 0.38s all;
+        border-radius: 50%;
+      }
+    }
+
+    &__element {
+      display: none;
+    }
+
+    &__element:checked + &__slider {
+      background: #52ba33;
+
+      &::before {
+        transform: translateX(20px);
+      }
+    }
+  }
+</style>

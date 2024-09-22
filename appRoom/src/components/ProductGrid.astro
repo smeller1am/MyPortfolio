@@ -1,0 +1,83 @@
+---
+import ProductCard from "./ProductCard.astro";
+
+interface Props {
+  items: { sale: boolean; tag: string }[];
+  title: string;
+  mb?: boolean;
+}
+
+const { title, items, mb } = Astro.props;
+---
+
+<section class:list={["product-grid", { "product-grid--bottom": mb }]}>
+  <div class="product-grid__container">
+    <h2 class="title title--small">{title}</h2>
+    <div class="product-grid__list">
+      {
+        items.map(({ sale, tag }) => (
+          <ProductCard variant="normal" {sale} {tag} />
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<style is:global lang="scss">
+  .product-grid {
+    @include section();
+    margin-bottom: fluid(45px, 80px);
+
+    &--bottom {
+      margin-bottom: fluid(40px, 110px);
+    }
+
+    &__container {
+      grid-area: center;
+      gap: fluid(20px, 40px);
+      display: flex;
+      flex-direction: column;
+    }
+
+    &__list {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+    }
+  }
+
+  @media (max-width: 992px) {
+    .product-grid {
+      &__container {
+      }
+
+      &__list {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 20px;
+      }
+    }
+  }
+
+  @media (max-width: 768px) {
+    .product-grid {
+      &__container {
+      }
+
+      &__list {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 15px;
+      }
+    }
+  }
+
+  @media (max-width: 576px) {
+    .product-grid {
+      &__container {
+      }
+
+      &__list {
+        gap: 10px;
+      }
+    }
+  }
+</style>

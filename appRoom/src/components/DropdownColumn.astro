@@ -1,0 +1,60 @@
+---
+export type DropdownColumn = {
+  title: string;
+  list: string[];
+  menu?: boolean;
+  sale?: boolean;
+};
+
+interface Props extends DropdownColumn {}
+
+const { title, list, menu, sale } = Astro.props;
+---
+
+<div class:list={["dropdown-column", { "dropdown-column--sale": sale }]}>
+  <div class="dropdown-column__title">{title}</div>
+  <div class="dropdown-column__list">
+    {
+      list.map((item, index) => (
+        <a href="#" class="dropdown-column__link" data-menu={menu && index + 1}>
+          {item}
+        </a>
+      ))
+    }
+  </div>
+</div>
+
+<style is:global lang="scss">
+  .dropdown-column {
+    display: flex;
+    flex-direction: column;
+    gap: fluid(8px, 16px);
+
+    &--sale {
+      margin-left: fluid(80px, 160px);
+    }
+
+    &__title {
+      min-height: 2em;
+      font-size: fluid(14px, 16px);
+      color: $color-text-gray-light;
+    }
+
+    &__list {
+      display: flex;
+      flex-direction: column;
+      gap: fluid(6px, 11px);
+    }
+
+    &__link {
+      font-size: fluid(16px, 20px);
+      line-height: 1.4;
+      transition: color 0.38s ease-in-out;
+
+      &:hover,
+      &--active {
+        color: $color-text-purple;
+      }
+    }
+  }
+</style>

@@ -1,0 +1,156 @@
+---
+import Dropdown from "./Dropdown.astro";
+
+const navigationItems: { name: string; tab?: number }[] = [
+  { name: "Каталог", tab: 0 },
+  { name: "Распродажа", tab: undefined },
+  { name: "iPhone", tab: 1 },
+  { name: "iPad", tab: 2 },
+  { name: "AirPods", tab: 3 },
+  { name: "Mac", tab: 4 },
+  { name: "Watch", tab: 5 },
+  { name: "Аксессуары", tab: 6 },
+  { name: "Dyson", tab: 7 },
+  { name: "Vision Pro", tab: 8 },
+  { name: "Android", tab: 9 },
+];
+---
+
+<div class="navigation">
+  <nav class="navigation__container">
+    <ul class="navigation__list">
+      {
+        navigationItems.map(({ name, tab }) => (
+          <li class="navigation__wrap">
+            <a href="#" class="navigation__item" data-tab={tab}>
+              {name}
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </nav>
+  <Dropdown />
+</div>
+
+<style is:global lang="scss">
+  .navigation {
+    // position: fixed;
+    // top: fluid(160px, 191px);
+    // left: 0;
+    // width: 100%;
+    // z-index: 20;
+    &__container {
+      @include section();
+      background-color: white;
+      padding-top: 10px;
+      padding-bottom: 10px;
+    }
+
+    &__list {
+      grid-area: center;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    &__wrap:not(:first-child) &__item {
+      padding-left: 8px;
+    }
+
+    &__wrap:not(:last-child) &__item {
+      padding-right: 8px;
+    }
+
+    &__item {
+      display: block;
+      padding-top: 8px;
+      padding-bottom: 8px;
+      font-size: fluid(16px, 20px);
+      transition: color 0.38s ease-in-out;
+      line-height: 1.4;
+
+      &:hover,
+      &--active {
+        color: $color-text-purple;
+      }
+    }
+  }
+
+  @media (max-width: 992px) {
+    .navigation {
+      display: none;
+    }
+  }
+</style>
+
+<script>
+  import { addClass, removeClass } from "../script/utils";
+
+  const nav = document.querySelector(".navigation");
+  const navItems = document.querySelectorAll(".navigation__item[data-tab]");
+  const dropdownItems = document.querySelectorAll(".dropdown__item[data-tab]");
+  const dropdown = document.querySelector(".dropdown");
+
+  function hoverNavItem(element: Element) {
+    navItems.forEach((item) => removeClass(item, "navigation__item--active"));
+    addClass(element, "navigation__item--active");
+    const tabId = element.getAttribute("data-tab");
+
+    if (dropdown) {
+      addClass(dropdown, "dropdown--open");
+      setTimeout(() => addClass(dropdown, "dropdown--opacity"), 100);
+
+      dropdownItems.forEach((item) => {
+        removeClass(item, "dropdown__item--opacity");
+        removeClass(item, "dropdown__item--active");
+
+        if (item.getAttribute("data-tab") === tabId) {
+          addClass(item, "dropdown__item--active");
+          setTimeout(() => addClass(item, "dropdown__item--opacity"), 150);
+        }
+      });
+    }
+  }
+
+  let timeEnter = 0;
+  let timeLeave = 0;
+
+  function enterNav() {
+    timeEnter = new Date().valueOf();
+    timeLeave = timeEnter;
+  }
+
+  function leaveNav() {
+    timeLeave = new Date().valueOf();
+
+    setTimeout(() => {
+      if (dropdown && timeEnter < timeLeave) {
+        navItems.forEach((item) =>
+          removeClass(item, "navigation__item--active"),
+        );
+        removeClass(dropdown, "dropdown--opacity");
+        setTimeout(() => removeClass(dropdown, "dropdown--open"), 250);
+      }
+    }, 1000);
+  }
+
+  const pointerover = (e: Event) => {
+    const hoverAction = () => {
+      if (e.target instanceof Element) hoverNavItem(e.target);
+    };
+
+    if (dropdown) {
+      if (dropdown.classList.contains("dropdown--open")) hoverAction();
+      else {
+        let timeout = setTimeout(() => {
+          if (timeEnter === timeLeave) hoverAction();
+          else clearTimeout(timeout);
+        }, 300);
+      }
+    }
+  };
+
+  if (nav) nav.addEventListener("pointerenter", enterNav);
+  if (nav) nav.addEventListener("pointerleave", leaveNav);
+  navItems.forEach((item) => item.addEventListener("pointerover", pointerover));
+</script>

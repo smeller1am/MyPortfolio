@@ -1,0 +1,232 @@
+---
+interface Props {
+  href?: string;
+  color: "primary" | "secondary" | "tertiary" | "twin";
+  variant: "product" | "submit" | "buy" | "more";
+  submit?: boolean;
+  close?: boolean;
+  icon?: "cart";
+  buy?: boolean;
+  modal?: boolean;
+  wide?: boolean;
+}
+
+const {
+  href = undefined,
+  close,
+  variant,
+  color,
+  icon,
+  buy,
+  modal,
+  wide,
+  submit = false,
+} = Astro.props;
+
+const classList = [
+  "button",
+  `button--${color}`,
+  `button--${variant}`,
+  { "button--close": close },
+  { "button--wide": wide },
+  { "add-cart-modal": buy },
+  { modalbox: modal },
+];
+
+const Element = href ? "a" : submit ? "button" : "div";
+---
+
+<Element {href} type={submit ? "submit" : undefined} class:list={classList}>
+  <span>
+    <slot />
+  </span>
+  {icon && <span class:list={["button__icon", `icon-${icon}`]} />}
+</Element>
+
+<style is:global lang="scss">
+  .button {
+    border-radius: 999px;
+    overflow: hidden;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+
+    &::before {
+      border-radius: 999px;
+      overflow: hidden;
+    }
+
+    &:focus-visible {
+      outline: none;
+    }
+
+    &__icon {
+      font-size: 30px;
+    }
+
+    &--primary {
+      position: relative;
+      color: white;
+      border: 1px solid transparent;
+      transition: border 0.38s ease-in-out;
+
+      &::before {
+        top: 0;
+        left: 0;
+        content: "";
+        background: linear-gradient($gradient-purple-peach);
+        display: flex;
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        z-index: 1;
+        opacity: 1;
+        transition: opacity 0.38s ease-in-out;
+        transition-property: opacity, color;
+      }
+
+      &:hover {
+        border: 1px solid $color-text-purple;
+        color: $color-text-purple;
+        &::before {
+          opacity: 0;
+        }
+      }
+
+      span {
+        z-index: 2;
+      }
+    }
+
+    &--secondary,
+    &--twin {
+      position: relative;
+      color: $color-text-black;
+      border: 1px solid $color-text-purple;
+      outline-offset: -1px;
+      transition: border 0.38s ease-in-out;
+
+      &::before {
+        top: 0;
+        left: 0;
+        content: "";
+        background: linear-gradient($gradient-purple-peach);
+        display: flex;
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        z-index: 1;
+        opacity: 0;
+        transition: opacity 0.38s ease-in-out;
+        transition-property: opacity, color;
+      }
+
+      &:hover {
+        color: white;
+        border: 1px solid transparent;
+        &::before {
+          opacity: 1;
+        }
+      }
+
+      span {
+        z-index: 2;
+      }
+    }
+
+    &--twin {
+      color: $color-text-purple;
+    }
+
+    &--tertiary {
+      color: $color-text-purple;
+      transition: outline-color 0.38s ease-in-out;
+      outline: 1px solid transparent;
+      outline-offset: -1px;
+      transition-property: outline-color, color;
+
+      &:hover {
+        color: $color-text-black;
+        outline-color: $color-text-purple;
+      }
+    }
+
+    &--product {
+      padding: 10px 20px;
+      line-height: 1.4;
+      font-size: 18px;
+      font-weight: 600;
+      text-transform: uppercase;
+    }
+
+    &--submit {
+      line-height: 1.4;
+      font-size: 18px;
+      font-weight: 600;
+      padding: 12px;
+      flex-grow: 1;
+    }
+
+    &--more {
+      line-height: 1.4;
+      font-size: 16px;
+      font-weight: 400;
+      padding: 14px;
+      flex-grow: 1;
+    }
+
+    &--buy {
+      text-transform: uppercase;
+      font-size: 18px;
+      padding: 10px;
+      font-weight: 600;
+      line-height: 1.4;
+    }
+
+    &--wide {
+      min-width: 282px;
+    }
+
+    &--loading {
+      pointer-events: none;
+
+      span:not(.button__icon) {
+        display: none;
+      }
+
+      &:hover {
+        color: white;
+
+        &::before {
+          opacity: 1;
+        }
+      }
+    }
+  }
+
+  @media (max-width: 992px) {
+    .button {
+      &--product {
+        font-size: 12px;
+        padding: 10px;
+        flex-grow: 1;
+      }
+
+      &--submit {
+        padding: 14px;
+        font-size: 16px;
+      }
+
+      &--buy {
+        font-size: 14px;
+        padding: 8px;
+      }
+
+      &--wide {
+        min-width: 230px;
+      }
+    }
+  }
+</style>

@@ -1,0 +1,123 @@
+<div class="pagination tui-pagination" id="pagination">
+  <!-- <a class="pagination__prev icon-arrow-left"></a>
+  <a class="pagination__item pagination__item--active">1</a>
+  <a href="" class="pagination__item">2</a>
+  <a href="" class="pagination__item">3</a>
+  <a href="" class="pagination__item">4</a>
+   <span class="pagination__item">...</span>
+   <a href="" class="pagination__item">5</a>
+   <a href="" class="pagination__next icon-arrow-right"></a> -->
+</div>
+
+<style is:global lang="scss">
+  .tui {
+    &-pagination {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 17px;
+      .tui-is-selected,
+      .tui-pagination strong {
+        border: transparent;
+        color: rgb(10, 9, 9);
+      }
+      .tui {
+        &-prev,
+        &-next {
+          margin: 0;
+        }
+        &-page {
+          &-btn {
+            border: transparent;
+            color: rgb(10, 9, 9);
+            font-size: 20px;
+            background-color: transparent !important;
+            font-weight: 400;
+            line-height: 1;
+
+            min-width: 1em;
+            text-align: center;
+          }
+        }
+        &-is {
+          &-selected {
+            border: none !important;
+            background-color: transparent !important;
+            color: #bb3aa7;
+          }
+        }
+      }
+    }
+  }
+  .pagination {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+
+    &__prev {
+    }
+
+    &__next {
+    }
+
+    &__prev,
+    &__next {
+      font-size: 18px;
+      height: 20px;
+      width: 20px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    &__item {
+    }
+
+    &__prev,
+    &__next,
+    &__item {
+      transition: color 0.38s ease-in-out;
+      cursor: pointer;
+
+      &:not(span):hover,
+      &--active {
+        color: $color-text-purple;
+      }
+    }
+  }
+  @media (max-width: 992px) {
+    .pagination {
+      &__prev {
+      }
+
+      &__next {
+      }
+
+      &__prev,
+      &__next {
+      }
+
+      &__item {
+        font-size: 16px;
+        padding-top: 8px;
+        padding-bottom: 8px;
+        min-width: 1.55em;
+
+        &--active {
+        }
+      }
+    }
+  }
+  @media (max-width: 576px) {
+    .pagination {
+      gap: 10px;
+    }
+    .tui-pagination {
+      .tui-page-btn {
+        font-size: 20px;
+        width: 20px;
+      }
+    }
+  }
+</style>

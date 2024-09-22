@@ -1,0 +1,51 @@
+---
+import type { HTMLAttributes } from "astro/types";
+
+interface Props extends HTMLAttributes<"input"> {}
+
+const { ...restProps } = Astro.props;
+---
+
+<form class="search-bar">
+  <input {...restProps} type="text" class="search-bar__element" />
+  <button type="submit" class="search-bar__submit icon-search"></button>
+</form>
+
+<style is:global lang="scss">
+  .search-bar {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    flex: 1;
+
+    &__element {
+      grid-area: 1/1/-1/-1;
+      border-radius: 999px;
+      padding: 14px 20px;
+      font-size: 16px;
+      padding-right: 60px;
+      border: 1px solid white;
+      transition: border 0.38s ease-in-out;
+
+      &::placeholder {
+        color: $color-text-gray-light;
+      }
+
+      &:focus,
+      &:focus-visible {
+        outline: unset;
+        border-color: $color-text-purple;
+      }
+    }
+
+    &__submit {
+      grid-area: 1/2/-1/-1;
+      font-size: 26px;
+      padding: 14px 20px;
+      transition: color 0.38s ease-in-out;
+
+      &:hover {
+        color: $color-text-purple;
+      }
+    }
+  }
+</style>

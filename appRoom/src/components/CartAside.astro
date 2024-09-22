@@ -1,0 +1,125 @@
+---
+const items: { text: string; price: string }[] = [
+  { text: "Стоимость товара", price: "100 999 ₽" },
+  { text: "Стоимсть услуг", price: "0 ₽" },
+];
+---
+
+<div class="cart-aside">
+  <div class="cart-aside__top">
+    {
+      items.map(({ price, text }) => (
+        <div class="cart-aside__row">
+          <div class="cart-aside__text">{text}</div>
+          <div class="cart-aside__price">{price}</div>
+        </div>
+      ))
+    }
+  </div>
+
+  <div class="cart-aside__bottom">
+    <div class="cart-aside__row">
+      <div class="cart-aside__text">Итого</div>
+      <div class="cart-aside__price">100 999 ₽</div>
+    </div>
+  </div>
+</div>
+
+<style is:global lang="scss">
+  .cart-aside {
+    align-self: start;
+    box-shadow: $shadow-card;
+    border-radius: 30px;
+    background-color: white;
+    grid-area: aside;
+    padding: fluid(25px, 50px) fluid(20px, 40px);
+
+    &__top {
+      display: flex;
+      flex-direction: column;
+      gap: fluid(15px, 20px);
+      padding-bottom: fluid(20px, 40px);
+    }
+
+    &__bottom {
+      padding-top: fluid(15px, 30px);
+      border-top: 1px solid $color-border-gray;
+    }
+
+    &__row {
+      display: flex;
+      justify-content: space-between;
+      line-height: 1;
+      gap: 15px;
+    }
+
+    &__text {
+      color: $color-text-gray;
+      font-size: fluid(16px, 22px);
+      font-weight: 400;
+    }
+
+    &__bottom &__text {
+      color: $color-text-black;
+    }
+
+    &__price {
+      font-size: fluid(18px, 24px);
+      font-weight: 500;
+    }
+  }
+
+  @media (max-width: 992px) {
+    .cart-aside {
+      border-radius: 20px;
+
+      &__top {
+      }
+
+      &__bottom {
+      }
+
+      &__row {
+      }
+
+      &__text {
+      }
+
+      &__bottom &__text {
+      }
+
+      &__price {
+      }
+    }
+  }
+
+  @media (max-width: 768px) {
+    .cart-aside {
+      border-radius: 20px;
+      padding: 22px 15px;
+      padding-bottom: 15px;
+
+      &__top {
+        gap: 16px;
+        padding-bottom: 10px;
+      }
+
+      &__bottom {
+      }
+
+      &__row {
+      }
+
+      &__text {
+        font-size: 14px;
+      }
+
+      &__bottom &__text {
+      }
+
+      &__price {
+        font-size: 18px;
+      }
+    }
+  }
+</style>

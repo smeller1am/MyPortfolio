@@ -1,0 +1,176 @@
+---
+import SearchTrigger from "./SearchTrigger.astro";
+---
+
+<div class="search">
+  <div class="search__header">
+    <div class="search__header-container">
+      <div class="search__title">Поиск</div>
+      <SearchTrigger variant="close" />
+    </div>
+  </div>
+
+  <form class="search__form">
+    <div class="search__form-container">
+      <div class="search__element">
+        <input
+          type="text"
+          class="search__input"
+          placeholder="купить iphone 15 128"
+        />
+        <button type="reset" value="" class="search__erase icon-close"></button>
+      </div>
+    </div>
+  </form>
+
+  <div class="search__body">
+    <div class="search__body-container">
+      {
+        [1, 2, 3, 4].map((_, index) => (
+          <div class="search__item">
+            <img src="/img/product.png" alt="" class="search__item-image" />
+            <div class="search__item-title">
+              Apple iPhone 15 Pro 128Gb Natural Titanium
+            </div>
+            <div class="search__item-price">100 999 ₽</div>
+            {index === 0 && <div class="search__item-sale">100 999 ₽</div>}
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</div>
+
+<style is:global lang="scss">
+  .search {
+    z-index: 30;
+    position: fixed;
+    top: -100%;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: white;
+    transition: top 0.38s ease-in-out;
+    display: flex;
+    flex-direction: column;
+
+    &__header {
+      padding-top: 20px;
+      margin-bottom: 18px;
+      @include section();
+      &-container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        grid-area: center;
+      }
+    }
+
+    &__body {
+      padding-bottom: 20px;
+      overflow-y: auto;
+      @include section();
+      &-container {
+        grid-area: center;
+        display: flex;
+        flex-direction: column;
+        gap: 17px;
+      }
+    }
+
+    &__title {
+      font-size: 20px;
+      font-weight: 500;
+    }
+
+    &__form {
+      margin-bottom: 27px;
+      @include section();
+      &-container {
+        grid-area: center;
+      }
+    }
+
+    &__element {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      align-items: center;
+    }
+
+    &__input {
+      grid-area: 1/1/-1/-1;
+      background-color: $color-background-blue-light;
+      font-size: 14px;
+      padding: 15px;
+      padding-left: 20px;
+      padding-right: 42px;
+      border-radius: 999px;
+
+      &:focus,
+      &:focus-visible {
+        outline: unset;
+      }
+
+      &::placeholder {
+        color: $color-text-gray-light;
+      }
+    }
+
+    &__erase {
+      font-size: 22px;
+      grid-area: 1/2/-1/-1;
+      padding: 12px;
+      margin-right: 8px;
+      opacity: 1;
+      transition: opacity 0.38s ease-in-out;
+    }
+
+    &__input:placeholder-shown + &__erase {
+      opacity: 0;
+    }
+
+    &__item {
+      display: grid;
+      grid-template-columns: auto auto 1fr;
+      grid-template-rows: auto auto;
+      grid-template-areas: "image title title" "image price sale";
+
+      &-image {
+        height: 72px;
+        width: 72px;
+        aspect-ratio: 1;
+        grid-area: image;
+        margin-right: 10px;
+        background-color: white;
+        object-fit: contain;
+      }
+
+      &-title {
+        font-size: 14px;
+        font-weight: 400;
+        color: $color-text-gray;
+        grid-area: title;
+        line-height: 1.4;
+      }
+
+      &-price {
+        font-weight: 500;
+        font-size: 18px;
+        grid-area: price;
+        align-self: end;
+        margin-right: 15px;
+        line-height: 1;
+      }
+
+      &-sale {
+        font-weight: 500;
+        font-size: 14px;
+        text-decoration: line-through;
+        color: $color-text-gray-light;
+        grid-area: sale;
+        align-self: end;
+        line-height: 1.2;
+      }
+    }
+  }
+</style>

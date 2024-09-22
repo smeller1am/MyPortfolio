@@ -1,0 +1,470 @@
+<div
+  class="cart-product"
+  data-productid="12655"
+  data-price="95490"
+  data-var="17664"
+>
+  <div class="cart-product__description">
+    <img src="/img/product.png" alt="" class="cart-product__image" />
+    <a href="#" class="cart-product__title">
+      Apple iPhone 14 Plus 512Gb Red - 1Sim
+    </a>
+  </div>
+  <div class="cart-product__action">
+    <div class="cart-product__counter">
+      <div class="cart-product__counter-minus">-</div>
+      <div class="cart-product__counter-amount">1</div>
+      <div class="cart-product__counter-plus">+</div>
+    </div>
+    <div class="cart-product__price ruble">95490</div>
+    <div class="cart-product__delete">
+      <div class="cart-product__delete-icon icon-trash"></div>
+      <div class="cart-product__delete-text">Удалить</div>
+    </div>
+  </div>
+</div>
+
+<style is:global lang="scss">
+  .cart-product {
+    display: grid;
+    grid-template-columns: 1.4fr 1fr;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+
+    &__description {
+      display: flex;
+      align-items: center;
+      gap: fluid(10px, 20px);
+    }
+
+    &__image {
+      $size: fluid(85px, 150px);
+      width: $size;
+      height: $size;
+      object-fit: contain;
+    }
+
+    &__title {
+      font-weight: 400;
+      font-size: fluid(16px, 20px);
+      color: $color-text-gray;
+      line-height: 1.3;
+      min-height: 4em;
+      max-width: 20ch;
+      transition: color 0.38s ease-in-out;
+
+      &:hover {
+        color: $color-text-purple;
+      }
+    }
+
+    &__action {
+      display: grid;
+      grid-template-columns: max-content max-content auto;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+    }
+
+    &__counter {
+      border: 1px solid $color-border-gray;
+      border-radius: 10px;
+      display: grid;
+      grid-template-columns: fluid(30px, 40px) minmax(fluid(26px, 45px), 1fr) fluid(
+          30px,
+          40px
+        );
+      grid-template-rows: fluid(34px, 40px);
+      font-size: fluid(18px, 24px);
+      line-height: 1;
+      align-items: center;
+      justify-items: center;
+      user-select: none;
+      overflow: hidden;
+
+      &-minus,
+      &-plus {
+        font-weight: 400;
+        cursor: pointer;
+        height: 100%;
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: background-color 0.38s ease-in-out;
+
+        &:hover {
+          background-color: $color-background-gray-light;
+        }
+      }
+
+      &-minus {
+      }
+
+      &-amount {
+        font-weight: 500;
+      }
+
+      &-plus {
+      }
+    }
+
+    &__price {
+      font-weight: 500;
+      font-size: fluid(18px, 24px);
+      line-height: 1;
+    }
+
+    &__delete {
+      cursor: pointer;
+      &-icon {
+        font-size: 35px;
+        transition: color 0.38s ease-in-out;
+
+        &:hover {
+          color: $color-text-purple;
+        }
+      }
+
+      &-text {
+        display: none;
+      }
+    }
+  }
+
+  @media (max-width: 992px) {
+    .cart-product {
+      &__description {
+      }
+
+      &__image {
+      }
+
+      &__title {
+        &:hover {
+        }
+      }
+
+      &__action {
+      }
+
+      &__counter {
+        &-minus,
+        &-plus {
+          &:hover {
+          }
+        }
+
+        &-minus {
+        }
+
+        &-amount {
+        }
+
+        &-plus {
+        }
+      }
+
+      &__price {
+      }
+
+      &__delete {
+        &-icon {
+          &:hover {
+          }
+        }
+
+        &-text {
+        }
+      }
+    }
+  }
+
+  @media (max-width: 768px) {
+    .cart-product {
+      grid-template-columns: auto 1fr auto;
+      grid-template-areas: "image title title" "image price count" ". . delete";
+      row-gap: 9px;
+      &__description {
+        display: contents;
+      }
+
+      &__image {
+        grid-area: image;
+        align-self: start;
+      }
+
+      &__title {
+        margin-top: 10px;
+        grid-area: title;
+        min-height: 3em;
+        &:hover {
+        }
+      }
+
+      &__action {
+        display: contents;
+      }
+
+      &__counter {
+        grid-area: count;
+        &-minus,
+        &-plus {
+          &:hover {
+          }
+        }
+
+        &-minus {
+        }
+
+        &-amount {
+        }
+
+        &-plus {
+        }
+      }
+
+      &__price {
+        grid-area: price;
+      }
+
+      &__delete {
+        grid-area: delete;
+        justify-self: end;
+        &-icon {
+          display: none;
+          &:hover {
+          }
+        }
+
+        &-text {
+          display: block;
+          font-size: 12px;
+        }
+      }
+    }
+  }
+</style>
+
+<script>
+  import { cartAdd, cartDelete } from "../script/api";
+
+  function setCartCount(count: number) {
+    const counters = document.querySelectorAll(".header__buy");
+    counters.forEach((counter) => {
+      if (counter instanceof HTMLElement) {
+        counter.setAttribute("data-count", String(count));
+      }
+    });
+
+    const topElement = document.querySelector(".cart__count");
+
+    if (topElement instanceof HTMLElement) {
+      topElement.innerText = `${count} товаров`;
+    }
+  }
+
+  function setCartPrice(sum: number) {
+    const price = document.querySelector(".header__desktop-price");
+    if (price instanceof HTMLElement) {
+      price.innerText = String(sum);
+    }
+
+    const asideElement = document.getElementById("cartProductsSum");
+    if (asideElement instanceof HTMLElement) {
+      asideElement.innerText = String(sum);
+    }
+
+    const body = document.querySelector(".cart__body");
+    if (body instanceof HTMLElement) {
+      body.setAttribute("data-sum", String(sum));
+    }
+
+    let checkedSum = 0;
+
+    const checkeds = document.querySelectorAll("[data-serviceprice]");
+    const service = document.getElementById("cartServicesSum");
+    const all = document.getElementById("allCartSum");
+
+    checkeds.forEach((wrap) => {
+      if (wrap instanceof HTMLElement) {
+        const price = wrap.getAttribute("data-serviceprice");
+        const checked = wrap.querySelector('[type="checkbox"]');
+
+        if (price && checked instanceof HTMLInputElement && checked.checked) {
+          checkedSum += +price;
+        }
+
+        if (service) service.innerText = String(checkedSum);
+        if (all) all.innerText = String(sum + checkedSum);
+      }
+    });
+  }
+
+  function setItemPrice(element: HTMLElement, count: number) {
+    const price = element.getAttribute("data-price");
+    const place = element.querySelector(".cart-product__price");
+    if (price && place instanceof HTMLElement) {
+      place.innerText = String(+price * count);
+    }
+  }
+
+  function disableButtons() {
+    const action = document.querySelectorAll(".cart-product__action");
+    action.forEach((item) => {
+      if (item instanceof HTMLElement) item.style.pointerEvents = "none";
+    });
+  }
+
+  function enableButtons() {
+    const action = document.querySelectorAll(".cart-product__action");
+    action.forEach((item) => {
+      if (item instanceof HTMLElement) item.removeAttribute("style");
+    });
+  }
+
+  async function itemsHandler(item: HTMLElement) {
+    function getID(element: HTMLElement) {
+      const id = element.getAttribute("data-productid");
+      return id ? +id : -1;
+    }
+
+    function getVariant(element: HTMLElement) {
+      const variant = element.getAttribute("data-var");
+      return variant ? +variant : undefined;
+    }
+
+    const deleteElement = item.querySelector(".cart-product__delete");
+    const deleteIcon = deleteElement?.querySelector(
+      ".cart-product__delete-icon",
+    );
+
+    if (
+      deleteElement instanceof HTMLElement &&
+      deleteIcon instanceof HTMLElement
+    ) {
+      deleteElement.addEventListener("click", async () => {
+        try {
+          const id = getID(item);
+          const variant = getVariant(item);
+
+          deleteIcon.classList.remove("icon-trash");
+          deleteIcon.classList.add("icon-spin");
+          deleteIcon.classList.add("animation-spin");
+          disableButtons();
+
+          const { sum, count, variation, product_id } = await cartDelete(
+            id,
+            variant,
+          );
+
+          enableButtons();
+          setCartCount(count);
+          setCartPrice(sum);
+
+          if (getID(item) === product_id || getVariant(item) === variation) {
+            item.remove();
+          }
+        } catch (error) {
+          console.log(error);
+        }
+      });
+    }
+
+    const plus = item.querySelector(".cart-product__counter-plus");
+    const minus = item.querySelector(".cart-product__counter-minus");
+    const amount = item.querySelector(".cart-product__counter-amount");
+
+    if (
+      plus instanceof HTMLElement &&
+      minus instanceof HTMLElement &&
+      amount instanceof HTMLElement
+    ) {
+      let stateCount = +amount.innerText;
+      const id = getID(item);
+      const variant = getVariant(item);
+
+      plus.addEventListener("click", async () => {
+        try {
+          amount.innerText = "";
+          amount.classList.add("icon-spin");
+          amount.classList.add("animation-spin");
+          disableButtons();
+
+          const { count, sum } = await cartAdd(id, variant);
+          stateCount++;
+
+          enableButtons();
+          amount.classList.remove("icon-spin");
+          amount.classList.remove("animation-spin");
+          amount.innerText = String(stateCount);
+
+          setCartCount(count);
+          setCartPrice(sum);
+          setItemPrice(item, stateCount);
+        } catch (e) {}
+      });
+
+      minus.addEventListener("click", async () => {
+        try {
+          amount.innerText = "";
+          amount.classList.add("icon-spin");
+          amount.classList.add("animation-spin");
+
+          if (stateCount > 1) {
+            disableButtons();
+            const { count, sum } = await cartAdd(id, variant, -1);
+            enableButtons();
+            stateCount--;
+
+            amount.classList.remove("icon-spin");
+            amount.classList.remove("animation-spin");
+            amount.innerText = String(stateCount);
+
+            setCartCount(count);
+            setCartPrice(sum);
+            setItemPrice(item, stateCount);
+          } else {
+            disableButtons();
+            const { sum, count, variation, product_id } = await cartDelete(
+              id,
+              variant,
+            );
+            enableButtons();
+
+            setCartCount(count);
+            setCartPrice(sum);
+
+            if (getID(item) === product_id || getVariant(item) === variation) {
+              item.remove();
+            }
+          }
+        } catch (e) {}
+      });
+    }
+  }
+
+  const items = document.querySelectorAll(".cart-product");
+  items.forEach((item) => {
+    if (item instanceof HTMLElement) itemsHandler(item);
+  });
+
+  function serviceHandler(item: HTMLElement) {
+    const checkbox = item.querySelector('[type="checkbox"]');
+
+    if (checkbox instanceof HTMLInputElement) {
+      checkbox.addEventListener("change", () => {
+        const productPrice = document
+          .querySelector(".cart__body")
+          ?.getAttribute("data-sum");
+        if (productPrice) setCartPrice(+productPrice);
+      });
+    }
+  }
+
+  const services = document.querySelectorAll("[data-serviceprice]");
+  services.forEach((item) => {
+    if (item instanceof HTMLElement) serviceHandler(item);
+  });
+</script>

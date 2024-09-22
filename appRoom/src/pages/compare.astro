@@ -1,0 +1,204 @@
+---
+import Breadcrumbs from "@components/Breadcrumbs.astro"
+import CategoryTag from "@components/CategoryTag.astro"
+import CompareSwiper from "@components/CompareSwiper.astro"
+import Layout from "@components/Layout.astro"
+---
+
+<Layout title="Сравнение">
+  <Breadcrumbs items={["Главная"]} last="Сравнение" />
+  <section class="compare">
+    <div class="compare__container">
+      <h1 class="title compare__title">Сравнение</h1>
+      <div class="compare__tags">
+        <CategoryTag text="iPhone 15 Pro" close />
+        <CategoryTag text="iPhone 14 Pro" close />
+        <CategoryTag text="iPhone 13 Pro" close />
+      </div>
+      <div class="compare__tabs">
+        <div class="compare__content">
+          <CompareSwiper />
+          <CompareSwiper />
+        </div>
+        <div class="compare__content">
+          <CompareSwiper />
+          <CompareSwiper />
+        </div>
+        <div class="compare__content">
+          <CompareSwiper />
+          <CompareSwiper />
+        </div>
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<style is:global lang="scss">
+  .compare {
+    margin-bottom: fluid(50px, 80px);
+    @include section();
+    flex-grow: 1;
+    &__container {
+      grid-area: center;
+    }
+
+    &__tags {
+      display: flex;
+      gap: 15px;
+      margin-top: 20px;
+      margin-bottom: 30px;
+    }
+
+    &__content {
+      grid-auto-flow: column;
+      grid-auto-columns: minmax(48%, 1fr);
+      /* column-gap: 10px; */
+      opacity: 0;
+      display: none;
+
+      &--active {
+        display: grid;
+      }
+
+      &--opacity {
+        opacity: 1;
+      }
+    }
+  }
+
+  @media (max-width: 992px) {
+    .compare {
+      &__container {
+      }
+
+      &__tags {
+        margin-bottom: 20px;
+      }
+    }
+  }
+  @media (max-width: 768px) {
+    .compare {
+      &__container {
+      }
+      &__content {
+        //grid-template-columns: 50% 50%;
+      }
+    }
+  }
+  @media (max-width: 576px) {
+    .compare {
+      &__container {
+        grid-area: full;
+      }
+
+      &__title {
+        margin-left: 15px;
+      }
+
+      &__tags {
+        margin-left: 15px;
+      }
+    }
+  }
+</style>
+
+<script>
+  import { deleteTab } from "../script/api"
+
+  const tagWrapper = document.querySelector(".compare__tags")
+  const tabWrapper = document.querySelector(".compare__tabs")
+
+  if (tagWrapper instanceof HTMLElement && tabWrapper instanceof HTMLElement) {
+    const triggers = tagWrapper.querySelectorAll(".category-tag")
+    const contents = tabWrapper.querySelectorAll(".compare__content")
+    const crosses = tabWrapper.querySelectorAll(".category-tag__close")
+
+    triggers.forEach((trigger, index) => {
+      trigger.setAttribute("data-tab", String(index + 1))
+      if (index === 0) {
+        trigger.classList.add("category-tag--active")
+      }
+    })
+
+    contents.forEach((content, index) => {
+      content.setAttribute("data-tab", String(index + 1))
+      if (index === 0) {
+        content.classList.add("compare__content--active")
+        content.classList.add("compare__content--opacity")
+      }
+    })
+
+    const clickHandler = async (event: any) => {
+      event.preventDefault()
+      if (event.target?.classList.contains("category-tag__close")) {
+        event.stopPropagation()
+        const parent = event.target.closest(".category-tag")
+        const { count } = await deleteTab(+parent.dataset.id)
+
+        if (count === 0) {
+          window.location.reload()
+        }
+        setTimeout(function () {
+          document.querySelector(".compare__content--active")?.remove()
+          document.querySelector(".category-tag")?.classList.add("category-tag--active")
+          document.querySelector(".compare__content")?.classList.add("compare__content--active")
+          setTimeout(() => {
+            document.querySelector(".compare__content")?.classList.add("compare__content--opacity")
+          }, 200)
+        }, 1)
+        parent.remove()
+        setCompareCount(count)
+      }
+      triggers.forEach(t => {
+        t.classList.remove("category-tag--active")
+      })
+
+      contents.forEach(c => {
+        c.classList.remove("compare__content--active")
+        c.classList.remove("compare__content--opacity")
+      })
+
+      if (event.target instanceof Element && tagWrapper && tabWrapper) {
+        let parent = null
+
+        if (event.target.classList.contains("category-tag")) {
+          parent = event.target
+        }
+
+        if (event.target.parentElement?.classList.contains("category-tag")) {
+          parent = event.target.parentElement
+        }
+
+        if (parent) {
+          const index = parent.getAttribute("data-tab")
+
+          const selectedTrigger = tagWrapper.querySelector(`[data-tab="${index}"]`)
+          if (selectedTrigger) {
+            selectedTrigger.classList.add("category-tag--active")
+          }
+
+          const selectedContent = tabWrapper.querySelector(`[data-tab="${index}"]`)
+          if (selectedContent) {
+            selectedContent.classList.add("compare__content--active")
+
+            setTimeout(() => {
+              selectedContent.classList.add("compare__content--opacity")
+            }, 200)
+          }
+        }
+      }
+    }
+
+    triggers.forEach(trigger => {
+      trigger.addEventListener("click", clickHandler)
+    })
+  }
+  function setCompareCount(count: number) {
+    const counters = document.querySelectorAll(".header__compare")
+    counters.forEach(counter => {
+      if (counter instanceof HTMLElement) {
+        counter.setAttribute("data-count", String(count))
+      }
+    })
+  }
+</script>

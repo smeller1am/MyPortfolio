@@ -1,0 +1,47 @@
+<div class="drawer-footer">
+  <div class="drawer-footer__contact">
+    <a href="tel:+78452253835" class="drawer-footer__phone">8 (8452) 25-38-35</a
+    >
+    <a href="mailto:applesaratov@yandex.ru" class="drawer-footer__email"
+      >applesaratov@yandex.ru</a
+    >
+  </div>
+  <div class="drawer-footer__social">
+    <a
+      href="https://vk.com/public211718859"
+      class="drawer-footer__icon icon-vk-box"></a>
+  </div>
+</div>
+
+<style is:global lang="scss">
+  .drawer-footer {
+    padding-top: 15px;
+    border-top: 1px solid $color-text-gray-light;
+    display: flex;
+    justify-content: space-between;
+
+    &__contact {
+      display: flex;
+      flex-direction: column;
+    }
+
+    &__phone {
+      font-size: 20px;
+      font-weight: 600;
+    }
+
+    &__email {
+      font-size: 14px;
+      line-height: 2;
+    }
+
+    &__social {
+      margin-top: 4px;
+    }
+
+    &__icon {
+      font-size: 30px;
+      color: $color-text-black;
+    }
+  }
+</style>

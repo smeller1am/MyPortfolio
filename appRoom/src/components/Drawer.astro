@@ -1,0 +1,224 @@
+---
+import DrawerFooter from "./DrawerFooter.astro";
+import Location from "./Location.astro";
+
+const iPhone: string[] = [
+  "iPhone 15 Pro Max",
+  "iPhone 15 Pro",
+  "iPhone 15 Plus",
+  "iPhone 15",
+  "iPhone 14 Pro Max",
+  "iPhone 14 Pro",
+  "iPhone 14",
+  "iPhone 14 Plus",
+  "iPhone SE (2022)",
+  "iPhone 13",
+  "iPhone 13 mini",
+  "iPhone 12",
+  "iPhone 11",
+];
+
+const appleWatch: string[] = [
+  "Apple Watch SE (2022)",
+  "Apple Watch SE (2023)",
+  "Apple Watch Series 8",
+  "Apple Watch Series 9",
+  "Apple Watch Ultra",
+  "Apple Watch Ultra 2",
+];
+
+const macbookPro: string[] = [
+  "MacBook Pro 13″ (2022, M2)",
+  "MacBook Pro 14″ (2023, M2)",
+  "MacBook Pro 14″ (2023, M3)",
+  "MacBook Pro 16″ (2023, M2)",
+  "MacBook Pro 16″ (2023, M3)",
+];
+
+const macbookAir: string[] = [
+  "MacBook Air 13″ (2020, M1)",
+  "MacBook Air 13″ (2022, M2)",
+  "Macbook Air 13″ (2024, M3)",
+  "MacBook Air 15″ (2023, M2)",
+  "Macbook Air 15″ (2024, M3)",
+];
+
+const iPad: string[] = [
+  "iPad 10.2″ (2021)",
+  "iPad mini (2021)",
+  "iPad 10.9″ (2022)",
+  "iPad Air 10.9″ (2022, M1)",
+  "iPad Air 11″ M2 (2024)",
+  "iPad Air 13″ M2 (2024)",
+  "iPad Pro 11″ (2022, M2)",
+  "iPad Pro 11″ M4 (2024)",
+  "iPad Pro 12.9″ (2022, M2)",
+  "iPad Pro 13″ M4 (2024)",
+];
+
+const airPods: string[] = [
+  "AirPods 2",
+  "AirPods 3",
+  "AirPods Pro",
+  "AirPods Pro 2",
+  "AirPods Max",
+];
+
+const dyson: string[] = [
+  "Беспроводные пылесосы",
+  "Фены",
+  "Стайлеры",
+  "Выпрямители",
+];
+
+const mobileMenu: { title: string; list: string[] }[] = [
+  { title: "iPhone", list: iPhone },
+  { title: "iPad", list: iPad },
+  { title: "AirPods", list: airPods },
+  { title: "Mac", list: macbookAir.concat(macbookPro) },
+  { title: "Watch", list: appleWatch },
+  { title: "Аксессуары", list: iPhone },
+  { title: "Dyson", list: dyson },
+  { title: "Vision Pro", list: ["Vision Pro"] },
+  { title: "Android", list: ["Samsung", "Xiaomi"] },
+];
+---
+
+<div class="drawer">
+  <div class="drawer__container">
+    <div class="drawer__menu">
+      <a href="#" class="drawer__link">Каталог</a>
+      <a href="#" class="drawer__link">Распродажа</a>
+      <div class="drawer__accordion">
+        {
+          mobileMenu.map(({ title, list }) => (
+            <div class="ac">
+              <div class="ac-header">
+                <div class="ac-trigger drawer__link">{title}</div>
+              </div>
+              <div class="ac-panel">
+                <div class=" drawer__list">
+                  {list.map((link) => (
+                    <a href="#" class="drawer__sublink">
+                      {link}
+                    </a>
+                  ))}
+                </div>
+              </div>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+    <Location variant="medium" />
+    <DrawerFooter />
+  </div>
+</div>
+
+<style is:global lang="scss">
+  .drawer {
+    display: none;
+    overflow-y: auto;
+    width: 100%;
+    position: fixed;
+    background-color: white;
+    height: calc(100% - 64px);
+    top: 64px;
+    left: -100%;
+    transition: left 0.38s ease-in-out;
+
+    &__container {
+      grid-area: center;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      padding-top: 30px;
+      padding-bottom: 30px;
+    }
+
+    &__menu {
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+      gap: 10px;
+    }
+
+    &__accordion {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+
+      & .ac.is-active > .ac-header .ac-trigger::after {
+        content: url('data:image/svg+xml,<svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M13.5 10.8L9 6.3L4.5 10.8" stroke="%230A0909" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/></svg>');
+      }
+
+      & .ac {
+        margin-top: unset;
+        border: unset;
+        background-color: unset;
+      }
+
+      & .ac-trigger {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font: unset;
+        color: inherit;
+        text-align: unset;
+        padding: unset;
+        transition: unset;
+        background-color: unset;
+        font-weight: 400;
+        font-size: 16px;
+
+        &::after {
+          height: 18px;
+          width: 18px;
+        }
+
+        &[aria-expanded="true"]::after {
+          content: url('data:image/svg+xml,<svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M13.5 10.8L9 6.3L4.5 10.8" stroke="%230A0909" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/></svg>');
+        }
+        &[aria-expanded="false"]::after {
+          content: url('data:image/svg+xml,<svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M13.5 7.20001L9 11.7L4.5 7.20001" stroke="%230A0909" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/></svg>');
+        }
+      }
+    }
+
+    &__list {
+      display: flex;
+      flex-direction: column;
+      padding-left: 15px;
+      padding-top: 10px;
+      gap: 11px;
+      line-height: 1.5;
+    }
+
+    &__link {
+      font-weight: 400;
+      font-size: 16px;
+    }
+
+    &__sublink {
+      font-size: 14px;
+    }
+  }
+
+  @media (max-width: 992px) {
+    .drawer {
+      @include section();
+    }
+  }
+</style>
+
+<script>
+  //@ts-ignore
+  import Accordion from "accordion-js";
+
+  if (document.querySelector(".drawer__accordion")) {
+    new Accordion(".drawer__accordion", {
+      duration: 380,
+      showMultiple: true,
+    });
+  }
+</script>

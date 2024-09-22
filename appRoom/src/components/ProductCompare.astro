@@ -1,0 +1,118 @@
+<div data-productid="10696" data-category="3807" class="product-compare">
+  <span class="icon-compare button__icon"></span>
+  <span class="product-compare-text">Сравнить</span>
+</div>
+
+<style is:global lang="scss">
+  .product-compare {
+    border-radius: 8px;
+    font-weight: 400;
+    font-size: fluid(16px, 18px);
+    border: 1px solid $color-border-gray;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 6px;
+    transition: border 0.38s ease-in-out;
+    cursor: pointer;
+
+    &-text {
+      @include laptop {
+        font-size: 16px;
+      }
+    }
+
+    span {
+      transition: color 0.38s ease-in-out;
+    }
+
+    &:hover {
+      border-color: $color-text-purple;
+
+      span {
+        color: $color-text-purple;
+      }
+    }
+
+    @include laptop {
+      border: unset;
+      font-size: 0;
+      span {
+        // font-size: 30px;
+      }
+    }
+  }
+</style>
+
+<script>
+  import { compareAdd, compareDelete } from "../script/api"
+  const items = document.querySelectorAll(".product-compare")
+
+  import { Fancybox } from "@fancyapps/ui"
+
+  items.forEach((item: any) => {
+    if (item) {
+      item.setAttribute("data-isAdd", "true")
+      const id = item.getAttribute("data-productid")
+      const category = item.getAttribute("data-category")
+
+      item.addEventListener("click", async () => {
+        if (id && category) {
+          try {
+            let isAdd = JSON.parse(item.getAttribute("data-isadd") ?? "")
+            const icon = item.querySelector(".button__icon")
+            const text = item.querySelector(".product-compare-text") as HTMLElement
+
+            item.style.pointerEvents = "none"
+            item.classList.add("button--loading")
+            icon?.classList.remove("icon-compare")
+            icon?.classList.add("icon-spin")
+            icon?.classList.add("animation-spin")
+
+            const { count } = isAdd ? await compareAdd(+id, +category) : await compareDelete(+id, +category)
+            setCompareCount(count)
+            if (text) {
+              text.innerText = isAdd ? "В сравнении" : "Сравнить"
+            }
+            item.setAttribute("data-isadd", isAdd ? "false" : "true")
+            item.style.pointerEvents = "auto"
+            if (isAdd !== "" && text.textContent === "В сравнении") {
+              new Fancybox(
+                [
+                  {
+                    src: "#compare-success",
+                  },
+                ],
+                {
+                  closeButton: false,
+                  compact: false,
+                  autoFocus: false,
+                },
+              )
+
+              const close = document.querySelectorAll(".button--jsClose")
+
+              if (close) {
+                close.forEach(function (item) {
+                  item.addEventListener("click", () => Fancybox.close())
+                })
+              }
+            }
+            item.classList.remove("button--loading")
+            icon?.classList.add("icon-compare")
+            icon?.classList.remove("icon-spin")
+            icon?.classList.remove("animation-spin")
+          } catch {}
+        }
+      })
+    }
+  })
+  function setCompareCount(count: number) {
+    const counters = document.querySelectorAll(".header__compare")
+    counters.forEach(counter => {
+      if (counter instanceof HTMLElement) {
+        counter.setAttribute("data-count", String(count))
+      }
+    })
+  }
+</script>

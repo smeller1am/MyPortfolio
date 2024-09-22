@@ -1,0 +1,275 @@
+---
+import Drawer from "./Drawer.astro"
+import DrawerTrigger from "./DrawerTrigger.astro"
+import Location from "./Location.astro"
+import Navigation from "./Navigation.astro"
+import Search from "./Search.astro"
+import SearchBar from "./SearchBar.astro"
+import SearchTrigger from "./SearchTrigger.astro"
+
+const upperMenu: string[] = ["О компании", "Доставка и опалата", "traid-in", "Контакты", "Блог"]
+---
+
+<section class="top-menu">
+  <div class="top-menu__container">
+    <div class="top-menu__left">
+      {
+        upperMenu.map(item => (
+          <a href="#" class="top-menu__link">
+            {item}
+          </a>
+        ))
+      }
+    </div>
+    <div class="top-menu__right">
+      <a href="tel:+78452253835" class="top-menu__link">8 (8452) 25-38-35</a>
+      <Location variant="small" />
+    </div>
+  </div>
+</section>
+<header class="header">
+  <div class="header__desktop-wrap">
+    <div class="header__desktop">
+      <div class="header__desktop-container">
+        <div class="header__desktop-bottom">
+          <div class="header__desktop-logo">
+            <img src="/img/logo.svg" alt="" />
+            <span>App-room</span>
+          </div>
+
+          <SearchBar placeholder="купить iphone 15 128" />
+          <div class="header__desktop-action">
+            <a href="/compare.html" class="header__compare icon-compare" data-count="10"></a>
+            <a href="#" class="header__buy icon-cart" data-count="1"></a>
+            <span class="header__desktop-price">115 555</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <Navigation />
+  </div>
+
+  <div class="header__mobile">
+    <div class="header__mobile-container">
+      <div class="header__mobile-left">
+        <DrawerTrigger />
+        <div class="header__mobile-logo">
+          <img src="/img/logo.svg" alt="" />
+          <span>App-room</span>
+        </div>
+      </div>
+      <div class="header__mobile-right">
+        <a href="/compare.html" class="header__compare icon-compare" data-count="10"></a>
+        <SearchTrigger variant="open" />
+        <a href="#" class="header__buy icon-cart" data-count="1"></a>
+      </div>
+    </div>
+  </div>
+  <Search />
+  <Drawer />
+</header>
+
+<style is:global lang="scss">
+  .top-menu {
+    margin-top: 20px;
+    @include section();
+
+    &__container {
+      grid-area: center;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    &__left {
+      display: flex;
+      gap: 29px;
+      align-items: center;
+      grid-area: menu;
+    }
+
+    &__right {
+      align-items: center;
+      display: flex;
+      gap: fluid(25px, 50px);
+    }
+
+    &__link {
+      text-transform: uppercase;
+      font-size: 14px;
+      transition: color 0.38s ease-in-out;
+
+      &:hover {
+        color: $color-text-purple;
+      }
+    }
+  }
+
+  .header {
+    background-color: $color-background-blue-light;
+    position: sticky;
+    top: 0;
+    z-index: 20;
+    width: 100%;
+    &__desktop {
+      padding-top: 30px;
+      padding-bottom: 30px;
+      @include section();
+      &-container {
+        grid-area: center;
+        display: flex;
+        flex-direction: column;
+        row-gap: 30px;
+      }
+
+      &-bottom {
+        display: flex;
+        align-items: center;
+        gap: fluid(30px, 46px);
+      }
+
+      &-logo {
+        align-items: center;
+        display: flex;
+        gap: 0.55em;
+        font-size: fluid(24px, 28px);
+
+        span {
+          line-height: 1;
+          text-transform: uppercase;
+          font-weight: 600;
+          margin-top: 14px;
+        }
+
+        img {
+          height: 2.25em;
+          object-fit: contain;
+        }
+      }
+
+      &-action {
+        width: 200px;
+        display: flex;
+        gap: 16px;
+        align-items: center;
+        justify-content: flex-end;
+      }
+
+      &-price {
+        font-size: 18px;
+        font-weight: 400;
+      }
+    }
+
+    &__mobile {
+      display: none;
+    }
+
+    &__compare,
+    &__buy {
+      font-size: 30px;
+      position: relative;
+      transition: color 0.38s ease-in-out;
+      cursor: pointer;
+
+      &:hover {
+        color: $color-text-purple;
+      }
+
+      &[data-count]::after {
+        top: 0;
+        right: -2px;
+        position: absolute;
+        font-family: "UI", sans-serif;
+        content: attr(data-count);
+        background-color: $color-text-purple;
+        border-radius: 999px;
+        color: white;
+        font-size: 9px;
+        padding: 2px;
+        aspect-ratio: 1;
+        min-width: 3ch;
+        min-height: 3ch;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border: 1px solid $color-background-blue-light;
+      }
+    }
+  }
+
+  @media (max-width: 992px) {
+    .top-menu {
+      display: none;
+    }
+
+    .header {
+      position: fixed;
+      &__desktop {
+        display: none;
+      }
+
+      &__mobile {
+        width: 100%;
+        padding-top: 10px;
+        padding-bottom: 15px;
+        min-height: 64px;
+        @include section();
+        &-container {
+          grid-area: center;
+          display: flex;
+          gap: 15px;
+          align-items: center;
+          justify-content: space-between;
+        }
+
+        &-left {
+          display: flex;
+          gap: 15px;
+          align-items: center;
+        }
+
+        &-right {
+          display: flex;
+          gap: 15px;
+          align-items: center;
+        }
+
+        &-logo {
+          display: flex;
+          align-items: center;
+          gap: 10px;
+          img {
+            height: 38px;
+          }
+          span {
+            font-weight: 500;
+            text-transform: uppercase;
+            font-size: 16px;
+            margin-top: 6px;
+          }
+        }
+      }
+
+      &__location {
+        font-size: 16px;
+        gap: 12px;
+
+        span {
+          font-size: 14px;
+        }
+      }
+    }
+  }
+
+  @media (max-width: 350px) {
+    .header {
+      &__mobile {
+        &-right,
+        &-left {
+          gap: 8px;
+        }
+      }
+    }
+  }
+</style>

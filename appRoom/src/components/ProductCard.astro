@@ -1,0 +1,203 @@
+---
+import ProductBuy from "./ProductBuy.astro";
+
+interface Props {
+  tag?: string;
+  variant: "small" | "normal";
+  sale?: boolean;
+}
+
+const { variant, tag, sale } = Astro.props;
+---
+
+<a
+  href="/product.html"
+  class:list={["product-card", `product-card--${variant}`]}
+  data-id="10767"
+  data-category="26"
+>
+  <div class="product-card__container">
+    <img src="/img/product.png" alt="" class="product-card__image" />
+    <div class="product-card__title">
+      Apple iPhone 15 Pro 128Gb Natural Titanium
+    </div>
+    {sale && <div class="product-card__sale ruble">100 999</div>}
+    <div class="product-card__price ruble">100 999</div>
+    <div class="product-card__compare" data-isadd="true">
+      <span class="product-card__compare-icon icon-compare"></span>
+      <span class="product-card__compare-text"> Сравнить </span>
+    </div>
+    <ProductBuy />
+    {tag && <div class="product-card__tag">{tag}</div>}
+  </div>
+</a>
+
+<style is:global lang="scss">
+  .product-card {
+    display: block;
+    background-color: white;
+    border-radius: 30px;
+    box-shadow: $shadow-card-less;
+    height: 100%;
+
+    &--normal {
+      padding: fluid(20px, 40px);
+    }
+    &--small {
+      padding: fluid(15px, 30px);
+    }
+
+    &__container {
+      display: grid;
+      grid-template-areas: "image image" "title title" "sale sale" "price price" "compare buy";
+      grid-template-columns: 1fr auto;
+      font-size: fluid(14px, 16px);
+      height: 100%;
+    }
+
+    :where(&--normal &__container) {
+      max-width: 295px;
+      grid-template-rows:
+        auto
+        minmax(5.25em, 1fr) minmax(1.8em, auto) minmax(2.8em, auto) auto;
+    }
+
+    :where(&--small &__container) {
+      grid-template-rows:
+        auto minmax(5.7em, 1fr) minmax(1.6em, auto) minmax(2.2em, auto)
+        auto;
+    }
+
+    &__image {
+      aspect-ratio: 1;
+      grid-area: image;
+      border-radius: 15px;
+      object-fit: cover;
+
+      @include laptop {
+        border-radius: 10px;
+      }
+    }
+
+    &__title {
+      line-height: 1.4;
+      margin-bottom: 4px;
+      grid-area: title;
+      margin-top: 1em;
+      font-weight: 500;
+    }
+    :where(&--normal &__title) {
+      font-size: fluid(16px, 18px);
+    }
+
+    :where(&--small &__title) {
+      font-size: 16px;
+    }
+
+    &__sale {
+      color: $color-text-gray;
+      font-weight: 500;
+      text-decoration-line: line-through;
+      grid-area: sale;
+    }
+    :where(&--normal &__sale) {
+      font-size: fluid(16px, 18px);
+    }
+    :where(&--small &__sale) {
+      font-size: 14px;
+      min-height: 1.5em;
+    }
+
+    &__price {
+      font-weight: 500;
+      line-height: 1;
+      grid-area: price;
+    }
+    :where(&--normal &__price) {
+      font-size: fluid(20px, 24px);
+    }
+
+    :where(&--small &__price) {
+      font-size: 20px;
+    }
+
+    &__compare {
+      font-weight: 400;
+      font-size: 14px;
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      cursor: pointer;
+      transition: color 0.38s ease-in-out;
+      grid-area: compare;
+      justify-self: start;
+
+      &:hover {
+        color: $color-text-purple;
+      }
+
+      &-icon {
+        font-size: 24px;
+      }
+    }
+
+    &__tag {
+      background-color: $color-text-purple;
+      color: white;
+      border-radius: 8px;
+      padding: 0.1em 1.1em;
+      font-weight: 500;
+      text-transform: uppercase;
+      font-size: fluid(14px, 18px);
+      grid-area: image;
+      justify-self: end;
+      align-self: start;
+      margin-top: -10px;
+      margin-right: -10px;
+    }
+  }
+
+  @media (max-width: 576px) {
+    .product-card {
+      border-radius: 20px;
+      padding: 12px;
+
+      &__container {
+        grid-template-rows:
+          auto minmax(5.5em, 1fr) minmax(1.75em, auto) minmax(2.1em, auto)
+          auto;
+      }
+
+      &__title {
+        font-weight: 300;
+        font-size: 14px;
+      }
+
+      &__image {
+      }
+
+      &__sale {
+        font-size: 14px;
+      }
+
+      &__price {
+        font-size: 18px;
+      }
+
+      &__tag {
+        font-size: 12px;
+        padding: 0.25em 0.9em;
+        margin: unset;
+      }
+
+      &__compare {
+        &-text {
+          display: none;
+        }
+      }
+    }
+  }
+</style>
+<script>
+  
+</script>

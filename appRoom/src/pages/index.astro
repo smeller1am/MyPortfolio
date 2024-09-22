@@ -1,0 +1,26 @@
+---
+import Advantages from "@components/Advantages.astro";
+import FrontCategories from "@components/FrontCategories.astro";
+import FrontBlog from "@components/FrontBlog.astro";
+import Hero from "@components/Hero.astro";
+import Layout from "@components/Layout.astro";
+import Reviews from "@components/Reviews.astro";
+import ProductSwiper from "@components/ProductSwiper.astro";
+import FrontMap from "@components/FrontMap.astro";
+---
+
+<Layout title="Главная">
+  <Hero />
+  <Advantages />
+  <FrontCategories />
+  <ProductSwiper title="Хиты продаж" />
+  <FrontBlog />
+  <FrontMap/>
+  <Reviews />
+</Layout>
+
+<script>
+  import { setUpMiniBuyButtons } from "src/script/shared";
+
+  setUpMiniBuyButtons();
+</script>

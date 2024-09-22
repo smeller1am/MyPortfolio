@@ -1,0 +1,35 @@
+<div class="add-cart product-buy icon-cart-arrow"></div>
+
+<style is:global lang="scss">
+  .product-buy {
+    grid-area: buy;
+    justify-self: end;
+    align-self: center;
+    font-size: 30px;
+    background-image: linear-gradient($gradient-purple-peach);
+    background-clip: text;
+    background-size: 100%;
+    -webkit-background-clip: text;
+    -moz-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    -moz-text-fill-color: transparent;
+    cursor: pointer;
+    color: $color-text-purple;
+    transition: color 0.38s ease-in-out;
+
+    &:hover {
+      background-image: unset;
+      background-clip: unset;
+      color: #52ba33;
+      -webkit-background-clip: unset;
+      -moz-background-clip: unset;
+      -webkit-text-fill-color: unset;
+      -moz-text-fill-color: unset;
+    }
+
+    &:focus,
+    &:focus-visible {
+      outline: unset;
+    }
+  }
+</style>

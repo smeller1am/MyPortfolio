@@ -1,0 +1,295 @@
+---
+import type { HTMLAttributes } from "astro/types";
+
+interface Props extends HTMLAttributes<"input"> {}
+
+const { id, name, ...restProps } = Astro.props;
+---
+
+<div class="file">
+  <input
+    {...restProps}
+    {name}
+    {id}
+    type="file"
+    class="file__element"
+    multiple
+  />
+  <label for={id} class="file__label"> <slot /></label>
+</div>
+
+<style is:global lang="scss">
+  .file {
+    &__element {
+      display: none;
+    }
+
+    &__label {
+      font-size: 18px;
+      /* border-radius: 8px; */
+      /* border: 1px solid $color-border-gray; */
+      /* padding: 12px 20px; */
+      /* display: flex; */
+      /* align-items: center; */
+      /* gap: 10px; */
+      width: fit-content;
+      cursor: pointer;
+      /* background-color: $color-background-gray-light; */
+      transition: color 0.38s ease-in-out;
+      text-decoration: underline;
+
+      &:hover {
+        color: $color-text-purple;
+        /* background-color: $color-background-blue-light-2; */
+        /* border-color: $color-background-blue-light; */
+      }
+    }
+
+    &__icon {
+      color: $color-text-blue;
+      font-size: 20px;
+    }
+
+    &__list {
+      margin-top: 25px;
+      display: flex;
+      gap: 15px;
+      flex-direction: column;
+      max-width: 256px;
+
+      &:empty {
+        margin-top: unset;
+      }
+    }
+
+    &__row {
+      order: 2;
+      display: flex;
+      gap: 15px;
+      flex-wrap: wrap;
+    }
+
+    &__col {
+      order: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+
+    &__item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-radius: 12px;
+      font-size: 14px;
+      border-radius: 8px;
+      border: 1px solid $color-border-gray;
+      padding: 10px 20px;
+      overflow-wrap: anywhere;
+      gap: 15px;
+      padding-right: 10px;
+      animation: fade-in 0.5s forwards;
+    }
+
+    &__image {
+      background-color: white;
+      border-radius: 8px;
+      height: 74px;
+      width: 74px;
+      background-size: cover;
+      position: relative;
+      animation: fade-in 0.5s forwards;
+    }
+
+    &__close {
+      font-size: 12px;
+      color: $color-text-gray;
+      padding: 5px;
+      cursor: pointer;
+
+      &:hover {
+        /* color: $color-text-red; */
+      }
+    }
+
+    &__image &__close {
+      position: absolute;
+      right: 0;
+      top: 0;
+      mix-blend-mode: difference;
+
+      &:hover {
+        mix-blend-mode: unset;
+      }
+    }
+  }
+
+  @media (max-width: 768px) {
+    .file {
+      &__element {
+      }
+
+      &__label {
+        font-size: 16px;
+        &:hover {
+        }
+      }
+
+      &__icon {
+      }
+
+      &__list {
+        &:empty {
+        }
+      }
+
+      &__row {
+      }
+
+      &__col {
+      }
+
+      &__item {
+      }
+
+      &__image {
+      }
+
+      &__close {
+        &:hover {
+        }
+      }
+
+      &__image &__close {
+      }
+    }
+  }
+
+  @media (max-width: 576px) {
+    .file {
+      &__element {
+      }
+
+      &__label {
+        width: 100%;
+        justify-content: center;
+        &:hover {
+        }
+      }
+
+      &__icon {
+      }
+
+      &__list {
+        max-width: unset;
+        &:empty {
+        }
+      }
+
+      &__row {
+      }
+
+      &__col {
+      }
+
+      &__item {
+      }
+
+      &__image {
+      }
+
+      &__close {
+        &:hover {
+        }
+      }
+
+      &__image &__close {
+      }
+    }
+  }
+</style>
+
+<script>
+  const container = document.querySelector(".file");
+  const input = document.querySelector(".file__element");
+
+  if (container && input) {
+    const list = document.createElement("div");
+    list.classList.add("file__list");
+    container.append(list);
+
+    let selectedFiles: File[] = [];
+
+    const onchangeHandler = (e: Event) => {
+      if (e.target instanceof HTMLInputElement && e.target.files) {
+        const files = e.target.files;
+        for (const file of files) {
+          if (file.type.includes("image")) selectedFiles.push(file);
+        }
+      }
+
+      if (selectedFiles.length) updatePreview(selectedFiles);
+    };
+
+    function updatePreview(selectedFiles: File[]) {
+      const r = list.querySelector(".file__row");
+      if (r) r.remove();
+      const c = list.querySelector(".file__col");
+      if (c) c.remove();
+
+      let row: HTMLElement | null = null;
+
+      var dt = new DataTransfer();
+
+      if (!selectedFiles.length && input instanceof HTMLInputElement) {
+        input.value = "";
+      }
+
+      selectedFiles.forEach((file) => {
+        dt.items.add(file);
+
+        if (!row) {
+          row = document.createElement("div");
+          row.classList.add("file__row");
+          list.append(row);
+        }
+        row.append(createFileImage(file));
+
+        if (input instanceof HTMLInputElement) input.files = dt.files;
+      });
+    }
+
+    function createCloseButton(file: File) {
+      const close = document.createElement("div");
+      close.classList.add("icon-close");
+      close.classList.add("file__close");
+
+      close.addEventListener("click", (e) => {
+        e.preventDefault();
+        const index = selectedFiles.indexOf(file);
+        if (index > -1) {
+          let s = new Set(selectedFiles);
+          s.delete(file);
+          selectedFiles = Array.from(s);
+          updatePreview(selectedFiles);
+        }
+      });
+      return close;
+    }
+
+    function createFileImage(file: File) {
+      const item = document.createElement("div");
+      item.classList.add("file__image");
+      item.append(createCloseButton(file));
+
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        item.style.backgroundImage = `url(${reader.result})`;
+      };
+      reader.readAsDataURL(file);
+      return item;
+    }
+
+    input.addEventListener("change", onchangeHandler);
+  }
+</script>

@@ -1,0 +1,324 @@
+---
+import DropdownColumn from "./DropdownColumn.astro";
+
+const iPhone1: string[] = [
+  "iPhone 15 Pro Max",
+  "iPhone 15 Pro",
+  "iPhone 15 Plus",
+  "iPhone 15",
+  "iPhone 14 Pro Max",
+  "iPhone 14 Pro",
+  "iPhone 14",
+  "iPhone 14 Plus",
+];
+
+const iPhone2: string[] = [
+  "iPhone SE (2022)",
+  "iPhone 13",
+  "iPhone 13 mini",
+  "iPhone 12",
+  "iPhone 11",
+];
+
+const appleWatch: string[] = [
+  "Apple Watch SE (2022)",
+  "Apple Watch SE (2023)",
+  "Apple Watch Series 8",
+  "Apple Watch Series 9",
+  "Apple Watch Ultra",
+  "Apple Watch Ultra 2",
+];
+
+const macbookPro: string[] = [
+  "MacBook Pro 13″ (2022, M2)",
+  "MacBook Pro 14″ (2023, M2)",
+  "MacBook Pro 14″ (2023, M3)",
+  "MacBook Pro 16″ (2023, M2)",
+  "MacBook Pro 16″ (2023, M3)",
+];
+
+const macbookAir: string[] = [
+  "MacBook Air 13″ (2020, M1)",
+  "MacBook Air 13″ (2022, M2)",
+  "Macbook Air 13″ (2024, M3)",
+  "MacBook Air 15″ (2023, M2)",
+  "Macbook Air 15″ (2024, M3)",
+];
+
+const iPad: string[] = [
+  "iPad 10.2″ (2021)",
+  "iPad mini (2021)",
+  "iPad 10.9″ (2022)",
+  "iPad Air 10.9″ (2022, M1)",
+  "iPad Air 11″ M2 (2024)",
+  "iPad Air 13″ M2 (2024)",
+  "iPad Pro 11″ (2022, M2)",
+  "iPad Pro 11″ M4 (2024)",
+  "iPad Pro 12.9″ (2022, M2)",
+  "iPad Pro 13″ M4 (2024)",
+];
+
+const airPods: string[] = [
+  "AirPods 2",
+  "AirPods 3",
+  "AirPods Pro",
+  "AirPods Pro 2",
+  "AirPods Max",
+];
+
+const dyson: string[] = [
+  "Беспроводные пылесосы",
+  "Фены",
+  "Стайлеры",
+  "Выпрямители",
+];
+
+const xiaomi: string[] = [
+  "Смартфоны Xiaomi",
+  "Смартфоны Redmi",
+  "Планшеты Xiaomi MiPad",
+];
+
+const samsung: string[] = ["Galaxy A", "Galaxy S", "Galaxy Z", "Galaxy Tab"];
+
+const items: {
+  name: string;
+  id?: number;
+  cols: { title: string; list: string[] }[];
+}[] = [
+  {
+    name: "iPhone",
+    id: 1,
+    cols: [
+      { title: "iPhone", list: iPhone1 },
+      { title: "", list: iPhone2 },
+    ],
+  },
+  { name: "iPad", id: 2, cols: [{ title: "iPad", list: iPad }] },
+  { name: "AirPods", id: 3, cols: [{ title: "AirPods", list: airPods }] },
+  {
+    name: "Mac",
+    id: 4,
+    cols: [
+      { title: "MacBook Pro", list: macbookPro },
+      { title: "MacBook Air", list: macbookAir },
+    ],
+  },
+  { name: "Watch", id: 5, cols: [{ title: "Watch", list: appleWatch }] },
+  { name: "Аксессуары", id: 6, cols: [{ title: "iPhone", list: iPhone1 }] },
+  { name: "Dyson", id: 7, cols: [{ title: "Dyson", list: dyson }] },
+  {
+    name: "Vision Pro",
+    id: 8,
+    cols: [{ title: "Vision Pro", list: ["Vision Pro"] }],
+  },
+];
+
+const android = {
+  name: "Android",
+  cols: [
+    { title: "Samsung", list: samsung },
+    { title: "Xiaomi", list: xiaomi },
+  ],
+};
+
+const cat: string[] = [
+  "iPhone",
+  "iPad",
+  "AirPods",
+  "Mac",
+  "Watch",
+  "Аксессуары",
+  "Dyson",
+  "Vision Pro",
+  "Android",
+];
+---
+
+<div class="dropdown">
+  <div class="dropdown__container">
+    <div class="dropdown__item" data-tab="0">
+      <DropdownColumn menu title="Каталог" list={cat} />
+      {
+        items.map(({ cols }, index) => (
+          <div class="dropdown__catalog" data-menu={index + 1}>
+            {cols.map(({ title, list }) => (
+              <DropdownColumn {title} {list} />
+            ))}
+            <DropdownColumn sale title="Дополнительно" list={["Распродажа"]} />
+          </div>
+        ))
+      }
+      <div class="dropdown__catalog" data-menu={9}>
+        {
+          android.cols.map(({ title, list }) => (
+            <DropdownColumn {title} {list} />
+          ))
+        }
+        <DropdownColumn sale title="Дополнительно" list={["Распродажа"]} />
+      </div>
+    </div>
+    {
+      items.map(({ id, cols }) => (
+        <div class="dropdown__item" data-tab={id}>
+          {cols.map(({ title, list }) => (
+            <DropdownColumn {title} {list} />
+          ))}
+
+          <DropdownColumn sale title="Дополнительно" list={["Распродажа"]} />
+        </div>
+      ))
+    }
+
+    <div class="dropdown__item" data-tab="9">
+      <DropdownColumn menu title={android.name} list={["Samsung", "Xiaomi"]} />
+      {
+        android.cols.map((col, index) => (
+          <div class="dropdown__catalog" data-menu={index + 1}>
+            <DropdownColumn title={col.title} list={col.list} />
+            <DropdownColumn sale title="Дополнительно" list={["Распродажа"]} />
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</div>
+
+<style is:global lang="scss">
+  .dropdown {
+    top: 100%;
+    left: 0;
+    position: absolute;
+    background-color: white;
+    opacity: 0;
+    min-height: fluid(310px, 415px);
+    padding-top: fluid(8px, 16px);
+    transition: opacity 0.38s ease-in-out;
+    z-index: 12;
+    width: 100%;
+
+    @include section;
+
+    & {
+      display: none;
+    }
+
+    &--opacity {
+      opacity: 1;
+    }
+
+    &--open {
+      display: grid;
+    }
+
+    &__container {
+      grid-area: center;
+    }
+
+    &__item,
+    &__catalog {
+      opacity: 0;
+      display: none;
+      transition: opacity 0.38s ease-in-out;
+
+      &--active {
+        display: flex;
+        gap: fluid(50px, 100px);
+      }
+
+      &--opacity {
+        opacity: 1;
+      }
+    }
+
+    &__catalog {
+      margin-left: fluid(80px, 160px);
+    }
+  }
+</style>
+
+<script>
+  import { addClass, removeClass } from "../script/utils";
+
+  const dropdownItems = document.querySelectorAll(".dropdown__item[data-tab]");
+
+  function setDataTab(element: Element, id: string) {
+    element.setAttribute("data-tab", id);
+  }
+
+  dropdownItems.forEach((item) => {
+    const tabId = item.getAttribute("data-tab");
+    if (tabId) {
+      const dropdownColumns = item.querySelectorAll(".dropdown-column");
+      const dropdownCatalogs = item.querySelectorAll(".dropdown__catalog");
+      const dropdownLinls = item.querySelectorAll(".dropdown-column__link");
+
+      dropdownColumns.forEach((column) => setDataTab(column, tabId));
+      dropdownCatalogs.forEach((catalog) => setDataTab(catalog, tabId));
+      dropdownLinls.forEach((link) => setDataTab(link, tabId));
+
+      const firstMenuLink = item.querySelector(
+        ".dropdown-column__link[data-tab][data-menu]",
+      );
+
+      if (firstMenuLink)
+        addClass(firstMenuLink, "dropdown-column__link--active");
+
+      const firstCatalog = item.querySelector(
+        ".dropdown__catalog[data-tab][data-menu]",
+      );
+
+      if (firstCatalog) {
+        addClass(firstCatalog, "dropdown__catalog--active");
+        addClass(firstCatalog, "dropdown__catalog--opacity");
+      }
+    }
+  });
+
+  const hoverMenuLink = (e: Event) => {
+    if (e.target instanceof Element) {
+      const menuId = e.target.getAttribute("data-menu");
+      const tabId = e.target.getAttribute("data-tab");
+
+      if (menuId && tabId) {
+        const dropdownLinls = document.querySelectorAll(
+          `.dropdown-column__link[data-tab="${tabId}"][data-menu]`,
+        );
+
+        dropdownLinls.forEach((link) =>
+          removeClass(link, "dropdown-column__link--active"),
+        );
+
+        addClass(e.target, "dropdown-column__link--active");
+
+        const dropdownCatalogs = document.querySelectorAll(
+          `.dropdown__catalog[data-tab="${tabId}"][data-menu]`,
+        );
+
+        dropdownCatalogs.forEach((catalog) => {
+          removeClass(catalog, "dropdown__catalog--opacity");
+          removeClass(catalog, "dropdown__catalog--active");
+        });
+
+        const selectedCatalog = document.querySelector(
+          `.dropdown__catalog[data-menu="${menuId}"][data-tab="${tabId}"]`,
+        );
+
+        if (selectedCatalog) {
+          addClass(selectedCatalog, "dropdown__catalog--active");
+          setTimeout(() => {
+            addClass(selectedCatalog, "dropdown__catalog--opacity");
+          }, 300);
+        }
+      }
+    }
+  };
+
+  const menuLinks = document.querySelectorAll(
+    ".dropdown-column__link[data-tab][data-menu]",
+  );
+
+  menuLinks.forEach((link) =>
+    link.addEventListener("pointerover", hoverMenuLink),
+  );
+</script>

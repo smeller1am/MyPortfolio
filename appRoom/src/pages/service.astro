@@ -1,0 +1,195 @@
+---
+import type { AboutCardT } from "@components/AboutCard.astro";
+import AboutCard from "@components/AboutCard.astro";
+import Breadcrumbs from "@components/Breadcrumbs.astro";
+import ContactForm from "@components/ContactForm.astro";
+import Layout from "@components/Layout.astro";
+import ProductSwiper from "@components/ProductSwiper.astro";
+
+const items: AboutCardT[] = [
+  {
+    icon: "/svg/free.svg",
+    title: "Бесплатная диагностика",
+    text: "После диагностики мы озвучим стоимость и срок необходимого ремонта. Диагностика будет  бесплатная, даже если Вы примете решение не делать ремонт",
+  },
+  {
+    icon: "/svg/thumb-up.svg",
+    title: "Оплата только за результат",
+    text: "Мы не берем оплату в случае, если не достигнут положительный результат ремонта",
+  },
+  {
+    icon: "/svg/shield.svg",
+    title: "Гарантия на все работы",
+    text: "Чтобы Вы не сомневались в качестве нашего ремонта, мы подтверждаем его документальной гарантией до 30 дней в зависимости от типа ремонта.",
+  },
+];
+---
+
+<Layout title="Сервисный центр">
+  <Breadcrumbs items={["Главная"]} last="Сервисный центр" />
+  <section class="service bg-gradient">
+    <h1 class="service__title title">Сервисный центр</h1>
+    <div class="service__list">
+      <div class="service__list-container">
+        {items.map((item) => <AboutCard {...item} />)}
+      </div>
+    </div>
+    <div class="service__content">
+      <div class="service__content-container">
+        <img src="/img/hand-service.jpg" alt="" class="service__image" />
+        <div class="service__form">
+          <ContactForm title="Готов обменять на новое" />
+        </div>
+      </div>
+    </div>
+  </section>
+  <ProductSwiper mb service title="Услуги" />
+</Layout>
+
+<style is:global lang="scss">
+  .service {
+    /* margin-top: fluid(30px, 58px); */
+    margin-bottom: fluid(45px, 90px);
+    &__title {
+      text-align: center;
+      margin-bottom: fluid(40px, 76px);
+    }
+
+    &__list {
+      @include section();
+      --container-width: 1300px;
+      margin-bottom: fluid(40px, 82px);
+
+      &-container {
+        grid-area: center;
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 20px;
+      }
+    }
+
+    &__content {
+      @include section;
+      --container-width: 1300px;
+      // margin-left: fluid(10px,270px);
+
+
+      @media (max-width:1450px) {
+        margin-left: 5vw;
+      }
+
+      &-container {
+        grid-area: right;
+        display: grid;
+        grid-template-columns: minmax(600px, 53%) auto;
+        gap: fluid(20px, 60px);
+      }
+    }
+
+    &__form {
+      max-width: 845px;
+    }
+
+    &__image {
+      height: fluid(350px, 480px);
+      width: fluid(400px, 700px);
+      object-fit: contain;
+      justify-self: end;
+      order: 1;
+    }
+  }
+
+  @media (max-width: 992px) {
+    .service {
+      &__title {
+        /* margin-top: 45px; */
+        margin-bottom: 20px;
+      }
+
+      &__list {
+        &-container {
+          grid-template-columns: repeat(2, 1fr);
+          gap: 15px;
+        }
+      }
+
+      &__content {
+        margin-left: unset;
+        &-container {
+        }
+      }
+
+      &__form {
+        grid-area: 1/1/-1/-1;
+        margin-right: $p;
+      }
+
+      &__image {
+        grid-area: 1/1/-1/-1;
+        height: 320px;
+        width: 350px;
+        order: 0;
+      }
+    }
+  }
+
+  @media (max-width: 768px) {
+    .service {
+      &__title {
+      }
+
+      &__list {
+        &-container {
+          grid-template-columns: repeat(1, 1fr);
+        }
+      }
+
+      &__content {
+        overflow: hidden;
+        &-container {
+          grid-template-columns: 100%;
+          grid-area: center;
+        }
+      }
+
+      &__form {
+        grid-area: unset;
+        margin-right: unset;
+      }
+      &__image {
+        grid-area: unset;
+        margin-right: -10%;
+        height: auto;
+        width: 100%;
+      }
+    }
+  }
+
+  @media (max-width: 576px) {
+    .service {
+      &__title {
+      }
+
+      &__list {
+        margin-bottom: 20px;
+        &-container {
+        }
+      }
+
+      &__content {
+        &-container {
+          gap: unset;
+        }
+      }
+
+      &__form {
+      }
+      &__image {
+        grid-area: unset;
+        margin-right: -$p;
+        max-height: 245px;
+        width: auto;
+      }
+    }
+  }
+</style>

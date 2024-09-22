@@ -1,0 +1,79 @@
+---
+import ProductBuy from "./ProductBuy.astro";
+
+interface Props {
+  title: string;
+}
+
+const { title } = Astro.props;
+---
+
+<div class="service-card">
+  <div class="service-card__container">
+    <img src="/img/service.png" alt="" class="service-card__image" />
+    <div class="service-card__title">{title}</div>
+    <div class="service-card__price ruble">100 999</div>
+    <ProductBuy />
+  </div>
+</div>
+
+<style is:global lang="scss">
+  .service-card {
+    background-color: white;
+    border-radius: 30px;
+    box-shadow: $shadow-card-less;
+    height: 100%;
+    padding: fluid(20px, 40px);
+
+    &__container {
+      display: grid;
+      grid-template-areas: "image image" "title title" "price buy";
+      grid-template-columns: 1fr auto;
+      grid-template-rows: auto minmax(4.3em, 1fr) auto;
+      font-size: fluid(14px, 16px);
+      height: 100%;
+    }
+
+    &__image {
+      grid-area: image;
+      aspect-ratio: 1;
+      margin-bottom: 1.6em;
+    }
+
+    &__title {
+      grid-area: title;
+      line-height: 1.4;
+      font-size: fluid(16px, 18px);
+    }
+
+    &__price {
+      align-self: center;
+      grid-area: price;
+      font-size: fluid(20px, 24px);
+      font-weight: 500;
+      line-height: 1;
+    }
+  }
+
+  @media (max-width: 576px) {
+    .service-card {
+      border-radius: 20px;
+      padding: 10px;
+      &__container {
+        grid-template-rows: auto minmax(4.7em, 1fr) auto;
+      }
+
+      &__image {
+        margin-bottom: 0.2em;
+      }
+
+      &__title {
+        font-size: 14px;
+      }
+
+      &__price {
+        font-size: 18px;
+      }
+    }
+  }
+</style>

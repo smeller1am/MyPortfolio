@@ -1,0 +1,242 @@
+---
+const items: string[] = [
+  "/img/about/1.jpg",
+  "/img/about/2.jpg",
+  "/img/about/3.jpg",
+  "/img/about/1.jpg",
+  "/img/about/2.jpg",
+  "/img/about/3.jpg",
+];
+---
+
+<div class="about-swiper">
+  <div class="about-swiper__swiper swiper">
+    <div class="about-swiper__wrapper swiper-wrapper">
+      {
+        items.map((src) => (
+          <a href={src} class="about-swiper__slide swiper-slide">
+            <img {src} alt="" class="about-swiper__image" />
+          </a>
+        ))
+      }
+    </div>
+  </div>
+  <div class="about-swiper__prev swiper-button-prev">
+    <div class="about-swiper__arrow icon-arrow-left"></div>
+  </div>
+  <div class="about-swiper__next swiper-button-next">
+    <div class="about-swiper__arrow icon-arrow-right"></div>
+  </div>
+  <div class="about-swiper__pagination swiper-pagination"></div>
+</div>
+
+<style is:global lang="scss">
+  .about-swiper {
+    display: grid;
+    grid-template-columns: 1fr minmax(auto, 1140px) 1fr;
+    grid-template-rows: 1fr auto;
+
+    &__swiper {
+      grid-area: 1/1/-1/-1;
+      width: 100%;
+    }
+
+    &__wrapper {
+      width: 100%;
+    }
+
+    $deg: 0.28;
+
+    &__slide[class] {
+      overflow: hidden;
+      height: fluid(250px, 432px, 993px, 1920px);
+      transform: matrix(1, 0, -$deg, 1, 0, 0);
+      border-top-left-radius: fluid(8px, 20px);
+      border-top-right-radius: fluid(16px, 40px);
+      border-bottom-left-radius: fluid(16px, 40px);
+      border-bottom-right-radius: fluid(8px, 20px);
+      user-select: none;
+      transition: filter 0.2s linear;
+      position: relative;
+
+      &:not(.swiper-slide-active)::after {
+        animation: p-opacity 1s linear;
+        content: "";
+        background-color: #38323280;
+        height: 100%;
+        width: 100%;
+        display: block;
+        position: absolute;
+        top: 0;
+        left: 0;
+      }
+
+      &:focus,
+      &:focus-visible {
+        outline: none;
+      }
+    }
+
+    &__image {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transform: matrix(1, 0, $deg, 1, 0, 0) scale(1.3);
+    }
+
+    &__arrow {
+      font-size: 40px;
+      color: white;
+      transition: color 0.38s ease-in-out;
+    }
+
+    &__prev,
+    &__next {
+      margin: unset;
+      grid-area: 1/1/-1/-1;
+      position: static;
+      height: 100%;
+      width: 100%;
+      justify-self: center;
+      &::after {
+        display: none;
+      }
+    }
+
+    &__prev {
+      grid-area: 1/1/-1/2;
+    }
+
+    &__next {
+      grid-area: 1/3/-1/-1;
+    }
+
+    &__pagination {
+      display: none;
+    }
+  }
+
+  @media (max-width: 992px) {
+    .about-swiper {
+      gap: 20px;
+
+      &__swiper {
+        grid-area: 1 / 1 / -2 / -1;
+      }
+
+      &__wrapper {
+      }
+
+      &__slide[class] {
+      }
+
+      &__image {
+      }
+
+      &__prev,
+      &__next {
+        display: none;
+      }
+      &__pagination {
+        display: flex;
+        position: static;
+        grid-area: 2 / 1 / -1 / -1;
+        justify-content: center;
+        --swiper-pagination-color: #{$color-text-purple};
+        --swiper-pagination-bullet-inactive-color: #{$color-text-gray-light};
+        --swiper-pagination-bullet-inactive-opacity: 1;
+        --swiper-pagination-bullet-horizontal-gap: 5px;
+        --swiper-pagination-bottom: 0;
+      }
+    }
+  }
+  @media (max-width: 576px) {
+    .about-swiper {
+      &__swiper {
+      }
+
+      &__wrapper {
+      }
+
+      &__slide[class] {
+        height: 195px;
+      }
+
+      &__image {
+      }
+
+      &__prev,
+      &__next {
+      }
+    }
+  }
+</style>
+
+<script>
+  import Swiper from "swiper";
+  import { Navigation, Pagination } from "swiper/modules";
+  import { Fancybox } from "@fancyapps/ui";
+
+  const swiper = new Swiper(".about-swiper__swiper", {
+    modules: [Navigation, Pagination],
+    centeredSlides: true,
+    loop: true,
+    speed: 500,
+    breakpoints: {
+      320: {
+        spaceBetween: 12,
+        slidesPerView: 1.15,
+        slidesOffsetBefore: -15,
+      },
+
+      400: {
+        spaceBetween: 12,
+        slidesPerView: 1.5,
+      },
+      577: {
+        spaceBetween: 15,
+        slidesPerView: 2,
+      },
+      769: {
+        slidesPerView: 2,
+        spaceBetween: 20,
+      },
+      993: {
+        slidesPerView: 2.6,
+        spaceBetween: 25,
+        slidesOffsetBefore: -32,
+      },
+    },
+
+    // centerInsufficientSlides: true,
+    preventClicks: true,
+    navigation: {
+      nextEl: ".about-swiper__next",
+      prevEl: ".about-swiper__prev",
+    },
+    pagination: {
+      el: ".about-swiper__pagination",
+      type: "bullets",
+      clickable: true,
+    },
+    on: {
+      // click: (e) => {
+      //   if (e.activeIndex < e.clickedIndex) {
+      //     e.slideNext();
+      //   }
+      //   if (e.activeIndex > e.clickedIndex) {
+      //     e.slidePrev();
+      //   }
+      // },
+    },
+  });
+
+  Fancybox.bind(".about-swiper__slide", {
+    groupAll: true,
+    compact: false,
+    Images: {
+      initialSize: "fit",
+      zoom: false,
+    },
+  });
+</script>

@@ -1,0 +1,446 @@
+---
+import Input from "./Input.astro"
+import Textarea from "./Textarea.astro"
+import File from "./File.astro"
+import Button from "./Button.astro"
+import Checkbox from "./Checkbox.astro"
+
+interface Props {
+  title: string
+  center?: boolean
+}
+
+const { title, center } = Astro.props
+---
+
+<div class:list={["contact-form", { "contact-form--center": center }]}>
+  <h2 class="contact-form__title">{title}</h2>
+  <div class="contact-form__wrapper">
+    <div class="contact-form__indicator">
+      <div class="contact-form__indicator-dot" data-name="name"></div>
+      <div class="contact-form__indicator-line" data-name="phone"></div>
+      <div class="contact-form__indicator-dot" data-name="phone"></div>
+      <div class="contact-form__indicator-line" data-name="device"></div>
+      <div class="contact-form__indicator-dot" data-name="device"></div>
+      <div class="contact-form__indicator-line" data-name="details"></div>
+      <div class="contact-form__indicator-dot" data-name="details"></div>
+      <div class="contact-form__indicator-line" data-name="file"></div>
+      <div class="contact-form__indicator-dot" data-name="file"></div>
+      <div class="contact-form__indicator-line" data-name="agree"></div>
+      <div class="contact-form__indicator-dot" data-name="agree"></div>
+      <div class="contact-form__indicator-line" data-name="submit"></div>
+      <div class="contact-form__indicator-dot" data-name="submit"></div>
+    </div>
+    <form class="contact-form__form" method="post" enctype="multipart/form-data">
+      <div class="contact-form__column">
+        <input type="hidden" name="id" value="form-trade-in" />
+        <Input name="name" placeholder="Ваше имя (обязательно)" />
+        <Input name="phone" placeholder="Ваш телефон (обязательно)" />
+        <Input name="device" placeholder="Ваше устройство" />
+      </div>
+      <Textarea name="details" placeholder="Опишите детали" />
+      <div class="contact-form__col">
+        <div class="contact-form__file">
+          <File id="file" name="file[]">Прикрепите фото устройства </File>
+          <a class="contact-form__file-trigger icon-info"></a>
+          <div class="contact-form__file-text">Для того, чтобы мы могли оценить внешний вид устройства.</div>
+        </div>
+        <Checkbox id="agree" name="agree">Согласен на обработку персональных данных</Checkbox>
+        <Button wide submit color="primary" variant="submit">Отправить</Button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<style is:global lang="scss">
+  .contact-form {
+    &--center &__col {
+      align-items: center;
+    }
+
+    &__title {
+      font-weight: 600;
+      font-size: fluid(26px, 34px);
+      margin-bottom: fluid(25px, 55px);
+    }
+
+    &__form {
+      display: flex;
+      flex-direction: column;
+      gap: 25px;
+    }
+
+    &__wrapper {
+      position: relative;
+    }
+
+    &__indicator {
+      margin-top: 20px;
+      position: absolute;
+      left: -4.2vw;
+      display: grid;
+      grid-template-rows: auto 42px auto 50px auto 55px auto 213px auto 1fr auto 40px auto;
+      gap: 5px;
+      justify-items: center;
+      height: 95%;
+
+      @media (max-width: 992px) {
+        display: none;
+      }
+
+      &-dot {
+        height: 14px;
+        width: 14px;
+        background-color: $color-background-gray;
+        border-radius: 999px;
+        transition: background-color 0.38s ease-in-out;
+
+        &:first-child,
+        &:last-child {
+          position: relative;
+          height: 18px;
+          width: 18px;
+        }
+
+        &:first-child::before {
+          top: -7px;
+          left: -5px;
+          position: absolute;
+          transition: background-color 0.38s ease-in-out;
+          mask-repeat: no-repeat;
+          background-color: $color-background-gray;
+          mask-position: center;
+          mask-size: 28px;
+          mask-image: url('data:image/svg+xml,<svg width="28" height="24" viewBox="0 0 28 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M22.8913 22.8913C23.4481 23.4481 24.3574 23.4523 24.8547 22.8417C26.2932 21.0757 27.2838 18.9793 27.731 16.7313C28.2712 14.0155 27.9939 11.2006 26.9343 8.64243C25.8747 6.08427 24.0803 3.89776 21.778 2.35942C19.4757 0.821085 16.7689 0 14 0C11.2311 0 8.5243 0.821087 6.22201 2.35943C3.91973 3.89777 2.12531 6.08427 1.06569 8.64244C0.00605895 11.2006 -0.271187 14.0155 0.269007 16.7313C0.716165 18.9793 1.70682 21.0757 3.14532 22.8417C3.64263 23.4523 4.55189 23.4481 5.10869 22.8913C5.6655 22.3345 5.65704 21.4366 5.1758 20.8133C4.12772 19.4559 3.40285 17.8695 3.06579 16.175C2.63562 14.0124 2.8564 11.7708 3.7002 9.73368C4.54399 7.69658 5.97292 5.95543 7.80627 4.73042C9.63961 3.50542 11.795 2.85158 14 2.85158C16.2049 2.85157 18.3604 3.50542 20.1937 4.73042C22.0271 5.95543 23.456 7.69657 24.2998 9.73368C25.1436 11.7708 25.3644 14.0124 24.9342 16.175C24.5971 17.8695 23.8723 19.4559 22.8242 20.8133C22.343 21.4366 22.3345 22.3345 22.8913 22.8913Z" fill="%23000000"/></svg>');
+          content: "";
+          width: 28px;
+          height: 28px;
+        }
+
+        &:last-child::before {
+          top: -3px;
+          left: -5px;
+          position: absolute;
+          transition: background-color 0.38s ease-in-out;
+          mask-repeat: no-repeat;
+          background-color: $color-background-gray;
+          mask-position: center;
+          mask-size: 28px;
+          mask-image: url('data:image/svg+xml,<svg width="28" height="24" viewBox="0 0 28 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M22.8913 1.10869C23.4481 0.551883 24.3574 0.547743 24.8547 1.15827C26.2932 2.92426 27.2838 5.02072 27.731 7.26873C28.2712 9.98447 27.9939 12.7994 26.9343 15.3576C25.8747 17.9157 24.0803 20.1022 21.778 21.6406C19.4757 23.1789 16.7689 24 14 24C11.2311 24 8.5243 23.1789 6.22201 21.6406C3.91973 20.1022 2.12531 17.9157 1.06569 15.3576C0.00605895 12.7994 -0.271187 9.98447 0.269007 7.26873C0.716165 5.02072 1.70682 2.92426 3.14532 1.15827C3.64263 0.547741 4.55189 0.551881 5.10869 1.10869C5.6655 1.66549 5.65704 2.56343 5.1758 3.1867C4.12772 4.54411 3.40285 6.13051 3.06579 7.82505C2.63562 9.98763 2.8564 12.2292 3.7002 14.2663C4.54399 16.3034 5.97292 18.0446 7.80627 19.2696C9.63961 20.4946 11.795 21.1484 14 21.1484C16.2049 21.1484 18.3604 20.4946 20.1937 19.2696C22.0271 18.0446 23.456 16.3034 24.2998 14.2663C25.1436 12.2292 25.3644 9.98763 24.9342 7.82505C24.5971 6.13051 23.8723 4.54412 22.8242 3.18671C22.343 2.56343 22.3345 1.66549 22.8913 1.10869Z" fill="%23DFE1E3"/></svg>');
+          content: "";
+          width: 28px;
+          height: 28px;
+        }
+        &--active {
+          background-color: $color-text-purple;
+
+          &:first-child::before,
+          &:last-child::before {
+            background-color: $color-text-purple;
+          }
+        }
+      }
+      &-line {
+        height: auto;
+        width: 6px;
+        background-color: $color-background-gray;
+        border-radius: 999px;
+        transition: background-color 0.38s ease-in-out;
+
+        &--active {
+          background-color: $color-text-purple;
+        }
+      }
+    }
+
+    &__column {
+      display: grid;
+      gap: 25px;
+      max-width: 350px;
+      width: 100%;
+    }
+
+    &__col {
+      display: flex;
+      flex-direction: column;
+      gap: 25px;
+      align-items: flex-start;
+    }
+
+    &__file {
+      display: flex;
+      align-items: center;
+      line-height: 1;
+      margin-bottom: 30px;
+
+      &-text {
+        display: none;
+      }
+
+      &-trigger {
+        cursor: pointer;
+        color: $color-text-gray-light !important;
+        font-size: 19px;
+        vertical-align: text-bottom;
+        margin-left: 16px;
+        align-self: flex-start;
+      }
+    }
+  }
+
+  @media (max-width: 992px) {
+    .contact-form {
+      &__title {
+      }
+
+      &__form {
+      }
+
+      &__col {
+      }
+
+      &__file {
+        &-text {
+          display: none;
+        }
+
+        &-trigger {
+        }
+      }
+    }
+  }
+
+  @media (max-width: 768px) {
+    .contact-form {
+      &--center &__col {
+        align-items: unset;
+      }
+      &__title {
+        margin-bottom: 15px;
+      }
+
+      &__form {
+        gap: 13px;
+      }
+
+      &__col {
+        align-items: unset;
+        margin-top: 10px;
+        gap: 25px;
+      }
+
+      &__column {
+        max-width: unset;
+        gap: 13px;
+      }
+
+      &__file {
+        margin-bottom: unset;
+        &-text {
+        }
+
+        &-trigger {
+        }
+      }
+    }
+  }
+  @media (max-width: 576px) {
+    .contact-form {
+      &__title {
+        font-size: 22px;
+      }
+
+      &__form {
+      }
+
+      &__col {
+      }
+
+      &__file {
+        &-text {
+        }
+
+        &-trigger {
+        }
+      }
+    }
+  }
+</style>
+
+<script>
+  import { tippyAndFancybox } from "../script/popover"
+  import { sendTradeInForm } from "../script/api"
+
+  const button = document.querySelector(".contact-form__file-trigger")
+  const tooltip = document.querySelector(".contact-form__file-text")
+
+  if (button instanceof HTMLElement && tooltip instanceof HTMLElement) {
+    tippyAndFancybox(button, tooltip)
+  }
+
+  import { Fancybox } from "@fancyapps/ui"
+  const form = document.querySelector(".contact-form__form")
+
+  const formHandler = async (e: Event) => {
+    e.preventDefault()
+    const phone = form?.querySelector('[name="phone"]') as HTMLInputElement
+    if (e.currentTarget instanceof HTMLFormElement && phone.value.length > 18) {
+      const button = e.currentTarget.querySelector("button")
+      if (button instanceof HTMLElement) {
+        const loader = document.createElement("div")
+        button.classList.add("button--loading")
+        loader.classList.remove("icon-check")
+        loader.classList.add("icon-spin")
+        loader.classList.add("animation-spin")
+        loader.style.zIndex = "2"
+        loader.style.fontSize = "26px"
+        button.append(loader)
+        try {
+          const formData = new FormData(e.currentTarget)
+          await sendTradeInForm(formData)
+
+          if (form instanceof HTMLFormElement) form.reset()
+          const filesList = document.querySelector(".file__list")
+          if (filesList) filesList.remove()
+
+          const dotsEl = document.querySelectorAll(".contact-form__indicator-dot")
+          dotsEl.forEach(el => el.classList.remove("contact-form__indicator-dot--active"))
+
+          const linesEl = document.querySelectorAll(".contact-form__indicator-line")
+          linesEl.forEach(el => el.classList.remove("contact-form__indicator-line--active"))
+
+          const modal = new Fancybox([{ src: "#contact" }], {
+            closeButton: false,
+            compact: false,
+            autoFocus: false,
+          })
+
+          const close = document.querySelector("#contact .button")
+
+          if (close) {
+            close.addEventListener("click", () => modal.close())
+          }
+
+          document.querySelector(".contact-form__column p")?.remove()
+        } catch (error) {
+          console.log(error)
+        } finally {
+          loader.remove()
+          button.classList.remove("button--loading")
+        }
+      }
+    } else {
+      if (phone.value.length < 18) {
+        let p = document.createElement("p")
+        console.log(p)
+        if (p) {
+          p.textContent = "Номер введен не полностью"
+          phone.insertAdjacentElement("afterend", p)
+        }
+      }
+    }
+  }
+
+  if (form instanceof HTMLFormElement) {
+    form.addEventListener("submit", formHandler)
+  }
+
+  if (form instanceof HTMLFormElement) {
+    const name = form.querySelector('[name="name"]') as HTMLInputElement
+    const phone = form.querySelector('[name="phone"]') as HTMLInputElement
+    const device = form.querySelector('[name="device"]') as HTMLInputElement
+    const details = form.querySelector('[name="details"]') as HTMLInputElement
+    const file = form.querySelector('[name="file[]"]') as HTMLInputElement
+    const agree = form.querySelector('[name="agree"]') as HTMLInputElement
+
+    const dots = {
+      name: false,
+      phone: false,
+      device: false,
+      details: false,
+      file: false,
+      agree: false,
+      submit: false,
+    }
+    function dotHandle() {
+      const dotsEl = document.querySelectorAll(".contact-form__indicator-dot")
+      dotsEl.forEach(el => el.classList.remove("contact-form__indicator-dot--active"))
+
+      const linesEl = document.querySelectorAll(".contact-form__indicator-line")
+      linesEl.forEach(el => el.classList.remove("contact-form__indicator-line--active"))
+
+      for (const [key, value] of Object.entries(dots)) {
+        if (!value) {
+          dots.submit = false
+          return
+        }
+        console.log(dots)
+
+        const dot = document.querySelector(`.contact-form__indicator-dot[data-name="${key}"]`)
+        if (dot instanceof HTMLElement) {
+          dot.classList.add("contact-form__indicator-dot--active")
+        }
+
+        const line = document.querySelector(`.contact-form__indicator-line[data-name="${key}"]`)
+
+        if (line instanceof HTMLElement) {
+          line.classList.add("contact-form__indicator-line--active")
+        }
+      }
+    }
+
+    name.addEventListener("input", e => {
+      if (e.target instanceof HTMLInputElement) {
+        dots.name = Boolean(e.target.value)
+        dotHandle()
+      }
+    })
+
+    phone.addEventListener("input", e => {
+      if (e.target instanceof HTMLInputElement) {
+        if (phone.value.length > 18) {
+          dots.phone = true
+          dotHandle()
+        } else {
+          dots.phone = false
+          dotHandle()
+        }
+      }
+    })
+
+    device.addEventListener("input", e => {
+      if (e.target instanceof HTMLInputElement) {
+        dots.device = Boolean(e.target.value)
+        dotHandle()
+      }
+    })
+
+    details.addEventListener("input", e => {
+      if (e.target instanceof HTMLTextAreaElement) {
+        dots.details = Boolean(e.target.value)
+        dotHandle()
+      }
+    })
+
+    file.addEventListener("input", e => {
+      if (e.target instanceof HTMLInputElement) {
+        dots.file = Boolean(e.target.files?.length)
+        dotHandle()
+      }
+    })
+
+    agree.addEventListener("change", e => {
+      if (e.target instanceof HTMLInputElement) {
+        dots.agree = Boolean(e.target.checked)
+        dotHandle()
+      }
+    })
+
+    form.addEventListener("submit", e => {
+      if (e.target instanceof HTMLFormElement) {
+        dots.submit = true
+        dotHandle()
+      }
+    })
+  }
+</script>

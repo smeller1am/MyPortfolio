@@ -1,0 +1,327 @@
+---
+import NavButton from "./NavButton.astro";
+
+const items: { avatar: string; name: string; text: string; link: string }[] = [
+  {
+    avatar: "/img/yandex-maps.png",
+    name: "Сергей Иванов",
+    text: "Я недавно купил iPhone 15 Pro в вашем магазине и очень доволен покупкой. Телефон имеет отличный дизайн, экран и производительность. Камера работает отлично, а батарейная жизнь превышает ожидания. В целом, я рекомендую этот смартфон всем, кто ищет премиальный продукт. 5/5 звезд",
+    link: "https://reviews.yandex.ru/",
+  },
+  {
+    avatar: "/img/2-gis.png",
+    name: "Сергей Иванов",
+    text: "Я недавно купил iPhone 15 Pro в вашем магазине и очень доволен покупкой. Телефон имеет отличный дизайн, экран и производительность. Камера работает отлично, а батарейная жизнь превышает ожидания. В целом, я рекомендую этот смартфон всем, кто ищет премиальный продукт. 5/5 звезд",
+    link: "https://2gis.ru",
+  },
+  {
+    avatar: "/img/yandex-maps.png",
+    name: "Сергей Иванов",
+    text: "Я недавно купил iPhone 15 Pro в вашем магазине и очень доволен покупкой. Телефон имеет отличный дизайн, экран и производительность. Камера работает отлично, а батарейная жизнь превышает ожидания. В целом, я рекомендую этот смартфон всем, кто ищет премиальный продукт. 5/5 звезд",
+    link: "https://reviews.yandex.ru/",
+  },
+  {
+    avatar: "/img/2-gis.png",
+    name: "Сергей Иванов",
+    text: "Я недавно купил iPhone 15 Pro в вашем магазине и очень доволен покупкой. Телефон имеет отличный дизайн, экран и производительность. Камера работает отлично, а батарейная жизнь превышает ожидания. В целом, я рекомендую этот смартфон всем, кто ищет премиальный продукт. 5/5 звезд",
+    link: "https://2gis.ru",
+  },
+  {
+    avatar: "/img/yandex-maps.png",
+    name: "Сергей Иванов",
+    text: "Я недавно купил iPhone 15 Pro в вашем магазине и очень доволен покупкой. Телефон имеет отличный дизайн, экран и производительность. Камера работает отлично, а батарейная жизнь превышает ожидания. В целом, я рекомендую этот смартфон всем, кто ищет премиальный продукт. 5/5 звезд",
+    link: "https://reviews.yandex.ru/",
+  },
+  {
+    avatar: "/img/2-gis.png",
+    name: "Сергей Иванов",
+    text: "Я недавно купил iPhone 15 Pro в вашем магазине и очень доволен покупкой. Телефон имеет отличный дизайн, экран и производительность. Камера работает отлично, а батарейная жизнь превышает ожидания. В целом, я рекомендую этот смартфон всем, кто ищет премиальный продукт. 5/5 звезд",
+    link: "https://2gis.ru",
+  },
+];
+---
+
+<section class="reviews section">
+  <div class="reviews__container">
+    <div class="reviews__gallery">
+      <img src="/img/r-1.png" alt="" />
+      <img src="/img/r-2.png" alt="" />
+      <img src="/img/r-3.png" alt="" />
+    </div>
+    <div class="reviews__wrapper">
+      <h2 class="title title--small">Отзывы клиентов</h2>
+      <div class="reviews__swiper">
+        <div class="swiper-wrapper">
+          {
+            items.map(({ avatar, name, text, link }) => (
+              <div class="swiper-slide reviews__slide">
+                <div class="reviews__info">
+                  <img src={avatar} alt="" class="reviews__avatar" />
+                  <div class="reviews__stars">
+                    {[1, 2, 3, 4, 5].map(() => (
+                      <div class="reviews__star icon-star" />
+                    ))}
+                  </div>
+                  <div class="reviews__name">{name}</div>
+                </div>
+                <div class="reviews__text">{text}</div>
+                <a href={link} class="reviews__link">
+                  {link}
+                </a>
+              </div>
+            ))
+          }
+        </div>
+      </div>
+      <div class="reviews__nav">
+        <div class="reviews__prev">
+          <NavButton position="left" />
+        </div>
+        <div class="reviews__next">
+          <NavButton position="right" />
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style is:global lang="scss">
+  .reviews {
+    order: 3;
+    margin-bottom: fluid(90px, 130px);
+
+    &__container {
+      grid-area: center;
+      gap: fluid(20px, 70px);
+      display: grid;
+      grid-template-columns: fluid(450px, 720px) 1fr;
+    }
+
+    &__swiper {
+      width: 100%;
+      height: auto;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    &__wrapper {
+      display: grid;
+      grid-template-columns: 100%;
+      grid-template-rows: max-content max-content max-content;
+      grid-template-areas: "title" "swiper" "nav";
+      overflow: hidden;
+      gap: fluid(20px, 40px);
+    }
+
+    &__slide {
+      display: flex;
+      flex-direction: column;
+      column-gap: 15px;
+    }
+
+    &__info {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      grid-template-rows: auto auto;
+      grid-template-areas: "avatar stars" "avatar name";
+      column-gap: 15px;
+    }
+
+    .title {
+      grid-area: title;
+    }
+
+    &__name {
+      font-size: fluid(16px, 20px);
+      grid-area: name;
+    }
+
+    &__text {
+      margin-top: fluid(15px, 15px);
+      font-size: fluid(14px, 18px);
+      grid-area: text;
+      color: $color-text-gray;
+      line-height: 1.4;
+      margin-bottom: fluid(16px, 22px);
+    }
+
+    &__link {
+      align-self: flex-end;
+      color: $color-text-blue;
+      transition: color 0.38s ease-in-out;
+      text-decoration: underline;
+
+      &:hover {
+        color: $color-text-purple;
+      }
+    }
+
+    &__stars {
+      grid-area: stars;
+      display: flex;
+      gap: 5px;
+    }
+
+    &__star {
+      color: #eeeb00;
+      font-size: 22px;
+    }
+
+    &__nav {
+      grid-area: nav;
+      display: flex;
+      gap: 12px;
+    }
+
+    &__avatar {
+      $size: fluid(49px, 52px);
+      min-height: $size;
+      min-width: $size;
+      height: $size;
+      width: $size;
+      grid-area: avatar;
+    }
+
+    &__swiper {
+      grid-area: swiper;
+    }
+
+    &__gallery {
+      $size: fluid(200px, 330px);
+      display: grid;
+      grid-template-columns: 1fr 1.075fr;
+      // grid-template-rows: 50% 50%;
+      gap: fluid(20px, 40px);
+
+      img {
+        // aspect-ratio: 1;
+        border-radius: 30px;
+        width: 100%;
+        object-fit: cover;
+        min-height: fluid(240px, 330px);
+        &:nth-child(2) {
+          height: 100%;
+          grid-row: span 2;
+          min-height: fluid(400px, 700px);
+        }
+      }
+    }
+  }
+
+  @media (max-width: 992px) {
+    .reviews {
+      margin-bottom: 40px;
+      &__container {
+        grid-template-columns: 1fr;
+        grid-template-rows: auto auto;
+      }
+
+      &__wrapper {
+        grid-template-areas:
+          "title nav"
+          "swiper swiper";
+        grid-template-columns: 70% 30%;
+        row-gap: 22px;
+        column-gap: unset;
+        grid-template-rows: max-content max-content;
+      }
+
+      &__gallery {
+        order: 2;
+        aspect-ratio: 1;
+        grid-template-columns: repeat(2, 1fr);
+        grid-template-rows: repeat(2, 1fr);
+
+        img {
+          min-height: 100%;
+          &:nth-child(2) {
+            min-height: unset;
+          }
+        }
+      }
+      &__swiper {
+      }
+
+      &__text {
+        font-size: 16px;
+      }
+
+      &__link {
+        align-self: start;
+        font-size: fluid(14px, 16px);
+      }
+
+      &__nav {
+        justify-self: end;
+        gap: 10px;
+      }
+
+      &__stars {
+        gap: 1px;
+      }
+    }
+  }
+
+  @media (max-width: 768px) {
+    .reviews {
+      &__container {
+      }
+
+      &__gallery {
+        gap: 10px;
+
+        img {
+          border-radius: 15px;
+          &:nth-child(2) {
+          }
+        }
+      }
+    }
+  }
+  @media (max-width: 576px) {
+    .reviews {
+      &__text {
+        font-size: 14px;
+      }
+    }
+  }
+</style>
+
+<script>
+  import Swiper from "swiper";
+  import { Navigation, Grid } from "swiper/modules";
+
+  new Swiper(".reviews__swiper", {
+    modules: [Navigation, Grid],
+    slidesPerView: 1,
+    speed: 380,
+    breakpoints: {
+      320: {
+        grid: {
+          rows: 1,
+          fill: "row",
+        },
+      },
+      577: {
+        spaceBetween: 30,
+        grid: {
+          rows: 2,
+          fill: "row",
+        },
+      },
+
+      1400: {
+        spaceBetween: 60,
+        grid: {
+          rows: 2,
+          fill: "row",
+        },
+      },
+    },
+
+    navigation: {
+      nextEl: ".reviews__next",
+      prevEl: ".reviews__prev",
+    },
+  });
+</script>

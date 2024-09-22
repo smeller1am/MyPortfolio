@@ -1,0 +1,79 @@
+---
+interface Props {
+  text: string;
+  close?: boolean;
+  variant?: "small";
+  active?: boolean;
+}
+
+const { text, close, variant, active } = Astro.props;
+
+let classList = ["category-tag", { "category-tag--active": active }];
+
+if (variant) classList.push(`category-tag--${variant}`);
+---
+
+<a href="#" class:list={classList} data-id=1>
+  <img src="/img/tag.jpg" alt="" class="category-tag__image" />
+  <div class="category-tag__text">{text}</div>
+  {close && <div class="category-tag__close icon-close" />}
+</a>
+
+<style is:global lang="scss">
+  .category-tag {
+    background-color: white;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    padding: 5px 10px;
+    gap: fluid(8px, 15px);
+    outline: 1px solid transparent;
+    /* outline-offset: -1px; */
+    transition: outline-color 0.38s ease-in-out;
+
+    &:hover,
+    &--active {
+      outline-color: $color-text-purple;
+    }
+
+    &--active {
+      font-weight: bold;
+    }
+
+    &__image {
+      $size: fluid(28px, 34px);
+      height: $size;
+      width: $size;
+      object-fit: contain;
+    }
+
+    &__text {
+      font-size: fluid(14px, 18px);
+    }
+
+    &__close {
+      font-size: 20px;
+    }
+  }
+
+  @media (max-width: 992px) {
+    .category-tag {
+      flex-shrink: 0;
+      gap: 15px;
+      &__image {
+        display: none;
+      }
+
+      &__text {
+        font-size: 16px;
+      }
+
+      &--small &__text {
+        font-size: 14px;
+      }
+
+      &__close {
+      }
+    }
+  }
+</style>

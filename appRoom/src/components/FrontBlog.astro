@@ -1,0 +1,106 @@
+---
+import BlogCard from "@components/BlogCard.astro";
+
+const items: string[] = [
+  "/img/blog-1.png",
+  "/img/blog-2.png",
+  "/img/blog-3.png",
+];
+---
+
+<div class="front-blog section">
+  <div class="front-blog__container">
+    <h2 class="front-blog__title title title--small">Блог</h2>
+    <div class="swiper front-blog__swiper">
+      <div class="swiper-wrapper">
+        {
+          items.map((image) => (
+            <div class="swiper-slide">
+              <BlogCard {image} />
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </div>
+</div>
+
+<style is:global lang="scss">
+  .front-blog {
+    margin-bottom: fluid(40px, 80px);
+
+    &__container {
+      grid-area: center;
+    }
+
+    &__title {
+      margin-bottom: fluid(10px, 30px);
+    }
+
+    &__swiper {
+      padding-top: 10px;
+      overflow: unset;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .front-blog {
+      &__container {
+        margin-left: -10px;
+        grid-area: right;
+      }
+
+      &__title {
+        padding-left: 10px;
+      }
+
+      &__swiper {
+        overflow: hidden;
+        padding-left: 10px;
+      }
+    }
+  }
+  @media (max-width: 576px) {
+    .front-blog {
+      &__container {
+        margin-left: unset;
+        grid-area: full;
+      }
+
+      &__title {
+        margin-left: 15px;
+        padding-left: unset;
+      }
+
+      &__swiper {
+        padding-left: unset;
+      }
+    }
+  }
+</style>
+
+<script>
+  import Swiper from "swiper";
+
+  new Swiper(".front-blog__swiper", {
+    spaceBetween: 20,
+    speed: 380,
+    breakpoints: {
+      320: {
+        slidesPerView: 1.4,
+        slidesOffsetBefore: 15,
+        slidesOffsetAfter: 15,
+      },
+      577: {
+        slidesPerView: 2.25,
+        slidesOffsetBefore: 0,
+        slidesOffsetAfter: 30,
+      },
+      769: {
+        slidesPerView: 3,
+        slidesOffsetBefore: 0,
+        slidesOffsetAfter: 0,
+      },
+    },
+  });
+</script>

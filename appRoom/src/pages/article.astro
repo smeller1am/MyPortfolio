@@ -1,0 +1,342 @@
+---
+import Breadcrumbs from "@components/Breadcrumbs.astro";
+import Layout from "@components/Layout.astro";
+---
+
+<Layout title="Блог Деталка">
+  <Breadcrumbs items={["Главная", "Блог"]} last="Деталка блога" />
+  <section class="article">
+    <div class="article__hero">
+      <img src="/img/detail/1.jpg" alt="" class="article__image" />
+    </div>
+    <div class="article__body">
+      <div class="article__container">
+        <div class="article__info">
+          <div class="article__date">1 мая 2024</div>
+          <div class="article__views">
+            <span class="article__views-icon icon-views"></span>1000 просмотров
+          </div>
+        </div>
+        <h1 class="article__title">
+          Заголовок блога. Допустим про новый iPhone и еще какие нибудь гаждеты
+        </h1>
+        <div class="article__content">
+          <p>
+            Разнообразный и богатый опыт говорит нам, что перспективное
+            планирование является качественно новой ступенью новых предложений.
+            В рамках спецификации современных стандартов, ключевые особенности
+            структуры проекта преданы социально-демократической анафеме!
+            Разнообразный и богатый опыт говорит нам, что экономическая повестка
+            сегодняшнего дня прекрасно подходит для реализации системы обучения
+            кадров, соответствующей насущным потребностям! Мы вынуждены
+            отталкиваться от того, что сложившаяся структура организации не
+            оставляет шанса для переосмысления внешнеэкономических политик.
+            Банальные, но неопровержимые выводы, а также базовые сценарии
+            поведения пользователей представлены в исключительно положительном
+            свете.
+          </p>
+          <p>
+            В рамках спецификации современных стандартов, базовые сценарии
+            поведения пользователей лишь добавляют фракционных разногласий и в
+            равной степени предоставлены сами себе. С учётом сложившейся
+            международной обстановки, высокое качество позиционных исследований
+            играет важную роль в формировании инновационных методов управления
+            процессами.
+          </p>
+          <img src="/img/detail/2.jpg" alt="" />
+          <h2>Общие характеристики</h2>
+          <p>
+            Разнообразный и богатый опыт говорит нам, что перспективное
+            планирование является качественно новой ступенью новых предложений:
+          </p>
+          <ul>
+            <li>
+              <strong>Оригинальная продукция</strong>
+              <br /> Только оригинальная продукция мировых брендов, проверка при
+              покупке
+            </li>
+            <li>
+              <strong>Оригинальная продукция</strong>
+              <br /> Только оригинальная продукция мировых брендов, проверка при
+              покупке
+            </li>
+            <li>
+              <strong>Оригинальная продукция</strong>
+              <br /> Только оригинальная продукция мировых брендов, проверка при
+              покупке
+            </li>
+          </ul>
+          <blockquote>
+            Разнообразный и богатый опыт говорит нам, что перспективное
+            планирование является качественно новой ступенью новых предложений.
+            В рамках спецификации современных стандартов, ключевые особенности
+            структуры проекта преданы социально-демократической анафеме!
+          </blockquote>
+          <h3>Общие характеристики</h3>
+          <p>
+            Разнообразный и богатый опыт говорит нам, что перспективное
+            планирование является качественно новой ступенью новых предложений.
+            В рамках спецификации современных стандартов, ключевые особенности
+            структуры проекта преданы социально-демократической анафеме!
+            Разнообразный и богатый опыт говорит нам, что экономическая повестка
+            сегодняшнего дня прекрасно подходит для реализации системы обучения
+            кадров, соответствующей насущным потребностям! Мы вынуждены
+            отталкиваться от того, что сложившаяся структура организации не
+            оставляет шанса для переосмысления внешнеэкономических политик.
+            Банальные, но неопровержимые выводы, а также базовые сценарии
+            поведения пользователей представлены в исключительно положительном
+            свете.
+          </p>
+          <div class="article-image-block">
+            <img src="/img/detail/3.jpg" alt="" />
+            <div>
+              <h3>Общие характеристики</h3>
+              <p>
+                Разнообразный и богатый опыт говорит нам, что перспективное
+                планирование является качественно новой ступенью новых
+                предложений. В рамках спецификации современных стандартов,
+                ключевые особенности структуры проекта преданы
+                социально-демократической анафеме! Разнообразный и богатый опыт
+                говорит нам, что экономическая повестка сегодняшнего дня
+                прекрасно подходит для реализации системы обучения кадров,
+                соответствующей насущным потребностям! Мы вынуждены
+                отталкиваться от того, что сложившаяся структура организации не
+                оставляет шанса для переосмысления внешнеэкономических политик.
+                Банальные, но неопровержимые выводы, а также базовые сценарии
+                поведения пользователей представлены в исключительно
+                положительном свете.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<style is:global lang="scss">
+  .article {
+    padding-top: 20px;
+    /* margin-top: 56px; */
+    margin-bottom: fluid(20px, 60px);
+    &__hero {
+      @include section;
+      --container-width: 1296px;
+      margin-bottom: 40px;
+    }
+
+    &__image {
+      grid-area: center;
+      width: 100%;
+      object-fit: cover;
+      aspect-ratio: 2.25;
+      border-radius: 30px;
+    }
+
+    &__body {
+      @include section;
+      --container-width: 1034px;
+    }
+
+    &__container {
+      grid-area: center;
+    }
+
+    &__info {
+      display: flex;
+      gap: 10px;
+      justify-content: space-between;
+      margin-bottom: fluid(20px, 40px);
+      align-items: center;
+    }
+
+    &__date,
+    &__views {
+      font-size: 16px;
+      color: $color-text-gray;
+      font-weight: 300;
+      line-height: 1;
+    }
+
+    &__title {
+      margin-bottom: 1.2em;
+      font-size: fluid(24px, 34px);
+      font-weight: 600;
+      line-height: 1.2;
+    }
+
+    &__views {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      &-icon {
+        font-size: 20px;
+      }
+    }
+
+    &__content {
+      font-size: fluid(16px, 18px);
+      line-height: 1.4;
+      text-align: justify;
+      p {
+        margin-bottom: 1.3em;
+      }
+
+      img {
+        border-radius: 30px;
+        margin-top: 44px;
+        margin-bottom: 57px;
+        // max-width: 896px;
+        // width: 100%;
+        // aspect-ratio: 1.85;
+      }
+
+      h2 {
+        font-size: fluid(20px, 28px);
+        font-weight: 500;
+        line-height: 1.4;
+        margin-bottom: 0.7em;
+      }
+
+      h3 {
+        font-size: 18px;
+        margin-bottom: 1.4em;
+        font-weight: 500;
+        line-height: 1.1;
+      }
+
+      ul {
+        list-style: disc;
+        margin-left: 2.2em;
+      }
+
+      li {
+        margin-bottom: 1.1em;
+        line-height: 1.5;
+        margin-top: -0.5em;
+      }
+
+      li::marker {
+        color: $color-text-purple;
+      }
+
+      b,
+      strong {
+        font-weight: 500;
+      }
+
+      blockquote {
+        margin-top: 60px;
+        margin-bottom: 60px;
+        background-color: white;
+        color: $color-text-purple;
+        font-size: fluid(16px, 20px);
+        padding: 32px;
+        border-radius: 20px;
+        font-weight: 400;
+      }
+    }
+
+    &-image-block {
+      margin-top: fluid(30px, 65px);
+      margin-bottom: fluid(30px, 60px);
+      border-radius: 30px;
+      overflow: hidden;
+
+      img {
+        margin: unset;
+        max-width: unset;
+        border-radius: unset;
+      }
+
+      & > div {
+        background-color: #1f1f1f;
+        color: white;
+        padding: 30px;
+      }
+
+      p:last-child {
+        margin-bottom: unset;
+      }
+    }
+  }
+
+  @media (max-width: 992px) {
+    .article {
+      /* margin-top: 75px; */
+      padding-top: unset;
+      &__title {
+      }
+    }
+  }
+  @media (max-width: 768px) {
+    .article {
+      margin-bottom: 15px;
+      &__hero {
+        margin-bottom: 13px;
+      }
+      &__image {
+        aspect-ratio: 1.8;
+        border-radius: 20px;
+      }
+
+      &__title {
+        font-size: 20px;
+        line-height: 1.3;
+        margin-bottom: 1em;
+      }
+
+      &__date,
+      &__views {
+        gap: 4px;
+        font-size: 12px;
+      }
+
+      &__content {
+        line-height: 1.5;
+        img {
+          border-radius: 20px;
+          margin-bottom: 36px;
+          margin-top: 40px;
+        }
+        ul {
+          margin-left: 1.7em;
+        }
+
+        li {
+          margin-bottom: 0.9em;
+        }
+
+        h3 {
+          margin-bottom: 0.8em;
+        }
+
+        blockquote {
+          padding: 15px;
+          margin-top: 20px;
+          margin-bottom: 40px;
+          font-size: 16px;
+        }
+      }
+
+      &-image-block {
+        border-top-right-radius: 30px;
+        border-top-left: 30px;
+        img {
+          margin: unset;
+          aspect-ratio: 1.8;
+          border-radius: unset;
+        }
+
+        & > div {
+          padding: 20px 15px;
+          line-height: 1.625;
+        }
+
+        p:last-child {
+          margin-bottom: unset;
+        }
+      }
+    }
+  }
+</style>

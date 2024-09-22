@@ -1,0 +1,33 @@
+---
+import type { HTMLAttributes } from "astro/types";
+
+interface Props extends HTMLAttributes<"textarea"> {}
+
+const { ...restProps } = Astro.props;
+---
+
+<textarea {...restProps} class="textarea"></textarea>
+
+<style is:global lang="scss">
+  .textarea {
+    border-radius: 6px;
+    padding: 13px 15px;
+    border: 1px solid $color-text-gray-light;
+    transition: border-color 0.38s ease-in-out;
+    height: 230px;
+    resize: none;
+
+    &:hover {
+      border-color: $color-text-purple;
+    }
+
+    &:focus,
+    &:focus-visible {
+      outline: unset;
+    }
+
+    &::placeholder {
+      color: $color-text-gray-light;
+    }
+  }
+</style>

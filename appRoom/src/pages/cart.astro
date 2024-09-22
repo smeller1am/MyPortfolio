@@ -1,0 +1,389 @@
+---
+import Breadcrumbs from "@components/Breadcrumbs.astro";
+import Button from "@components/Button.astro";
+import CartAside from "@components/CartAside.astro";
+import CartProduct from "@components/CartProduct.astro";
+import Checkbox from "@components/Checkbox.astro";
+import Input from "@components/Input.astro";
+import Layout from "@components/Layout.astro";
+import ProductSwiper from "@components/ProductSwiper.astro";
+import Textarea from "@components/Textarea.astro";
+
+const items: { label: string; text: string }[] = [
+  {
+    label: "Расширенный комплект - 1500 ₽",
+    text: "Чехол и уважение",
+  },
+  {
+    label: "Подарочная упаковка - 990 ₽",
+    text: "С Яблочком",
+  },
+  {
+    label: "Trade in - 0 ₽",
+    text: "Старое на новое",
+  },
+];
+---
+
+<Layout title="Корзина">
+  <Breadcrumbs items={["Главная"]} last="Корзина" />
+  <section class="cart">
+    <div class="cart__container-wrap">
+      <div class="cart__container">
+        <div class="cart__header">
+          <h1 class="cart__title title">Корзина</h1>
+          <div class="cart__count">1 товар</div>
+        </div>
+        <form class="cart__body">
+          <div class="cart__list">
+            <CartProduct />
+            <!-- <CartProduct /> -->
+          </div>
+          <div class="cart__service">
+            <div class="cart__service-title">Услуги</div>
+            {
+              items.map(({ text, label }, index) => (
+                <div class="cart__service-item">
+                  <Checkbox
+                    variant="service"
+                    id={`check-${index + 1}`}
+                    name={`check-${index + 1}`}
+                  >
+                    {label}
+                  </Checkbox>
+
+                  <a class="cart__service-trigger icon-info" />
+                  <div class="cart__service-text">{text}</div>
+                </div>
+              ))
+            }
+          </div>
+          <div class="cart__data">
+            <h2 class="cart__data-title">Мои данные</h2>
+            <div class="cart__data-form">
+              <div class="cart__data-column">
+                <Input name="name" placeholder="Ваше имя (обязательно)" />
+                <Input name="phone" placeholder="Ваш телефон (обязательно)" />
+                <Input name="email" placeholder="Адрес электронной почты" />
+              </div>
+              <Textarea name="details" placeholder="Комментарий к заказу" />
+              <div class="cart__data-col">
+                <Checkbox id="agree" name="agree">
+                  Я подтверждаю свое согласие с <a href="#">
+                    политикой конфиденциальнсти сайта
+                  </a>
+                </Checkbox>
+                <Button wide submit color="primary" variant="submit"
+                  >Оформить заказ</Button
+                >
+              </div>
+            </div>
+          </div>
+        </form>
+        <CartAside />
+      </div>
+    </div>
+    <ProductSwiper title="Рекомендуемые товары" class="cart__recommendations" noMb />
+  </section>
+</Layout>
+
+<style is:global lang="scss">
+  .cart {
+    margin-bottom: fluid(80px, 163px);
+
+    &__container {
+      grid-area: center;
+      display: grid;
+      grid-template-areas: "header ." "body aside";
+      column-gap: 20px;
+      row-gap: 30px;
+      grid-template-columns: 2.05fr 1fr;
+      grid-template-rows: max-content auto;
+
+      &-wrap {
+        @include section;
+        flex-grow: 1;
+      }
+    }
+
+    &__recommendations {
+      margin-top: fluid(40px, 80px);
+    }
+
+    &__header {
+      grid-area: header;
+      display: flex;
+      align-items: baseline;
+      gap: 12px;
+    }
+
+    &__title {
+    }
+
+    &__count {
+      font-size: fluid(16px, 20px);
+      color: $color-text-gray;
+      font-weight: 400;
+    }
+
+    &__body {
+      box-shadow: $shadow-card;
+      border-radius: 30px;
+      background-color: white;
+      grid-area: body;
+      padding: fluid(20px, 40px);
+      display: flex;
+      flex-direction: column;
+      gap: fluid(25px, 48px);
+    }
+
+    &__list {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    &__service {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+
+      &-title {
+        font-size: fluid(20px, 24px);
+        font-weight: 500;
+      }
+
+      &-item {
+        display: flex;
+      }
+
+      &-text {
+        display: none;
+      }
+
+      &-info {
+      }
+
+      &-trigger {
+        cursor: pointer;
+        color: $color-text-gray-light !important;
+        font-size: 19px;
+        vertical-align: text-bottom;
+        margin-left: 12px;
+        margin-top: 4px;
+      }
+    }
+    &__data {
+      &-title {
+        font-size: fluid(22px, 30px);
+        line-height: 1;
+        margin-bottom: fluid(15px, 34px);
+      }
+
+      &-form {
+        display: flex;
+        flex-direction: column;
+        gap: fluid(15px, 25px);
+        width: 88%;
+      }
+
+      &-column {
+        display: grid;
+        gap: fluid(15px, 25px);
+        max-width: 350px;
+        width: 100%;
+      }
+
+      &-col {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+        align-items: flex-start;
+      }
+    }
+  }
+
+  @media (max-width: 992px) {
+    .cart {
+      /* margin-top: 77px; */
+      &__container {
+        grid-area: center;
+        display: grid;
+        grid-template-areas: "header" "body" "aside";
+        column-gap: 20px;
+        row-gap: 20px;
+        grid-template-columns: 100%;
+        grid-template-rows: max-content;
+      }
+
+      &__header {
+        gap: 15px;
+      }
+
+      &__title {
+      }
+
+      &__count {
+        font-size: 14px;
+      }
+
+      &__body {
+        border-radius: 20px;
+      }
+    }
+  }
+
+  @media (max-width: 768px) {
+    .cart {
+      margin-bottom: 40px;
+      &__container {
+      }
+
+      &__header {
+      }
+
+      &__title {
+      }
+
+      &__count {
+      }
+
+      &__body {
+        padding: 15px;
+        gap: 27px;
+      }
+
+      &__service {
+        margin-top: -15px;
+        gap: 12px;
+
+        &-title {
+          line-height: 1.7;
+        }
+
+        &-trigger {
+          margin-top: 3px;
+        }
+      }
+
+      &__data {
+        &-title {
+          line-height: unset;
+        }
+        &-column {
+          gap: 8px;
+          max-width: unset;
+        }
+
+        &-col {
+          margin-top: 10px;
+          align-items: unset;
+          gap: 20px;
+        }
+
+        &-form {
+          width: unset;
+          gap: 8px;
+        }
+      }
+    }
+  }
+</style>
+
+<script>
+  import { tippyAndFancybox } from "../script/popover";
+  import { sendOrder } from "../script/api";
+  import { setUpMiniBuyButtons } from "src/script/shared";
+
+  setUpMiniBuyButtons();
+
+  const checkItems = document.querySelectorAll(".cart__service-item");
+
+  checkItems.forEach((item) => showTip(item));
+
+  function showTip(element: Element) {
+    const button = element.querySelector(".cart__service-trigger");
+    const tooltip = element.querySelector(".cart__service-text");
+    if (button instanceof HTMLElement && tooltip instanceof HTMLElement) {
+      tippyAndFancybox(button, tooltip);
+    }
+  }
+
+  import { Fancybox } from "@fancyapps/ui";
+  const form = document.querySelector(".cart__body");
+
+  const formHandler = async (e: Event) => {
+    e.preventDefault();
+
+    if (e.currentTarget instanceof HTMLFormElement) {
+      const sum = e.currentTarget.getAttribute("data-sum");
+
+      if (sum && +sum > 0) {
+        const button = e.currentTarget.querySelector("button");
+        if (button instanceof HTMLElement) {
+          try {
+            button.classList.add("button--loading");
+            const loader = document.createElement("div");
+            loader.classList.remove("icon-check");
+            loader.classList.add("icon-spin");
+            loader.classList.add("animation-spin");
+            loader.style.zIndex = "2";
+            loader.style.fontSize = "26px";
+            button.append(loader);
+
+            const formData = new FormData(e.currentTarget);
+
+            let check: number[] = [];
+
+            const newFD = new FormData();
+
+            for (const [key, value] of formData) {
+              if (key.includes("check")) {
+                check.push(+key.split("-")[1]);
+              } else {
+                newFD.append(key, value);
+              }
+            }
+            newFD.append("check", JSON.stringify(check));
+            const { order_id } = await sendOrder(newFD);
+
+            if (form instanceof HTMLFormElement) form.reset();
+
+            loader.remove();
+            button.classList.remove("button--loading");
+
+            const orderIdNode = document.querySelector('#order #orderId')
+            if (orderIdNode) {
+              orderIdNode.textContent = `№${order_id}`;
+            }
+
+            const modal = new Fancybox([{ src: "#order" }], {
+              closeButton: false,
+              compact: false,
+              autoFocus: false,
+              on: {
+                close: () => {
+                  window.location.href = "https://" + window.location.hostname;
+                },
+              },
+            });
+
+            const close = document.querySelector("#order .button");
+
+            if (close) {
+              close.addEventListener("click", () => {
+                modal.close();
+              });
+            }
+          } catch (error) {
+            console.log(error);
+          }
+        }
+      }
+    }
+  };
+
+  if (form instanceof HTMLFormElement) {
+    form.addEventListener("submit", formHandler);
+  }
+</script>

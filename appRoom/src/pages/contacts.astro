@@ -1,0 +1,302 @@
+---
+import Breadcrumbs from "@components/Breadcrumbs.astro";
+import Layout from "@components/Layout.astro";
+import Location from "@components/Location.astro";
+import Tab from "@components/Tab.astro";
+
+const info: { title: string; text: string }[] = [
+  { title: "Наименование организации", text: "ИП Апарова Нина Николаевна" },
+  { title: "ИНН", text: "645110778732" },
+  { title: "ОГРНИП", text: "322645700097306" },
+  {
+    title: "Юридический адрес",
+    text: "г. Саратов, ул. Провиантская, дом 16, кв. 27",
+  },
+  { title: "Фактический адрес", text: "г. Саратов, ул. Слонова, дом 42/48" },
+];
+---
+
+<Layout title="Контакты">
+  <Breadcrumbs items={["Главная"]} last="Контакты" />
+  <section class="contacts">
+    <div class="contacts__container">
+      <h1 class="contacts__title">Контакты</h1>
+      <Tab items={["Магазины", "Юридическая информация"]} open={1}>
+        <Location slot="options" variant="large" />
+        <div class="tab__content">
+          <div class="contacts__map">
+            <div class="contacts__map-container">
+              <div id="map" class="contacts__map-content"></div>
+            </div>
+            <div class="contacts__card contacts__card--margin">
+              <div class="contacts__card-item">
+                <div class="contacts__card-icon icon-pin"></div>
+                <a href="https://ya.ru" class="contacts__card-address">
+                  г. Саратов, ул. Слонова, дом 42/48
+                </a>
+              </div>
+              <div class="contacts__card-item">
+                <div class="contacts__card-icon icon-phone"></div>
+                <a href="tel:+78452253835" class="contacts__card-phone">
+                  8 (8452) 25-38-35
+                </a>
+              </div>
+              <div class="contacts__card-item">
+                <div class="contacts__card-icon icon-clock"></div>
+                <div class="contacts__card-time">
+                  <span>Пн - Пт 10:00 - 20:00</span>
+                  <span>Сб - Вс 10:00 - 18:00</span>
+                </div>
+              </div>
+              <div class="contacts__card-item">
+                <div class="contacts__card-icon icon-mail"></div>
+                <a
+                  href="mailto:applesaratov@yandex.ru"
+                  class="contacts__card-email"
+                >
+                  applesaratov@yandex.ru
+                </a>
+              </div>
+              <div class="contacts__card-item">
+                <div class="contacts__card-icon icon-web"></div>
+                <a href="https://app-room.ru/" class="contacts__card-site">
+                  app-room.ru
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="tab__content">
+          <div class="contacts__card">
+            <div class="contacts__card-list">
+              {
+                info.map(({ text, title }) => (
+                  <div class="contacts__card-row">
+                    <div class="contacts__card-title">{title}</div>
+                    <div class="contacts__card-text">{text}</div>
+                  </div>
+                ))
+              }
+            </div>
+          </div>
+        </div>
+      </Tab>
+    </div>
+  </section>
+</Layout>
+
+<style is:global lang="scss">
+  .contacts {
+    @include section();
+    flex-grow: 1;
+    // margin-bottom: fluid(100px, 175px);
+
+    &__container {
+      grid-area: center;
+    }
+    &__title {
+      margin-bottom: fluid(14px, 25px);
+      font-size: fluid(28px, 40px);
+      /* margin-top: 25px; */
+    }
+
+    &__map {
+      display: grid;
+      grid-template-columns: auto;
+      grid-template-rows: auto;
+      margin-bottom: fluid(45px, 175px);
+
+      .ymaps-2-1-79-controls__control_toolbar {
+        display: none;
+      }
+
+      .ymaps-2-1-79-controls__control {
+        display: none;
+      }
+
+      &-container {
+        box-shadow: $shadow-card;
+        grid-area: 1/1/-1/-1;
+        height: 510px;
+        border-radius: 30px;
+        overflow: hidden;
+      }
+
+      &-content {
+        height: 100%;
+        width: 100%;
+      }
+    }
+
+    &__card {
+      box-shadow: $shadow-card;
+      border-radius: 30px;
+      grid-area: 1/1/-1/-1;
+      background-color: white;
+      padding: fluid(15px, 20px);
+      z-index: 2;
+      justify-self: flex-start;
+      align-self: flex-start;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      margin-bottom: fluid(40px, 142px);
+
+      &--margin {
+        margin: fluid(20px, 30px);
+      }
+
+      &-item {
+        display: flex;
+        align-items: flex-start;
+        gap: 10px;
+      }
+
+      &-icon {
+        font-size: 24px;
+        color: $color-text-purple;
+      }
+
+      &-address {
+        line-height: 22px;
+        font-weight: 400;
+        font-size: 18px;
+        transition: color 0.38s ease-in-out;
+        &:hover {
+          color: $color-text-purple;
+        }
+      }
+
+      &-phone {
+        line-height: 22px;
+        font-weight: 400;
+        font-size: 16px;
+        transition: color 0.38s ease-in-out;
+        &:hover {
+          color: $color-text-purple;
+        }
+      }
+
+      &-time {
+        font-size: 16px;
+        display: flex;
+        flex-direction: column;
+        line-height: 1.4;
+      }
+
+      &-email {
+        line-height: 22px;
+        font-size: 18px;
+        color: $color-text-purple;
+      }
+
+      &-site {
+        line-height: 22px;
+        font-size: 18px;
+        transition: color 0.38s ease-in-out;
+        &:hover {
+          color: $color-text-purple;
+        }
+      }
+
+      &-list {
+        display: grid;
+        grid-template-columns: auto auto;
+        column-gap: 35px;
+        align-items: baseline;
+        row-gap: 15px;
+      }
+
+      &-row {
+        display: contents;
+      }
+
+      &-title {
+      }
+
+      &-text {
+        font-size: 18px;
+        font-weight: 400;
+      }
+    }
+  }
+
+  @media (max-width: 992px) {
+    .contacts {
+      /* margin-top: 64px; */
+
+      &__container {
+      }
+
+      &__title {
+        margin-top: unset;
+      }
+    }
+  }
+
+  @media (max-width: 768px) {
+    .contacts {
+      &__card {
+        border-radius: 20px;
+
+        &--margin {
+          margin: 10px;
+        }
+
+        &-item {
+        }
+
+        &-icon {
+        }
+
+        &-address {
+          font-size: 16px;
+        }
+
+        &-phone {
+          font-size: 16px;
+        }
+
+        &-time {
+          font-size: 16px;
+        }
+
+        &-email {
+          font-size: 18px;
+        }
+
+        &-site {
+          font-size: 18px;
+        }
+
+        &-list {
+          display: flex;
+          flex-direction: column;
+          gap: 18px;
+        }
+
+        &-row {
+          display: flex;
+          flex-direction: column;
+          gap: 6px;
+        }
+
+        &-title {
+          font-size: 14px;
+        }
+
+        &-text {
+          font-size: 16px;
+        }
+      }
+    }
+  }
+
+  @media (max-width: 768px) {
+    .contacts {
+      &__card {
+        justify-self: center;
+      }
+    }
+  }
+</style>

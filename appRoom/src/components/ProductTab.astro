@@ -1,0 +1,214 @@
+---
+import Tab from "./Tab.astro";
+
+type Table = {
+  title: string;
+  list: { category: string; text: string }[];
+};
+
+const specs: Table[] = [
+  {
+    title: "Общие характеристики",
+    list: [
+      { category: "Вес", text: "187 г" },
+      { category: "Размер экрана", text: "6,1 дюйма" },
+      { category: "Объем памяти", text: "128 Гб" },
+    ],
+  },
+  {
+    title: "Память и процессор",
+    list: [
+      { category: "Процессор", text: "A17 Pro" },
+      { category: "Модель", text: "SIM+eSIM" },
+    ],
+  },
+];
+---
+
+<section class="product-tab">
+  <div class="product-tab__container">
+    <Tab items={["Описание", "Характеристики"]} open={1}>
+      <div class="tab__content">
+        <div class="product-tab__ad">
+          <p class="product-tab__text">
+            iPhone 15 Pro Max представляет собой воплощение эстетики и
+            функциональности. Впервые рамка iPhone выполнена из титана,
+            благодаря чему устройство является самым легким iPhone Pro Max в
+            истории и способно выдерживать самые серьезные нагрузки.
+          </p>
+          <img src="/img/ad.png" alt="" class="product-tab__image" />
+          <p class="product-tab__text">
+            Превосходство дисплея OLED-дисплей Super Retina Display с диагональю
+            6,7 дюйма и с яркостью до 1600 кд/м2 обеспечивает несравнимое
+            качество изображения, благодаря чему каждый кадр, каждая фотография
+            или видеоролик проигрываются с невероятной детализацией и
+            цветопередачей.
+          </p>
+        </div>
+      </div>
+      <div class="tab__content">
+        <div class="product-tab__spec">
+          {
+            specs.map(({ list, title }) => (
+              <div class="product-tab__block">
+                <div class="product-tab__title">{title}</div>
+                <div class="product-tab__col">
+                  {list.map(({ text, category }) => (
+                    <div class="product-tab__row">
+                      <div class="product-tab__label">{category}</div>
+                      <div class="product-tab__value">{text}</div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            ))
+          }
+        </div>
+      </div>
+    </Tab>
+  </div>
+</section>
+
+<style is:global lang="scss">
+  .product-tab {
+    @include section();
+    margin-bottom: fluid(45px, 80px);
+    &__container {
+      grid-area: center;
+    }
+
+    &__ad {
+      display: flex;
+      flex-direction: column;
+      gap: fluid(30px, 60px);
+      align-items: center;
+      max-width: 1134px;
+      margin-inline: auto;
+    }
+
+    &__spec {
+      background-color: white;
+      padding: fluid(15px, 30px) fluid(25px, 50px);
+      border-radius: 30px;
+      box-shadow: $shadow-card;
+      line-height: 1.6;
+      display: flex;
+      flex-direction: column;
+      gap: fluid(20px, 30px);
+      text-align: justify;
+    }
+
+    &__text {
+      text-align: center;
+      width: min(100%, 80vw);
+      line-height: 1.4;
+    }
+
+    &__image {
+      height: fluid(410px, 745px);
+      object-fit: contain;
+    }
+
+    &__title {
+      font-weight: 600;
+      font-size: fluid(18px, 20px);
+      line-height: 2.1;
+    }
+
+    &__block {
+      display: grid;
+      grid-template-columns: minmax(max-content, fluid(300px, 378px)) 1fr;
+    }
+
+    &__block &__row {
+      border-bottom: 1px solid $color-border-gray;
+      padding-top: fluid(12px, 16px);
+      padding-bottom: fluid(12px, 16px);
+    }
+
+    &__block:last-child &__row:last-child {
+      border-bottom: unset;
+    }
+
+    &__col {
+      display: flex;
+      flex-direction: column;
+    }
+
+    &__row {
+      display: grid;
+      grid-template-columns: minmax(max-content, fluid(300px, 378px)) 1fr;
+    }
+
+    &__label {
+      font-size: fluid(16px, 18px);
+      color: $color-text-gray;
+    }
+
+    &__value {
+      font-size: fluid(16px, 18px);
+    }
+  }
+
+  @media (max-width: 992px) {
+    .product-tab {
+      &__ad {
+        gap: 27px;
+      }
+
+      &__spec {
+        border-radius: 20px;
+      }
+      &__block {
+        grid-template-columns: auto;
+      }
+
+      &__row {
+        gap: 5px;
+      }
+    }
+  }
+
+  @media (max-width: 768px) {
+    .product-tab {
+      &__text {
+        font-size: 14px;
+      }
+
+      &__spec {
+        padding-inline: 15px;
+        gap: 14px;
+      }
+
+      &__block {
+        gap: 2px;
+      }
+      &__row {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      &__block &__row {
+        padding-top: 7px;
+        padding-bottom: 7px;
+      }
+
+      &__label,
+      &__value,
+      &__title {
+        font-size: 14px;
+      }
+    }
+  }
+
+  @media (max-width: 576px) {
+    .product-tab {
+      &__text {
+        width: 100%;
+      }
+
+      &__image {
+        height: 365px;
+      }
+    }
+  }
+</style>

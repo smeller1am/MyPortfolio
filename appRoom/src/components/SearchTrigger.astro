@@ -1,0 +1,56 @@
+---
+interface Props {
+  variant: "open" | "close";
+}
+
+const { variant } = Astro.props;
+---
+
+{
+  variant === "open" ? (
+    <div class="search-trigger icon-search" />
+  ) : (
+    <div class="search-close icon-close" />
+  )
+}
+
+<style is:global lang="scss">
+  .search-trigger,
+  .search-close {
+    cursor: pointer;
+    font-size: 30px;
+  }
+</style>
+
+<script>
+  function openSearch(container: Element) {
+    document.body.classList.add("body-overflow");
+    if (container instanceof HTMLElement) container.style.top = "0";
+  }
+
+  function closeSearch(container: Element) {
+    document.body.classList.remove("body-overflow");
+    if (container instanceof HTMLElement) container.removeAttribute("style");
+  }
+
+  const trigger = document.querySelector(".search-trigger");
+  const container = document.querySelector(".search");
+  const close = document.querySelector(".search-close");
+  if (trigger && container && close) {
+    trigger.addEventListener("click", () => {
+      openSearch(container);
+      //@ts-ignore
+      if (typeof CloseWatcher !== "undefined") {
+        //@ts-ignore
+        let watcher = new CloseWatcher();
+        watcher.onclose = () => {
+          closeSearch(container);
+          watcher.destroy();
+        };
+      }
+    });
+    close.addEventListener("click", () => {
+      closeSearch(container);
+    });
+  }
+</script>

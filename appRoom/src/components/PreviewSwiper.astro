@@ -1,0 +1,293 @@
+---
+const thumbs: string[] = [
+  "/img/preview/1.webp",
+  "/img/preview/2.webp",
+  "/img/preview/3.webp",
+  "/img/preview/4.webp",
+  // "/img/preview/5.webp",
+];
+---
+
+<div class="preview-swiper">
+  <div class="preview-swiper__vertical">
+    <div class="preview-swiper__prev icon-up-to"></div>
+    <div class="preview-swiper__wrap">
+      <div class="preview-swiper__thumbs swiper">
+        <div class="preview-swiper__thumbs-wrapper swiper-wrapper">
+          {
+            thumbs.map((src) => (
+              <div class="preview-swiper__thumbs-item swiper-slide">
+                <img {src} alt="" class="preview-swiper__thumbs-image" />
+              </div>
+            ))
+          }
+        </div>
+      </div>
+    </div>
+    <div class="preview-swiper__next icon-down-to"></div>
+  </div>
+  <div class="preview-swiper__main swiper">
+    <div class="preview-swiper__main-wrapper swiper-wrapper">
+      {
+        thumbs.map((src) => (
+          <a href={src} class="preview-swiper__main-item swiper-slide">
+            <img {src} alt="" class="preview-swiper__main-image" />
+          </a>
+        ))
+      }
+    </div>
+
+    <div class="preview-swiper__pagination"></div>
+  </div>
+</div>
+
+<style is:global lang="scss">
+  .preview-swiper {
+    display: flex;
+    align-items: start;
+
+    &__vertical {
+      display: grid;
+      grid-template-rows: auto fluid(250px, 408px) auto;
+      gap: 30px;
+      justify-items: center;
+    }
+
+    &__wrap {
+      grid-row: 2/-2;
+    }
+
+    &__prev,
+    &__next {
+      font-size: 30px;
+      cursor: pointer;
+      color: $color-text-gray;
+      transition: color 0.38s ease-in-out;
+
+      &:hover {
+        color: $color-text-purple;
+      }
+    }
+
+    &__thumbs {
+      height: 100%;
+      &-wrapper {
+      }
+
+      &-item {
+        cursor: pointer;
+        border: 1px solid $color-border-gray;
+        background-color: white;
+        overflow: hidden;
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+      }
+
+      &-image {
+        width: fluid(50px, 105px);
+        height: fluid(50px, 105px);
+        object-fit: contain;
+      }
+    }
+
+    $size: fluid(330px, 514px);
+
+    &__main {
+      &-wrapper {
+        height: $size;
+        width: $size;
+      }
+
+      &-item {
+        &:focus,
+        &:focus-visible {
+          outline: unset;
+        }
+      }
+
+      &-image {
+        height: $size;
+        width: $size;
+        aspect-ratio: 1;
+        object-fit: contain;
+        background-color: white;
+        user-select: none;
+      }
+    }
+    &__pagination {
+      display: none;
+    }
+
+    .swiper-slide-thumb-active {
+      border-color: $color-text-purple;
+    }
+  }
+  .fancybox__container.has-toolbar {
+    --fancybox-color: #{$color-text-black};
+    --f-button-bg: white;
+
+    .fancybox__slide {
+    }
+
+    .f-button {
+      --f-button-bg: white;
+      --f-button-hover-bg: #{$color-text-purple};
+      svg {
+        filter: unset;
+      }
+    }
+
+    .fancybox__backdrop {
+      background-color: white;
+    }
+    .f-thumbs__slide__img {
+      object-fit: contain;
+    }
+  }
+
+  @media (max-width: 992px) {
+    .preview-swiper {
+      &__vertical {
+        display: none;
+      }
+
+      &__wrap {
+      }
+
+      &__prev,
+      &__next {
+        &:hover {
+        }
+      }
+
+      &__thumbs {
+        &-wrapper {
+        }
+
+        &-item {
+        }
+
+        &-image {
+        }
+      }
+
+      &__main {
+        &-wrapper {
+          max-height: 400px;
+          width: 100%;
+          margin-bottom: 15px;
+        }
+
+        &-item {
+          &:focus,
+          &:focus-visible {
+          }
+        }
+
+        &-image {
+          height: 100%;
+          width: 100%;
+        }
+      }
+      &__pagination {
+        display: flex;
+        justify-content: center;
+        width: auto;
+        margin-inline: auto;
+        --swiper-pagination-color: #{$color-text-purple};
+        --swiper-pagination-bullet-inactive-color: #{$color-text-gray-light};
+        --swiper-pagination-bullet-inactive-opacity: 1;
+        --swiper-pagination-bullet-horizontal-gap: 5px;
+        --swiper-pagination-bottom: 0;
+      }
+    }
+  }
+
+  @media (max-width: 576px) {
+    .preview-swiper {
+      &__vertical {
+      }
+
+      &__wrap {
+      }
+
+      &__prev,
+      &__next {
+        &:hover {
+        }
+      }
+
+      &__thumbs {
+        &-wrapper {
+        }
+
+        &-item {
+        }
+
+        &-image {
+        }
+      }
+
+      &__main {
+        &-wrapper {
+          max-height: 248px;
+        }
+
+        &-item {
+          &:focus,
+          &:focus-visible {
+          }
+        }
+
+        &-image {
+        }
+      }
+      &__pagination {
+      }
+    }
+  }
+</style>
+
+<script>
+  import Swiper from "swiper";
+  import { Navigation, Thumbs, Pagination } from "swiper/modules";
+  import { Fancybox } from "@fancyapps/ui";
+
+  const thumbs = new Swiper(".preview-swiper__thumbs", {
+    modules: [Navigation, Thumbs],
+    direction: "vertical",
+    slidesPerView: 3,
+    spaceBetween: 30,
+    loop: true,
+  });
+
+  const main = new Swiper(".preview-swiper__main", {
+    modules: [Navigation, Thumbs, Pagination],
+    // direction: "vertical",
+    slidesPerView: 1,
+    spaceBetween: 5,
+    loop: true,
+
+    thumbs: { swiper: thumbs },
+    navigation: {
+      nextEl: ".preview-swiper__next",
+      prevEl: ".preview-swiper__prev",
+    },
+    pagination: {
+      el: ".preview-swiper__pagination",
+      type: "bullets",
+      clickable: true,
+    },
+  });
+
+  Fancybox.bind(".preview-swiper__main-item", {
+    groupAll: true,
+    compact: false,
+    dragToClose: false,
+    Images: {
+      initialSize: "fit",
+      zoom: false,
+    },
+  });
+</script>

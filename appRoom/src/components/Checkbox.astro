@@ -1,0 +1,162 @@
+---
+import type { HTMLAttributes } from "astro/types";
+
+interface Props extends HTMLAttributes<"input"> {
+  variant?: "normal" | "small" | "service";
+  marginTop?: "20";
+  marginInline?: "-10";
+  error?: boolean;
+}
+
+const {
+  variant = "normal",
+  error,
+  type,
+  id,
+  marginTop,
+  marginInline,
+  ...restProps
+} = Astro.props;
+
+let classList = ["checkbox", `checkbox--${variant}`];
+if (marginTop) classList.push(`checkbox--mt${marginTop}`);
+if (marginInline) classList.push(`checkbox--mi${marginInline}`);
+if (error) classList.push(`checkbox--error`);
+---
+
+<div class:list={classList}>
+  <input {...restProps} {id} type="checkbox" class="checkbox__element" />
+  <label for={id} class:list={["checkbox__label"]}>
+    <slot />
+  </label>
+</div>
+
+<style is:global lang="scss">
+  .checkbox {
+    display: flex;
+    gap: 15px;
+    /* align-items: center; */
+
+    &--mt {
+      &20 {
+        margin-top: 20px;
+      }
+    }
+
+    &--mi {
+      &-10 {
+        margin-inline: -10px;
+      }
+    }
+
+    &--normal {
+      font-size: 18px;
+      margin-top: 4px;
+      margin-bottom: 4px;
+      line-height: 1;
+    }
+
+    &--small {
+      font-size: 16px;
+      gap: 9px;
+    }
+
+    &--service {
+      font-size: 20px;
+      gap: 14px;
+    }
+
+    &__label {
+      cursor: pointer;
+      hyphens: auto;
+      font-weight: 400;
+      line-height: 1.4;
+    }
+
+    &__element {
+      margin-top: 2px;
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      appearance: none;
+      padding: 0;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+      display: inline-block;
+      vertical-align: middle;
+      background-origin: border-box;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      user-select: none;
+      flex-shrink: 0;
+      color: white;
+      background-color: #fff;
+      border-radius: 2px;
+      border: 1px solid $color-border-gray;
+
+      cursor: pointer;
+
+      transition-property: border-color color;
+      transition-timing-function: ease-in-out;
+      transition-duration: 0.38s;
+
+      &:hover,
+      &:checked {
+      }
+
+      &:checked {
+        background-size: 8px;
+        color: $color-text-purple;
+        border-color: $color-text-purple;
+        background-color: currentColor;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-image: url('data:image/svg+xml,<svg width="20" height="20" viewBox="0 0 10 8" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M3.25017 6.43242L1.226 4.40826C1.11693 4.29919 0.968998 4.23791 0.81475 4.23791C0.660501 4.23791 0.51257 4.29919 0.4035 4.40826C0.294429 4.51733 0.233154 4.66526 0.233154 4.81951C0.233154 4.89588 0.248198 4.97151 0.277426 5.04207C0.306654 5.11264 0.349494 5.17675 0.4035 5.23076L2.84183 7.66909C3.06933 7.89659 3.43683 7.89659 3.66433 7.66909L9.836 1.49742C9.94507 1.38835 10.0063 1.24042 10.0063 1.08617C10.0063 0.931924 9.94507 0.783993 9.836 0.674923C9.72693 0.565853 9.579 0.504578 9.42475 0.504578C9.2705 0.504578 9.12257 0.565853 9.0135 0.674923L3.25017 6.43242Z" fill="white"/></svg>');
+      }
+    }
+    &--service &__element {
+      height: 20px;
+      width: 20px;
+    }
+
+    &--normal &__element {
+      height: 20px;
+      width: 20px;
+    }
+
+    &--small &__element {
+      height: 19px;
+      width: 19px;
+    }
+    // &--error &__element:not(:checked) {
+    //   border-color: $color-text-red;
+    // }
+
+    a {
+      transition: color 0.38s ease-in-out;
+      text-decoration: underline;
+      &:hover {
+        color: $color-text-purple;
+      }
+    }
+  }
+
+  @media (max-width: 768px) {
+    .checkbox {
+      &--normal {
+        gap: 10px;
+      }
+      &--normal &__label {
+        font-size: 14px;
+      }
+
+      &--service &__label {
+        font-size: 16px;
+      }
+    }
+  }
+  @media (max-width: 576px) {
+    .checkbox {
+      margin-inline: unset;
+    }
+  }
+</style>

@@ -1,0 +1,63 @@
+---
+export type AboutCardT = {
+  title: string;
+  icon: string;
+  text: string;
+};
+
+interface Props extends AboutCardT {}
+
+const { title, text, icon } = Astro.props;
+---
+
+<div class="about-card">
+  <img src={icon} class="about-card__icon" />
+  <div class="about-card__title">{title}</div>
+  <div class="about-card__text">{text}</div>
+</div>
+
+<style is:global lang="scss">
+  .about-card {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    grid-template-rows: auto 1fr;
+    padding: fluid(15px, 30px);
+    row-gap: fluid(8px, 15px);
+    column-gap: 10px;
+    background-color: white;
+    border-radius: 30px;
+    box-shadow: $shadow-card;
+
+    &__icon {
+      height: 30px;
+      width: 30px;
+    }
+
+    &__title {
+      align-self: center;
+      font-size: fluid(16px, 18px);
+    }
+
+    &__text {
+      color: $color-text-gray;
+      font-size: fluid(14px, 16px);
+      grid-column: span 2;
+      line-height: 1.4;
+    }
+  }
+
+  @media (max-width: 992px) {
+    .about-card {
+      border-radius: 20px;
+
+      &__icon {
+      }
+
+      &__title {
+      }
+
+      &__text {
+      }
+    }
+  }
+</style>

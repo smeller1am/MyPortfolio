@@ -1,0 +1,372 @@
+---
+import AboutSwiper from "@components/AboutSwiper.astro";
+import Layout from "@components/Layout.astro";
+import type { AboutCardT } from "@components/AboutCard.astro";
+import AboutCard from "@components/AboutCard.astro";
+import Button from "@components/Button.astro";
+import Breadcrumbs from "@components/Breadcrumbs.astro";
+
+const items: AboutCardT[] = [
+  {
+    icon: "/svg/free.svg",
+    title: "Заголовок",
+    text: "После диагностики мы озвучим стоимость и срок необходимого ремонта. Диагностика будет  бесплатная, даже если Вы примете решение не делать ремонт",
+  },
+  {
+    icon: "/svg/thumb-up.svg",
+    title: "Заголовок",
+    text: "Мы не берем оплату в случае, если не достигнут положительный результат ремонта",
+  },
+  {
+    icon: "/svg/shield.svg",
+    title: "Заголовок",
+    text: "Чтобы Вы не сомневались в качестве нашего ремонта, мы подтверждаем его документальной гарантией до 30 дней в зависимости от типа ремонта.",
+  },
+  {
+    icon: "/svg/shield.svg",
+    title: "Заголовок",
+    text: "Чтобы Вы не сомневались в качестве нашего ремонта, мы подтверждаем его документальной гарантией до 30 дней в зависимости от типа ремонта.",
+  },
+];
+---
+
+<Layout title="О компании">
+  <Breadcrumbs items={["Главная"]} last="О компании" />
+  <section class="about bg-gradient">
+    <h1 class="about__title title">О компании</h1>
+    <AboutSwiper />
+    <div class="about-description">
+      <div class="about-description__container">
+        <p>
+          А ещё элементы политического процесса превращены в посмешище, хотя
+          само их существование приносит несомненную пользу обществу. Лишь
+          сторонники тоталитаризма в науке, инициированные исключительно
+          синтетически, своевременно верифицированы. Есть над чем задуматься:
+          непосредственные участники технического прогресса освещают чрезвычайно
+          интересные особенности картины в целом, однако конкретные выводы,
+          разумеется, в равной степени предоставлены сами себе. Равным образом,
+          базовый вектор развития однозначно фиксирует необходимость форм
+          воздействия. В частности, убеждённость некоторых оппонентов играет
+          определяющее значение для глубокомысленных рассуждений.
+        </p>
+        <p>
+          Учитывая ключевые сценарии поведения, перспективное планирование
+          требует от нас анализа прогресса профессионального сообщества. Но
+          независимые государства представлены в исключительно положительном
+          свете.
+        </p>
+        <p>
+          Прежде всего, дальнейшее развитие различных форм деятельности, а также
+          свежий взгляд на привычные вещи — безусловно открывает новые горизонты
+          для экономической целесообразности принимаемых решений.
+        </p>
+      </div>
+    </div>
+    <div class="about-mission">
+      <div class="about-mission__container">
+        <h1 class="about-mission__title title title--small">
+          Наши миссии и ценности
+        </h1>
+        <div class="about-mission__list">
+          {items.map((item) => <AboutCard {...item} />)}
+        </div>
+      </div>
+    </div>
+    <div class="about-work">
+      <div class="about-work__container">
+        <div class="about-work__list">
+          <h2 class="about-work__title title title--small">Вакансии</h2>
+          <div class="about-work__content">
+            <p>Что мы предлагаем:</p>
+            <ul>
+              <li>Оклад и ежемесячная премия по итогам работы</li>
+              <li>Карьерный рост и профессиональное развитие</li>
+              <li>Официальное трудоустройство по ТК РФ</li>
+              <li>Оплата два раза в месяц на банковскую карту</li>
+              <li>
+                Сменный график работы 5/2 (выходные по скользящему графику)
+              </li>
+              <li>Скидки на продукцию в наших магазинах</li>
+            </ul>
+          </div>
+          <Button wide modal href="#anketa" color="primary" variant="submit"
+            >Заполнить анкету</Button
+          >
+        </div>
+        <img src="/img/work.jpg" alt="" class="about-work__image" />
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<script>
+  import { Fancybox } from "@fancyapps/ui";
+  import { sendForm } from "../script/api";
+
+  const oneClickButton = document.querySelector('[href="#anketa"]');
+  if (oneClickButton) {
+    oneClickButton.addEventListener("click", (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+
+      const modal = new Fancybox([{ src: "#anketa" }], {
+        compact: false,
+        autoFocus: false,
+      });
+    });
+  }
+
+  const form = document.querySelector("#anketa form.modal__stack");
+  const button = document.querySelector("#anketa .button");
+  if (button instanceof HTMLElement && form instanceof HTMLFormElement) {
+    form.addEventListener("submit", async (e) => {
+      if (e.currentTarget instanceof HTMLFormElement) {
+        e.preventDefault();
+
+        try {
+          button.classList.add("button--loading");
+          const loader = document.createElement("div");
+          loader.classList.remove("icon-check");
+          loader.classList.add("icon-spin");
+          loader.classList.add("animation-spin");
+          loader.style.zIndex = "2";
+          loader.style.fontSize = "26px";
+          button.append(loader);
+
+          const formData = new FormData(e.currentTarget);
+          await sendForm(formData);
+
+          if (form instanceof HTMLFormElement) form.reset();
+
+          loader.remove();
+          Fancybox.close();
+
+          button.classList.remove("button--loading");
+
+          const submodal = new Fancybox([{ src: "#contact" }], {
+            closeButton: false,
+            compact: false,
+            autoFocus: false,
+          });
+
+          const close = document.querySelector("#contact .button");
+
+          if (close) {
+            close.addEventListener("click", () => submodal.close());
+          }
+        } catch (error) {
+          console.log(error);
+        }
+      }
+    });
+  }
+</script>
+
+<style is:global lang="scss">
+  .about {
+    /* margin-top: fluid(30px, 50px); */
+    margin-bottom: fluid(50px, 125px);
+
+    &__title {
+      text-align: center;
+      margin-bottom: fluid(30px, 54px);
+    }
+
+    &-description {
+      margin-top: fluid(40px, 60px);
+      margin-bottom: fluid(45px, 90px);
+      text-align: justify;
+      @include section;
+      &__container {
+        line-height: 1.4;
+        max-width: 1316px;
+        width: 85%;
+        grid-area: center;
+        font-size: fluid(16px, 20px);
+        display: flex;
+        flex-direction: column;
+        gap: 1em;
+      }
+    }
+    &-mission {
+      @include section;
+      margin-bottom: fluid(50px, 90px);
+      &__container {
+        grid-area: center;
+        display: flex;
+        flex-direction: column;
+        gap: fluid(20px, 40px);
+      }
+
+      &__title {
+        text-align: center;
+      }
+
+      &__list {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: fluid(15px, 20px);
+      }
+    }
+
+    &-work {
+      @include section;
+      &__container {
+        grid-area: center;
+        display: flex;
+        justify-content: space-between;
+        gap: 20px;
+      }
+
+      &__title {
+        margin-bottom: fluid(20px, 35px);
+      }
+
+      &__list {
+      }
+
+      &__content {
+        margin-bottom: fluid(20px, 40px);
+        line-height: 1.4;
+
+        p {
+          font-weight: 400;
+          font-size: fluid(16px, 20px);
+          margin-bottom: 0.75em;
+        }
+
+        ul {
+          display: flex;
+          flex-direction: column;
+          gap: 0.3em;
+        }
+
+        li {
+          font-size: fluid(14px, 18px);
+          position: relative;
+          margin-left: 1.3em;
+          &::before {
+            border-radius: 999px;
+            top: 0.6em;
+            left: -0.75em;
+            position: absolute;
+            content: "";
+            width: 0.25em;
+            height: 0.25em;
+            background-color: $color-text-black;
+            display: block;
+          }
+        }
+      }
+
+      &__image {
+        border-radius: 30px;
+        max-width: fluid(350px, 640px);
+        max-height: fluid(236px, 430px);
+        object-fit: cover;
+        aspect-ratio: 1.5;
+      }
+    }
+  }
+
+  @media (max-width: 992px) {
+    .about {
+      /* margin-top: 74px; */
+      &__title {
+        margin-bottom: 24px;
+      }
+
+      &-work {
+        &__container {
+          /* flex-direction: column-reverse; */
+        }
+
+        &__image {
+          max-width: 35%;
+          border-radius: 20px;
+        }
+
+        &__content {
+          p {
+            margin-bottom: 0.65em;
+          }
+          ul {
+            gap: 0.5em;
+          }
+        }
+      }
+
+      &-description {
+        &__container {
+          width: unset;
+        }
+      }
+
+      &-mission {
+        &__list {
+          grid-template-columns: repeat(2, 1fr);
+        }
+      }
+    }
+  }
+
+  @media (max-width: 768px) {
+    .about {
+      &__title {
+      }
+
+      &-work {
+        &__container {
+          flex-direction: column-reverse;
+        }
+
+        &__image {
+          max-width: 48.8%;
+        }
+      }
+
+      &-description {
+        &__container {
+        }
+      }
+
+      &-mission {
+        &__list {
+          grid-template-columns: repeat(2, 1fr);
+        }
+      }
+    }
+  }
+  @media (max-width: 576px) {
+    .about {
+      &__title {
+      }
+
+      &-description {
+        &__container {
+          line-height: 1.5;
+          gap: 1.3em;
+        }
+      }
+
+      &-work {
+        &__container {
+        }
+
+        &__image {
+          max-width: unset;
+          width: 100%;
+        }
+      }
+
+      &-mission {
+        &__title {
+          text-align: left;
+        }
+        &__list {
+          grid-template-columns: 100%;
+        }
+      }
+    }
+  }
+</style>

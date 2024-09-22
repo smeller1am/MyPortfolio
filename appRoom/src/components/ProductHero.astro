@@ -1,0 +1,796 @@
+---
+import PreviewSwiper from "@components/PreviewSwiper.astro"
+import Button from "./Button.astro"
+import ProductCompare from "./ProductCompare.astro"
+---
+
+<section class="product-hero">
+  <div class="product-hero__container">
+    <PreviewSwiper />
+    <div class="product-hero__content">
+      <h1 class="product-hero__title">Apple iPhone 15 Pro 128Gb Natural Titanium</h1>
+      <div class="product-hero__top">
+        <div class="product-hero__green">-10 000</div>
+        <ProductCompare />
+        <!-- <div class="product-hero__compare"> -->
+        <!--   <span class="icon-compare"></span> Сравнить -->
+        <!-- </div> -->
+      </div>
+      <div class="product-hero__options">
+        <div class="product-hero__row">
+          <div class="product-hero__label">Цвет:</div>
+          <div class="product-hero__col">
+            <a href="#" class="product-hero__img-p product-hero__img-p--active">
+              <img src="/img/preview/1.webp" alt="" />
+            </a>
+            <a href="#" class="product-hero__img-p">
+              <img src="/img/preview/1.webp" alt="" />
+            </a>
+            <a href="#" class="product-hero__img-p">
+              <img src="/img/preview/1.webp" alt="" />
+            </a>
+            <a href="#" class="product-hero__img-p">
+              <img src="/img/preview/1.webp" alt="" />
+            </a>
+          </div>
+        </div>
+        <div class="product-hero__row">
+          <div class="product-hero__label">Память:</div>
+          <div class="product-hero__col">
+            <div class="product-hero__text-p product-hero__text-p--active">256 Гб</div>
+            <div class="product-hero__text-p">512 Гб</div>
+            <div class="product-hero__text-p">1 Тб</div>
+          </div>
+        </div>
+        <div class="product-hero__row">
+          <div class="product-hero__label">Модель:</div>
+          <div class="product-hero__col">
+            <div class="product-hero__text-p" data-price="95490" data-sale="0" data-id="17661">1sim</div>
+            <div class="product-hero__text-p" data-price="95490" data-sale="0" data-id="17662">dual-sim</div>
+            <div class="product-hero__text-p" data-price="95490" data-sale="0" data-id="17663">esim</div>
+          </div>
+        </div>
+      </div>
+      <a href="#" class="product-hero__feature">Все характеристики</a>
+      <div class="product-hero__info">
+        С ежемесячным платежом от
+        <span> 5 000 ₽/мес. </span>
+        <a class="product-hero__info-trigger icon-info"></a>
+        <div class="product-hero__info-text">
+          Размер платежа указан при оформлении на 24 месяца без учета условий банка. Точный размер платежа может
+          отличаться в зависимости от применённых акций и решения банка
+        </div>
+      </div>
+      <div class="product-hero__money">
+        <div class="product-hero__price ruble">100 999</div>
+        <div class="product-hero__sale ruble">100 999</div>
+      </div>
+      <div class="product-hero__action" data-productid="10767">
+        <Button buy color="primary" variant="buy" icon="cart">Купить</Button>
+        <Button modal href="#one-click" color="twin" variant="buy">Купить в 1 клик</Button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style is:global lang="scss">
+  .product-hero {
+    @include section();
+    margin-bottom: fluid(42px, 88px);
+
+    &__container {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      grid-area: center;
+      background-color: white;
+      border-radius: 30px;
+      box-shadow: $shadow-card;
+      padding: fluid(25px, 50px);
+      column-gap: fluid(30px, 105px);
+    }
+
+    &__content {
+      display: flex;
+      flex-direction: column;
+      gap: fluid(20px, 30px);
+    }
+
+    &__title {
+      font-weight: 600;
+      font-size: fluid(24px, 30px);
+      line-height: 1.1;
+      max-width: 30ch;
+    }
+
+    &__top {
+      display: grid;
+      grid-template-columns: 165px 182px;
+      grid-template-rows: 44px;
+      gap: 15px;
+    }
+
+    &__green {
+      background-color: $color-text-purple;
+      // background-color: #52ba33;
+      color: white;
+      font-size: 18px;
+      font-weight: 500;
+      border-radius: 8px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    /* &__compare { */
+    /*   border-radius: 8px; */
+    /*   font-weight: 400; */
+    /*   font-size: 18px; */
+    /*   border: 1px solid $color-border-gray; */
+    /*   display: flex; */
+    /*   justify-content: center; */
+    /*   align-items: center; */
+    /*   gap: 6px; */
+    /*   transition: border 0.38s ease-in-out; */
+    /*   cursor: pointer; */
+    /**/
+    /*   span { */
+    /*     transition: color 0.38s ease-in-out; */
+    /*     font-size: 30px; */
+    /*   } */
+    /**/
+    /*   &:hover { */
+    /*     border-color: $color-text-purple; */
+    /**/
+    /*     span { */
+    /*       color: $color-text-purple; */
+    /*     } */
+    /*   } */
+    /* } */
+
+    &__feature {
+      line-height: 1.3;
+      font-size: 18px;
+      text-decoration: underline;
+    }
+
+    &__info {
+      font-weight: 400;
+      line-height: 1.3;
+
+      &-text {
+        display: none;
+      }
+
+      span {
+        color: $color-text-purple;
+      }
+
+      &-trigger {
+        cursor: pointer;
+        color: $color-text-gray-light !important;
+        font-size: 19px;
+        vertical-align: text-bottom;
+        margin-left: 12px;
+      }
+    }
+
+    &__money {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-top: -16px;
+    }
+
+    &__price {
+      font-size: 32px;
+      font-weight: 500;
+    }
+
+    &__sale {
+      font-weight: 500;
+      font-size: 22px;
+      color: $color-text-gray-light;
+      text-decoration: line-through;
+    }
+
+    &__action {
+      display: grid;
+      gap: 20px;
+      grid-template-columns: 202px 247px;
+      margin-top: -20px;
+    }
+
+    &__options {
+      display: flex;
+      flex-direction: column;
+      gap: fluid(8px, 16px);
+    }
+
+    &__row {
+      display: grid;
+      grid-template-columns: fluid(100px, 130px) auto;
+      align-items: center;
+    }
+
+    &__col {
+      display: flex;
+      flex-wrap: wrap;
+      gap: fluid(5px, 15px);
+    }
+
+    &__label {
+      font-size: fluid(14px, 18px);
+      font-weight: 400;
+    }
+
+    &__text-p {
+      font-weight: 400;
+      border-radius: 8px;
+      font-size: fluid(14px, 16px);
+      padding: fluid(3px, 6px) fluid(8px, 14px);
+    }
+
+    &__img-p {
+      border-radius: 12px;
+      overflow: hidden;
+      img {
+        $size: fluid(60px, 76px);
+        height: $size;
+        width: $size;
+        object-fit: contain;
+        aspect-ratio: 1;
+      }
+    }
+
+    &__text-p,
+    &__img-p {
+      cursor: pointer;
+      border: 1px solid $color-border-gray;
+      transition: border-color 0.38s ease-in-out;
+
+      &:hover,
+      &--active {
+        border-color: $color-text-purple;
+      }
+
+      &--active {
+        font-weight: bold;
+      }
+    }
+  }
+
+  @media (max-width: 992px) {
+    .product-hero {
+      &__container {
+        grid-template-columns: 100%;
+        padding: 15px;
+        padding-bottom: 20px;
+        border-radius: 20px;
+      }
+
+      &__content {
+        display: contents;
+      }
+
+      &__title {
+        margin-top: 25px;
+        max-width: unset;
+        font-size: 22px;
+      }
+
+      &__top {
+        margin-bottom: 15px;
+        order: -1;
+        justify-content: space-between;
+        grid-template-columns: 103px auto;
+        grid-template-rows: 32px;
+        display: flex;
+        height: 32px;
+        .product-compare {
+          margin-left: auto;
+        }
+      }
+
+      &__green {
+        font-size: 14px;
+      }
+
+      /* &__compare { */
+      /*   border: unset; */
+      /*   font-size: 0; */
+      /*   span { */
+      /*     font-size: 30px; */
+      /*   } */
+      /* } */
+
+      &__feature {
+        font-size: 14px;
+        margin-top: 20px;
+      }
+
+      &__options {
+        gap: 15px;
+        margin-top: 22px;
+      }
+      &__green {
+        min-width: 103px;
+      }
+      &__info {
+        font-size: 14px;
+        margin-top: 16px;
+
+        &-text {
+          display: none;
+        }
+
+        span {
+        }
+      }
+
+      &__text-p {
+        font-size: 12px;
+        border-radius: 6px;
+        padding: 4px 8px;
+      }
+
+      &__money {
+        gap: 18px;
+        align-items: center;
+        margin-top: 25px;
+      }
+
+      &__img-p {
+        border-radius: 6px;
+      }
+
+      &__price {
+        font-size: 24px;
+      }
+
+      &__sale {
+        font-size: 18px;
+      }
+
+      &__action {
+        gap: 10px;
+        grid-template-columns: 1fr 1fr;
+        margin-top: 14px;
+      }
+    }
+  }
+
+  @media (max-width: 576px) {
+    .product-hero {
+      &__container {
+        grid-area: full;
+      }
+
+      &__content {
+      }
+
+      &__title {
+      }
+
+      &__top {
+      }
+
+      &__green {
+      }
+
+      &__compare {
+        span {
+        }
+      }
+
+      &__feature {
+      }
+
+      &__info {
+        span {
+        }
+      }
+
+      &__money {
+      }
+
+      &__price {
+      }
+
+      &__sale {
+      }
+
+      &__action {
+        grid-template-columns: 1.15fr 1fr;
+      }
+    }
+  }
+
+  @media (max-width: 350px) {
+    .product-hero {
+      &__container {
+      }
+
+      &__content {
+      }
+
+      &__title {
+      }
+
+      &__top {
+      }
+
+      &__green {
+      }
+
+      &__compare {
+        span {
+        }
+      }
+
+      &__feature {
+      }
+
+      &__info {
+        span {
+        }
+      }
+
+      &__money {
+      }
+
+      &__price {
+      }
+
+      &__sale {
+      }
+
+      &__action {
+        grid-template-columns: 100%;
+        grid-template-rows: 46px 46px;
+      }
+    }
+  }
+</style>
+
+<script>
+  import { tippyAndFancybox } from "../script/popover"
+  import { Fancybox } from "@fancyapps/ui"
+  import { cartAdd, cartDelete, cartHasProduct, sendForm } from "../script/api"
+  import { numberWithSpaces } from "src/script/utils"
+
+  const button = document.querySelector(".product-hero__info-trigger")
+  const tooltip = document.querySelector(".product-hero__info-text")
+
+  if (button instanceof HTMLElement && tooltip instanceof HTMLElement) {
+    tippyAndFancybox(button, tooltip)
+  }
+
+  const allSpecs = document.querySelector(".product-hero__feature")
+  const table = document.querySelector(".product-tab")
+
+  if (allSpecs instanceof HTMLElement && table instanceof HTMLElement) {
+    allSpecs.addEventListener("click", e => {
+      e.preventDefault()
+      const tab = table.querySelector('.tab__item[data-tab="2"]')
+      if (tab instanceof HTMLElement) tab.click()
+      table.scrollIntoView()
+    })
+  }
+
+  const oneClickButton = document.querySelector('[href="#one-click"]')
+  if (oneClickButton) {
+    oneClickButton.addEventListener("click", e => {
+      e.preventDefault()
+      e.stopPropagation()
+
+      const modal = new Fancybox([{ src: "#one-click" }], {
+        compact: false,
+        autoFocus: false,
+      })
+    })
+
+    const form = document.querySelector("#one-click form.modal__stack")
+    const button = document.querySelector("#one-click .modal__stack .button")
+    if (button instanceof HTMLElement && form instanceof HTMLFormElement) {
+      form.addEventListener("submit", async e => {
+        if (e.currentTarget instanceof HTMLFormElement) {
+          e.preventDefault()
+
+          try {
+            button.classList.add("button--loading")
+            const loader = document.createElement("div")
+            loader.classList.remove("icon-check")
+            loader.classList.add("icon-spin")
+            loader.classList.add("animation-spin")
+            loader.style.zIndex = "2"
+            loader.style.fontSize = "26px"
+            button.append(loader)
+
+            const formData = new FormData(e.currentTarget)
+            const { order_id } = await sendForm(formData)
+
+            if (form instanceof HTMLFormElement) form.reset()
+
+            loader.remove()
+            Fancybox.close()
+
+            button.classList.remove("button--loading")
+
+            const orderIdNode = document.querySelector("#order #orderId")
+            if (orderIdNode) {
+              orderIdNode.textContent = `№${order_id}`
+            }
+
+            const submodal = new Fancybox([{ src: "#order" }], {
+              closeButton: false,
+              compact: false,
+              autoFocus: false,
+            })
+
+            const close = document.querySelector("#order .button")
+
+            if (close) {
+              close.addEventListener("click", () => submodal.close())
+            }
+          } catch (error) {
+            console.log(error)
+          }
+        }
+      })
+    }
+  }
+
+  const buyButton = document.querySelector(".add-cart-modal")
+
+  function openModal() {
+    const modal = new Fancybox([{ src: "#product" }], {
+      compact: false,
+      autoFocus: false,
+    })
+
+    const close = document.getElementById("product")?.querySelector(".button--close")
+
+    if (close) close.addEventListener("click", () => modal.close())
+  }
+
+  function setCartCount(count: number) {
+    const counters = document.querySelectorAll(".header__buy")
+    counters.forEach(counter => {
+      if (counter instanceof HTMLElement) {
+        counter.setAttribute("data-count", String(count))
+      }
+    })
+  }
+
+  function setCartPrice(sum: number) {
+    const price = document.querySelector(".header__desktop-price")
+    if (price instanceof HTMLElement) {
+      price.innerText = String(sum)
+    }
+  }
+
+  function getID(element: HTMLElement) {
+    const id = element.getAttribute("data-productid")
+    return id ? +id : -1
+  }
+
+  function getVariant() {
+    const variant = document.querySelector(".product-hero__text-p--active[data-id]")?.getAttribute("data-id")
+
+    return variant ? +variant : undefined
+  }
+
+  function getState(element: HTMLElement) {
+    const state = element.getAttribute("data-checkincart")
+    return state === "true" ? true : false
+  }
+
+  function setState(element: HTMLElement, state: boolean) {
+    element.setAttribute("data-checkincart", String(state))
+  }
+
+  const buyHandle = async (e: Event) => {
+    e.preventDefault()
+
+    const actionElement = document.querySelector(".product-hero__action")
+    if (actionElement instanceof HTMLElement) {
+      const id = getID(actionElement)
+      const icon = buyButton?.querySelector(".button__icon")
+
+      if (id > 0 && buyButton instanceof HTMLElement && icon instanceof HTMLElement) {
+        try {
+          if (getState(actionElement)) {
+            buyButton.style.pointerEvents = "none"
+            buyButton.classList.add("button--loading")
+            icon.classList.remove("icon-check")
+            icon.classList.add("icon-spin")
+            icon.classList.add("animation-spin")
+
+            const { count, sum } = await cartDelete(+id, getVariant())
+
+            icon.classList.remove("icon-spin")
+            icon.classList.add("icon-cart")
+            icon.classList.remove("animation-spin")
+
+            buyButton.classList.remove("button--loading")
+            buyButton.removeAttribute("style")
+            const span = buyButton.querySelector("span")
+            if (span instanceof HTMLElement) span.innerText = "купить"
+
+            setCartCount(count)
+            setCartPrice(sum)
+            setState(actionElement, false)
+          } else {
+            buyButton.style.pointerEvents = "none"
+            buyButton.classList.add("button--loading")
+            icon.classList.remove("icon-cart")
+            icon.classList.add("icon-spin")
+            icon.classList.add("animation-spin")
+
+            const { count, sum } = await cartAdd(+id, getVariant())
+
+            icon.classList.remove("icon-spin")
+            icon.classList.add("icon-check")
+            icon.classList.remove("animation-spin")
+            buyButton.removeAttribute("style")
+            buyButton.classList.remove("button--loading")
+            const span = buyButton.querySelector("span")
+            if (span instanceof HTMLElement) span.innerText = "в корзине"
+
+            setCartCount(count)
+            setCartPrice(sum)
+            openModal()
+            setState(actionElement, true)
+          }
+        } catch (error) {
+          console.log(error)
+        } finally {
+        }
+      }
+    }
+  }
+
+  if (buyButton instanceof HTMLElement) {
+    buyButton.addEventListener("click", buyHandle)
+  }
+
+  const variants = document.querySelectorAll(".product-hero__text-p[data-id]")
+  const domPrice = document.querySelector(".product-hero__price")
+  const domSale = document.querySelector(".product-hero__sale")
+  const domGreen = document.querySelector(".product-hero__green")
+  const domPay = document.querySelector(".product-hero__info span")
+
+  const variantHandle = (e: Event) => {
+    hasProduct()
+    if (e.currentTarget instanceof HTMLElement) {
+      const price = e.currentTarget.getAttribute("data-price")
+      const sale = e.currentTarget.getAttribute("data-sale")
+      const variant = e.currentTarget.getAttribute("data-variant")
+      const pay = e.currentTarget.getAttribute("data-pay")
+
+      if (pay) {
+        if (pay && domPay instanceof HTMLElement) {
+          domPay.innerText = pay + " ₽/мес."
+        }
+      }
+      if (sale) {
+        if (sale && domPrice instanceof HTMLElement) {
+          domPrice.style.display = "block"
+          domPrice.innerText = numberWithSpaces(+sale)
+        }
+
+        if (price && domSale instanceof HTMLElement) {
+          domSale.style.display = "block"
+          domSale.innerText = numberWithSpaces(+price)
+        }
+
+        if (sale && price && domGreen instanceof HTMLElement) {
+          domGreen.style.display = "flex"
+          domGreen.innerText = String(numberWithSpaces(+sale - +price))
+        }
+      } else {
+        if (price && domPrice instanceof HTMLElement) {
+          domPrice.style.display = "block"
+          domPrice.innerText = numberWithSpaces(+price)
+        }
+
+        if (domSale instanceof HTMLElement) {
+          domSale.style.display = "none"
+        }
+
+        if (domGreen instanceof HTMLElement) {
+          domGreen.style.display = "none"
+        }
+      }
+
+      variants.forEach(variant => {
+        variant.classList.remove("product-hero__text-p--active")
+      })
+
+      e.currentTarget.classList.add("product-hero__text-p--active")
+
+      // const links = document.querySelectorAll(".product-hero__row a");
+
+      // links.forEach((link) => {
+      //   if (variant) {
+      //     const href = link.getAttribute("href");
+      //     if (href && link instanceof HTMLAnchorElement) {
+      //       const url = new URL(href);
+      //       url.searchParams.set("variant", variant);
+      //       link.setAttribute("href", url.href);
+      //     }
+      //   }
+      // });
+
+      if (variant) {
+        var queryParams = new URLSearchParams(window.location.search)
+        queryParams.set("variant", variant)
+        history.replaceState(null, "", "?" + queryParams.toString())
+      }
+    }
+  }
+
+  variants.forEach((variant, index) => {
+    // variant.setAttribute("data-variant", String(index));
+    variant.addEventListener("click", variantHandle)
+  })
+
+  function initVariant() {
+    const urlParams = new URLSearchParams(window.location.search)
+    const variant = urlParams.get("variant") || 0
+
+    const firstVariant = document.querySelector(`[data-variant='${variant}']`)
+    if (variant && firstVariant instanceof HTMLElement) {
+      firstVariant.click()
+    }
+
+    // const count = +variant > variants.length - 1 ? 0 : +variant;
+    // if (variants.length) {
+    //   if (variants[count] instanceof HTMLElement) {
+    //     variants[count].click();
+    //   }
+    // }
+  }
+
+  initVariant()
+
+  async function hasProduct() {
+    const actionElement = document.querySelector(".product-hero__action")
+    const buyButton = document.querySelector(".add-cart-modal")
+    const icon = buyButton?.querySelector(".button__icon")
+
+    if (actionElement instanceof HTMLElement && buyButton instanceof HTMLElement && icon instanceof HTMLElement) {
+      try {
+        buyButton.classList.add("button--loading")
+        buyButton.style.pointerEvents = "none"
+        icon.classList.remove("icon-cart")
+        icon.classList.add("icon-spin")
+        icon.classList.add("animation-spin")
+
+        const realState = await cartHasProduct(getID(actionElement), getVariant())
+
+        const inputVar = document.querySelector('[name="variation_id"]')
+        if (inputVar instanceof HTMLInputElement && getVariant()) {
+          inputVar.value = String(getVariant())
+        }
+
+        icon.classList.remove("icon-spin")
+        icon.classList.add("icon-cart")
+        icon.classList.remove("animation-spin")
+        buyButton.classList.remove("button--loading")
+        buyButton.removeAttribute("style")
+
+        const span = buyButton.querySelector("span")
+        if (span instanceof HTMLElement) {
+          span.innerText = realState ? "в корзине" : "купить"
+        }
+
+        setState(actionElement, realState)
+      } catch (error) {
+        console.log(error)
+      }
+    }
+  }
+
+  if (variants.length) hasProduct()
+</script>

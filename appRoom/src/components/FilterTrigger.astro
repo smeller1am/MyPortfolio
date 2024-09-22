@@ -1,0 +1,76 @@
+---
+interface Props {
+  variant: "open" | "close";
+}
+
+const { variant } = Astro.props;
+---
+
+{
+  variant === "open" ? (
+    <div class="filter-trigger">
+      <div class="filter-trigger__icon icon-filter" /> Фильтр
+    </div>
+  ) : (
+    <div class="filter-close icon-close" />
+  )
+}
+
+<style is:global lang="scss">
+  .filter-trigger {
+    display: none;
+  }
+
+  .filter-close {
+    cursor: pointer;
+    font-size: 30px;
+  }
+
+  @media (max-width: 992px) {
+    .filter-trigger {
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 14px;
+      font-weight: 400;
+
+      &__icon {
+        font-size: 25px;
+      }
+    }
+  }
+</style>
+
+<script>
+  function openSearch(container: Element) {
+    document.body.classList.add("body-overflow");
+    if (container instanceof HTMLElement) container.style.top = "0";
+  }
+
+  function closeSearch(container: Element) {
+    document.body.classList.remove("body-overflow");
+    if (container instanceof HTMLElement) container.removeAttribute("style");
+  }
+
+  const trigger = document.querySelector(".filter-trigger");
+  const container = document.querySelector(".filter");
+  const close = document.querySelector(".filter-close");
+  if (trigger && container && close) {
+    trigger.addEventListener("click", () => {
+      openSearch(container);
+      //@ts-ignore
+      if (typeof CloseWatcher !== "undefined") {
+        //@ts-ignore
+        let watcher = new CloseWatcher();
+        watcher.onclose = () => {
+          closeSearch(container);
+          watcher.destroy();
+        };
+      }
+    });
+    close.addEventListener("click", () => {
+      closeSearch(container);
+    });
+  }
+</script>

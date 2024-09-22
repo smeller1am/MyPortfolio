@@ -1,0 +1,139 @@
+---
+import BlogCard from "@components/BlogCard.astro";
+import Breadcrumbs from "@components/Breadcrumbs.astro";
+import Button from "@components/Button.astro";
+import Layout from "@components/Layout.astro";
+import Pagination from "@components/Pagination.astro";
+
+const items: string[] = [
+  "/img/blog-1.png",
+  "/img/blog-2.png",
+  "/img/blog-3.png",
+  "/img/blog-3.png",
+  "/img/blog-1.png",
+  "/img/blog-2.png",
+  "/img/blog-2.png",
+  "/img/blog-3.png",
+  "/img/blog-1.png",
+];
+---
+
+<Layout title="Блог">
+  <Breadcrumbs items={["Главная"]} last="Блог" />
+  <section class="blog bg-gradient bg-gradient--desktop">
+    <div class="blog__container">
+      <h1 class="blog__title title">Блог</h1>
+      <div class="blog__content">
+        {items.map((image) => <BlogCard {image} full />)}
+      </div>
+      <div class="blog__pagination"><Pagination /></div>
+      <div class="blog__more">
+        <Button variant="more" color="secondary">Показать еще</Button>
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<style is:global lang="scss">
+  .blog {
+    @include section();
+    flex-grow: 1;
+
+    &__container {
+      /* margin-top: 32px; */
+      margin-bottom: fluid(80px, 156px);
+      grid-area: center;
+      display: grid;
+      grid-template-areas: "title title" "content content" "pagination more";
+    }
+
+    &__title {
+      margin-bottom: fluid(20px, 40px);
+      grid-area: title;
+    }
+
+    &__content {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      column-gap: 20px;
+      row-gap: fluid(20px, 36px);
+      grid-area: content;
+      margin-bottom: fluid(40px, 80px);
+    }
+
+    &__pagination {
+      grid-area: pagination;
+      justify-self: start;
+    }
+
+    &__more {
+      grid-area: more;
+      justify-self: end;
+      min-width: 215px;
+      display: flex;
+    }
+  }
+
+  @media (max-width: 992px) {
+    .blog {
+      &__container {
+        /* margin-top: 75px; */
+      }
+
+      &__title {
+      }
+
+      &__content {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      &__pagination {
+      }
+
+      &__more {
+      }
+    }
+  }
+  @media (max-width: 768px) {
+    .blog {
+      &__container {
+        grid-template-areas: "title" "content" "more" "pagination";
+      }
+
+      &__title {
+      }
+
+      &__content {
+      }
+
+      &__pagination {
+        justify-self: center;
+      }
+
+      &__more {
+        justify-self: center;
+        margin-bottom: 28px;
+      }
+    }
+  }
+
+  @media (max-width: 576px) {
+    .blog {
+      &__container {
+      }
+
+      &__title {
+      }
+
+      &__content {
+        grid-template-columns: 100%;
+      }
+
+      &__pagination {
+      }
+
+      &__more {
+      }
+    }
+  }
+</style>

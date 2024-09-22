@@ -1,0 +1,156 @@
+---
+const items: { image: string; title: string; text: string }[] = [
+  {
+    image: "/svg/thumb-up.svg",
+    title: "Оригинальная продукция",
+    text: "Только оригинальная продукция мировых брендов, проверка при покупке",
+  },
+  {
+    image: "/svg/consultation.svg",
+    title: "Профессиональная консультация",
+    text: "Консультанты помогут с выбором и расскажут все о товарах",
+  },
+  {
+    image: "/svg/shield.svg",
+    title: "Гарантия",
+    text: "На все товары предоставляется бесплатная гарантия до 12 месяцев",
+  },
+  {
+    image: "/svg/price-tag.svg",
+    title: "Выгодные цены",
+    text: "Прямые поставки из 16 разных стран. Центральный склад на все филиалы",
+  },
+];
+---
+
+<section class="advantages section">
+  <div class="advantages__container">
+    <div class="advantages__list">
+      {
+        items.map(({ image, text, title }) => (
+          <div class="advantages__item">
+            <div class="advantages__top">
+              <img src={image} class="advantages__icon" />
+              <div class="advantages__title">{title}</div>
+            </div>
+            <p class="advantages__text">{text}</p>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<style is:global lang="scss">
+  .advantages {
+    margin-bottom: fluid(40px, 80px);
+
+    &__container {
+      grid-area: center;
+    }
+
+    &__list {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      column-gap: 20px;
+      row-gap: 18px;
+    }
+
+    &__item {
+      display: flex;
+      flex-direction: column;
+      gap: fluid(10px, 15px);
+    }
+
+    &__top {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    &__title {
+      font-size: fluid(13px, 18px);
+      font-weight: 300;
+      line-height: 1.4;
+      color: #0a0909;
+    }
+
+    &__icon {
+      height: fluid(20px, 30px);
+      width: fluid(20px, 30px);
+      object-fit: contain;
+    }
+
+    &__text {
+      line-height: 1.4;
+      font-weight: 300;
+      color: #857f7f;
+      font-size: fluid(12px, 16px);
+      max-width: 36ch;
+    }
+  }
+
+  @media (max-width: 992px) {
+    .advantages {
+      &__container {
+      }
+
+      &__list {
+        grid-template-columns: repeat(2, 1fr);
+        justify-items: center;
+      }
+
+      &__item {
+        gap: 12px;
+      }
+
+      &__top {
+      }
+
+      &__title {
+        font-size: 16px;
+      }
+
+      &__icon {
+        font-size: 30px;
+      }
+
+      &__text {
+        font-size: 14px;
+      }
+    }
+  }
+
+  @media (max-width: 768px) {
+    .advantages {
+      order: 1;
+    }
+  }
+  @media (max-width: 576px) {
+    .advantages {
+      &__container {
+      }
+
+      &__list {
+        grid-template-columns: repeat(1, 1fr);
+        justify-items: unset;
+      }
+
+      &__item {
+      }
+
+      &__top {
+      }
+
+      &__title {
+      }
+
+      &__icon {
+      }
+
+      &__text {
+        max-width: unset;
+      }
+    }
+  }
+</style>

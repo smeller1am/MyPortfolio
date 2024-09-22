@@ -1,0 +1,35 @@
+<section class="front-map">
+  <div class="front-map__container">
+    <div id="map" class="front-map__content"></div>
+  </div>
+</section>
+
+<style is:global lang="scss">
+  .front-map {
+    @include section();
+    order: 2;
+    margin-bottom: fluid(40px, 80px);
+
+    .ymaps-2-1-79-controls__control_toolbar {
+      display: none;
+    }
+
+    &__container {
+      height: fluid(346px, 500px);
+      border-radius: 30px;
+      overflow: hidden;
+      grid-area: center;
+    }
+    &__content {
+      height: 100%;
+      width: 100%;
+    }
+  }
+  @media (max-width: 992px) {
+    .front-map {
+      &__container {
+        border-radius: 20px;
+      }
+    }
+  }
+</style>

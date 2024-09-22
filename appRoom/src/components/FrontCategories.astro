@@ -1,0 +1,144 @@
+---
+const items: { image: string; title: string }[] = [
+  {
+    image: "/img/category/sale.png",
+    title: "Распродажа",
+  },
+  {
+    image: "./img/category/iphone.png",
+    title: "iPhone",
+  },
+  {
+    image: "/img/category/ipad.png",
+    title: "iPad",
+  },
+  {
+    image: "/img/category/airpods.png",
+    title: "AirPods",
+  },
+  {
+    image: "/img/category/mac.png",
+    title: "Mac",
+  },
+  {
+    image: "/img/category/watch.png",
+    title: "Watch",
+  },
+  {
+    image: "/img/category/accessories.png",
+    title: "Аксессуары",
+  },
+  {
+    image: "/img/category/dyson.png",
+    title: "Dyson",
+  },
+  {
+    image: "/img/category/vision.png",
+    title: "Vision Pro",
+  },
+  {
+    image: "/img/category/android.png",
+    title: "Android",
+  },
+];
+---
+
+<section class="front-categories">
+  <div class="front-categories__container">
+    <div class="front-categories__list">
+      {
+        items.map(({ image, title }) => (
+          <a href="#" class="front-categories__item">
+            <img src={image} alt="" />
+            <div class="front-categories__title">{title}</div>
+          </a>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<style is:global lang="scss">
+  .front-categories {
+    margin-bottom: fluid(40px, 80px);
+    @include section();
+    &__container {
+      grid-area: center;
+    }
+    &__list {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: fluid(10px, 32px);
+    }
+
+    &__item {
+      border-radius: 30px;
+      box-shadow: $shadow-card;
+      background-color: #ffffff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: fluid(8px, 12px);
+      padding: fluid(16px, 28px);
+
+      img {
+        object-fit: contain;
+        height: fluid(70px, 90px);
+      }
+    }
+
+    &__title {
+      font-weight: 300;
+      color: $color-text-black;
+      font-size: fluid(16px, 20px);
+      transition: color 0.38s ease-in-out;
+    }
+
+    &__item:hover &__title {
+      color: $color-text-purple;
+    }
+  }
+
+  @media (max-width: 992px) {
+    .front-categories {
+      &__container {
+      }
+      &__list {
+        grid-template-columns: repeat(3, 1fr);
+      }
+
+      &__item {
+        border-radius: 20px;
+        gap: 14px;
+
+        img {
+          height: 90px;
+        }
+      }
+
+      &__title {
+      }
+    }
+  }
+
+  @media (max-width: 768px) {
+    .front-categories {
+      &__container {
+      }
+      &__list {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      &__item {
+        border-radius: 20px;
+
+        img {
+        }
+      }
+
+      &__title {
+      }
+    }
+  }
+</style>

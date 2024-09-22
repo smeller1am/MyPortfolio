@@ -1,0 +1,113 @@
+---
+interface Props {
+  image: string;
+  full?: boolean;
+}
+
+const { image, full } = Astro.props;
+---
+
+<div class:list={["blog-card", { "blog-card--full": full }]}>
+  <img class="blog-card__image" src={image} alt="" />
+  <div class="blog-card__info">
+    <div class="blog-card__date">1 мая 2024</div>
+    <div class="blog-card__views">
+      <span class="blog-card__views-icon icon-views"></span>1000 просмотров
+    </div>
+  </div>
+  <div class="blog-card__title">
+    Заголовок блога. Допустим про новый iPhone и еще какие нибудь гаждеты
+  </div>
+  <a href="#" class="blog-card__link"
+    >Подробнее<span class="blog-card__link-icon icon-arrow"></span></a
+  >
+</div>
+
+<style is:global lang="scss">
+  .blog-card {
+    display: flex;
+    flex-direction: column;
+
+    &__image {
+      object-fit: cover;
+      border-radius: 30px;
+      aspect-ratio: 2/1.1;
+      margin-bottom: fluid(16px, 28px);
+      box-shadow: $shadow-card;
+    }
+
+    &__info {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: fluid(12px, 28px);
+    }
+
+    &__date,
+    &__views {
+      font-size: fluid(12px, 14px);
+      color: $color-text-gray;
+      font-weight: 300;
+      line-height: 1;
+    }
+
+    &__views {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      &-icon {
+        font-size: 20px;
+      }
+    }
+
+    &__title {
+      line-height: 1.3;
+      font-size: fluid(14px, 18px);
+      margin-bottom: fluid(10px, 22px);
+    }
+
+    &__link {
+      color: $color-text-purple;
+      width: fit-content;
+      font-weight: 300;
+      line-height: 1.4;
+      font-size: fluid(14px, 18px);
+      display: flex;
+      align-items: center;
+      gap: 13px;
+      transition: color 0.38s ease-in-out;
+
+      &:hover {
+        color: $color-text-black;
+      }
+
+      &-icon {
+        font-size: 12px;
+      }
+    }
+  }
+
+  @media (max-width: 992px) {
+    .blog-card {
+      &__image {
+        border-radius: 20px;
+        aspect-ratio: 2/1.23;
+      }
+    }
+  }
+  @media (max-width: 768px) {
+    .blog-card {
+      &__title {
+        font-size: 16px;
+      }
+
+      &__views {
+        gap: 4px;
+      }
+
+      &--full &__image {
+        aspect-ratio: 2/1.11;
+      }
+    }
+  }
+</style>

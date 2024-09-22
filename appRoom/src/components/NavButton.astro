@@ -1,0 +1,35 @@
+---
+interface Props {
+  position: "left" | "right";
+}
+
+const { position } = Astro.props;
+---
+
+<div class:list={["nav-button", `icon-arrow-${position}`]}></div>
+
+<style is:global lang="scss">
+  .nav-button {
+    font-size: fluid(11px, 20px);
+    color: $color-border-gray;
+    position: static;
+    border-radius: 999px;
+    $size: fluid(33px, 58px);
+    height: $size;
+    width: $size;
+    background-color: white;
+    border: 1px solid $color-border-gray;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: color 0.38s ease-in-out;
+
+    &:hover {
+      color: $color-text-purple;
+    }
+
+    &::after {
+      display: none;
+    }
+  }
+</style>
