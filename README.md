@@ -1,2 +1,2 @@
 # MyPortfolio
-my work projects for resume
+my work projects for the resume
